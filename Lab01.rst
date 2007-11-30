@@ -10,10 +10,43 @@ Lab 1 Setting Up Your Toolchains
 安裝 QEMU
 ---------
 
-QEMU 是一套 emulator [#]_ 軟體，能在 PC 系統上模擬其他 processor 的運作方式。
+QEMU 是一套 emulator [#]_ 軟體，能在 PC 系統上模擬其他 processor 的運作方式，在 Linux 或 Windows 上都能執行。
 
 .. [#] http://en.wikipedia.org/wiki/Emulator
 
+參考資料
+========
+
+Linux 版本狀況
+--------------
+
+An extremely rushed history of the Linux kernel
+
+======= =============
+version released date
+======= =============
+0.01    Sep, 1991
+1.0.0   Mar, 1994
+1.2.0   Mar, 1995
+2.0.0   Jun, 1996
+2.2.0   Jan, 1999
+2.4.0   Jan, 2001
+2.6.0   Dec, 2003
+2.6.14  Oct 27, 2005
+2.6.15  Jan 2, 2006
+2.6.16  Mar 19, 2006
+2.6.17  Jun 17, 2006
+2.6.18  Sep 19, 2006
+2.6.19  Nov 29, 2006
+2.6.20  Feb 4, 2007
+2.6.21  Apr 21, 2007
+2.6.22  Jul 8, 2007
+2.6.23  Oct 9, 2007
+======= =============
+
+`Linux Kernel Version History`_ tracks all release records before year 2000.
+
+.. _`Linux Kernel Version History`: http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html
 
 關於本文件
 ==========
