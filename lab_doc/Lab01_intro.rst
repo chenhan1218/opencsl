@@ -1,35 +1,35 @@
-ï»¿==============
-Lab 1 ç’°å¢ƒè¨­å®š
+==============
+Lab 1 Àô¹Ò³]©w
 ==============
 
-.. æ“ä½œç’°å¢ƒå…ˆä»¥ Linux ç‚ºç¯„ä¾‹ï¼Œå®Œæˆå…«æˆè‰ç¨¿å¾Œï¼Œå†åŠ å…¥ Windows ç’°å¢ƒçš„æ“ä½œç¯„ä¾‹ã€‚
+.. ¾Ş§@Àô¹Ò¥ı¥H Linux ¬°½d¨Ò¡A§¹¦¨¤K¦¨¯ó½Z«á¡A¦A¥[¤J Windows Àô¹Òªº¾Ş§@½d¨Ò¡C
 
-å¯¦é©—ç°¡ä»‹
+¹êÅçÂ²¤¶
 ========
 
-ä»€éº¼æ˜¯åµŒå…¥å¼ç³»çµ±ï¼Ÿ
+¤°»ò¬O´O¤J¦¡¨t²Î¡H
 ------------------
 
-å¯¦é©—æ“ä½œç’°å¢ƒä»‹ç´¹
+¹êÅç¾Ş§@Àô¹Ò¤¶²Ğ
 ----------------
-åœ¨æœ¬å¥—å¯¦é©—ä¸­ï¼Œæˆ‘å€‘ä½¿ç”¨è»Ÿé«”ä¾†æ¨¡æ“¬åµŒå…¥å¼ç³»çµ±çš„ç’°å¢ƒï¼Œå¸Œæœ›å°åµŒå…¥å¼ç³»çµ±æœ‰èˆˆè¶£çš„äººèƒ½å¤ åœ¨è‡ªå·±çš„é›»è…¦ä¸Šå®Œæˆæ‰€æœ‰å¯¦é©—ã€‚æœ¬å¥—å¯¦é©—ä½¿ç”¨çš„å„é …ç’°å¢ƒå¦‚ä¸‹ï¼š
-  I.   ä½œæ¥­ç³»çµ±ï¼šubuntu 7.10
-  II.  æ¨¡æ“¬è»Ÿé«”ï¼šQEMU
-  III. toolchainï¼šarm-known-gccã€buildrootï¼ˆæœªå®šï¼‰
+¦b¥»®M¹êÅç¤¤¡A§Ú­Ì¨Ï¥Î³nÅé¨Ó¼ÒÀÀ´O¤J¦¡¨t²ÎªºÀô¹Ò¡A§Æ±æ¹ï´O¤J¦¡¨t²Î¦³¿³½ìªº¤H¯à°÷¦b¦Û¤vªº¹q¸£¤W§¹¦¨©Ò¦³¹êÅç¡C¥»®M¹êÅç¨Ï¥Îªº¦U¶µÀô¹Ò¦p¤U¡G
+  I.   §@·~¨t²Î¡Gubuntu 7.10
+  II.  ¼ÒÀÀ³nÅé¡GQEMU
+  III. toolchain¡Garm-known-gcc¡Bbuildroot¡]¥¼©w¡^
 
 
-æº–å‚™æ“ä½œç’°å¢ƒ
+·Ç³Æ¾Ş§@Àô¹Ò
 ============
 ubuntu 7.10
 -----------
-Ubuntu [#]_  æ˜¯ç”± Debian çš„åˆ†æ”¯ç™¼å±•å‡ºä¾†çš„ä¸€å¥— linux distributionï¼Œå¯ä»¥ç›´æ¥å¾å®˜æ–¹ç¶²ç«™ [#]_ ä¸Šä¸‹è¼‰åˆ°å®‰è£/ è©¦ç”¨å…‰ç¢Ÿã€‚
+Ubuntu [#]_  ¬O¥Ñ Debian ªº¤À¤äµo®i¥X¨Óªº¤@®M linux distribution¡A¥i¥Hª½±µ±q©x¤èºô¯¸ [#]_ ¤W¤U¸ü¨ì¦w¸Ë/ ¸Õ¥Î¥úºĞ¡C
 
 .. [#] http://zh.wikipedia.org/wiki/Ubuntu
 .. [#] http://www.ubuntu.org.tw/
 
 QEMU
 ----
-QEMU æ˜¯ä¸€å¥— emulator [#]_ è»Ÿé«”ï¼Œèƒ½åœ¨ PC ç³»çµ±ä¸Šæ¨¡æ“¬å…¶ä»– processor çš„é‹ä½œæ–¹å¼ï¼Œåœ¨ Linux æˆ– Windows ä¸Šéƒ½èƒ½åŸ·è¡Œã€‚
+QEMU ¬O¤@®M emulator [#]_ ³nÅé¡A¯à¦b PC ¨t²Î¤W¼ÒÀÀ¨ä¥L processor ªº¹B§@¤è¦¡¡A¦b Linux ©Î Windows ¤W³£¯à°õ¦æ¡C
 
 .. [#] http://en.wikipedia.org/wiki/Emulator
 
@@ -37,10 +37,10 @@ toolchain
 ---------
 
 
-åƒè€ƒè³‡æ–™
+°Ñ¦Ò¸ê®Æ
 ========
 
-Linux ç‰ˆæœ¬ç‹€æ³
+Linux ª©¥»ª¬ªp
 --------------
 
 An extremely rushed history of the Linux kernel
@@ -71,12 +71,11 @@ version released date
 
 .. _`Linux Kernel Version History`: http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html
 
-é—œæ–¼æœ¬æ–‡ä»¶
+Ãö©ó¥»¤å¥ó
 ==========
 
-æœ¬æ–‡ä»¶ä»¥ `reStructuredText`_ æ ¼å¼ç·¨æ’°ï¼Œä¸¦å¯ä½¿ç”¨ `docutils`_ å·¥å…·è½‰æ›æˆ `HTML`_ æˆ– LaTeX å„é¡æ ¼å¼ã€‚
+¥»¤å¥ó¥H `reStructuredText`_ ®æ¦¡½s¼¶¡A¨Ã¥i¨Ï¥Î `docutils`_ ¤u¨ãÂà´«¦¨ `HTML`_ ©Î LaTeX ¦UÃş®æ¦¡¡C
 
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _docutils: http://docutils.sourceforge.net/
 .. _HTML: http://www.hosting4u.cz/jbar/rest/rest.html
-
