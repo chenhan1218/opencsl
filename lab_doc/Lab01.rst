@@ -12,11 +12,20 @@ Lab 1 環境設定
 
 實驗操作環境介紹
 ----------------
+在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：
+  I.   作業系統：ubuntu 7.10
+  II.  模擬軟體：QEMU
+  III. toolchain：arm-known-gcc、buildroot（未定）
+
 
 準備操作環境
 ============
 ubuntu 7.10
 -----------
+Ubuntu [#]_  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 [#]_ 上下載到安裝/ 試用光碟。
+
+.. [#] http://zh.wikipedia.org/wiki/Ubuntu
+.. [#] http://www.ubuntu.org.tw/
 
 QEMU
 ----
@@ -65,8 +74,9 @@ version released date
 關於本文件
 ==========
 
-本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 HTML 或 LaTeX 各類格式。
+本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
 
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _docutils: http://docutils.sourceforge.net/
+.. _HTML: http://www.hosting4u.cz/jbar/rest/rest.html
 
