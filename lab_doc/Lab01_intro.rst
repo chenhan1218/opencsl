@@ -14,10 +14,13 @@ Lab 1 環境設定
 1.2 實驗操作環境介紹
 ---------------------
 在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：
+
 I.   作業系統：ubuntu 7.10
 II.  模擬軟體：QEMU
 III. toolchain：arm-known-gcc、buildroot（未定）
 
+1.3 實驗流程
+--------------
 
 2. 準備操作環境
 ===============
@@ -25,6 +28,7 @@ III. toolchain：arm-known-gcc、buildroot（未定）
 2.1 Ubuntu 7.10
 ---------------
 Ubuntu [#]_  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 [#]_ 上下載到安裝/ 試用光碟。
+若要安裝 Ubuntu 在電腦上，請至少預留2G的空間，供日後各程式原始碼、執行檔儲存。
 
 .. [#] http://zh.wikipedia.org/wiki/Ubuntu
 .. [#] http://www.ubuntu.org.tw/
