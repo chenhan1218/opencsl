@@ -43,25 +43,25 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 若需下載原始碼，可開啟 Ubuntu 終端機視窗，並執行以下指令：
 
 1. 安裝編譯時所須的套件
-..
+::
 
   sudo apt-get install gcc-3.4 libsdl1.2debian-all libsdl1.2-dev zlib1g-dev
 
 
 2. 在欲安裝的目錄下，下載原始碼
-..
+::
 
   wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.0.tar.gz
 
 
 3. 解壓縮原始碼包裹
-..
+::
 
   tar zxf qemu-0.9.0.tar.gz
 
 
 4. 編譯 QEMU
-..
+::
 
   cd qemu-0.9.0/
   ./configure --cc=/usr/bin/gcc-3.4 --host-cc=/usr/bin/gcc-3.4 --target-list=arm-softmmu
@@ -69,6 +69,38 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 
 
 經上述步驟，我們可以編譯出一個能夠執行 ARM 指令集的 QEMU emulator。
+
+
+2.2.2 使用 QEMU
+~~~~~~~~~~~~~~~
+這裡透過使用 QEMU 官方網站上的 ARM-test disk image 來驗證 QEMU 否安裝正確
+
+1. 下載 arm-test disk image
+::
+
+  wget http://fabrice.bellard.free.fr/qemu/arm-test-0.2.tar.gz
+
+2. 解壓縮
+::
+
+  tar zxf arm-test-0.2.tar.gz
+
+3. 用 QEMU 執行 disk image
+::
+
+  # <QEMU> = path to qemu root dir (eg. qemu-0.9.0/ )
+  # <ARM_TEST> = path to arm-test dir
+  <QEMU>/arm-softmmu/qemu-system-arm -kernel <ARM_TEST>/zImage.integrator -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
+
+.. note ::
+
+  -kernel：指定要載入的 linux kernel
+
+  -initrd：指定要使用的 RAM disk
+
+  -nographic -append "console=ttyAMA0"：關掉視窗介面
+
+若在一連串開計畫面後有看到登入提示列，可用 root 登入，就代表 QEMU 編譯成功了。
 
 2.3 toolchain
 -------------
