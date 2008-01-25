@@ -6,7 +6,7 @@ Lab 1 環境設定
 .. 目前toolchain未定，希望能找到一套可以符合所有需求的toolchain
 
 1. 實驗簡介
-==========
+===========
 
 1.1 什麼是嵌入式系統？
 ----------------------
@@ -14,9 +14,9 @@ Lab 1 環境設定
 1.2 實驗操作環境介紹
 ---------------------
 在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：
-  I.   作業系統：ubuntu 7.10
-  II.  模擬軟體：QEMU
-  III. toolchain：arm-known-gcc、buildroot（未定）
+I.   作業系統：ubuntu 7.10
+II.  模擬軟體：QEMU
+III. toolchain：arm-known-gcc、buildroot（未定）
 
 
 2. 準備操作環境
@@ -42,23 +42,31 @@ QEMU 的相關介紹可參考維基百科或是其官方網站 [#]_
 QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原始碼來編譯。
 若需下載原始碼，可開啟 Ubuntu 終端機視窗，並執行以下指令：
 
-  1.安裝編譯時所須的套件
+1. 安裝編譯時所須的套件
 ..
+
   sudo apt-get install gcc-3.4 libsdl1.2debian-all libsdl1.2-dev zlib1g-dev
 
-  2.在欲安裝的目錄下，下載原始碼
+
+2. 在欲安裝的目錄下，下載原始碼
 ..
+
   wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.0.tar.gz
 
-  3.解壓縮原始碼包裹
+
+3. 解壓縮原始碼包裹
 ..
+
   tar zxf qemu-0.9.0.tar.gz
 
-  4.編譯 QEMU
+
+4. 編譯 QEMU
 ..
+
   cd qemu-0.9.0/
   ./configure --cc=/usr/bin/gcc-3.4 --host-cc=/usr/bin/gcc-3.4 --target-list=arm-softmmu
   make
+
 
 經上述步驟，我們可以編譯出一個能夠執行 ARM 指令集的 QEMU emulator。
 
