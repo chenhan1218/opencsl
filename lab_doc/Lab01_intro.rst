@@ -94,7 +94,8 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 
   # <QEMU> = path to qemu root dir (eg. qemu-0.9.0/ )
   # <ARM_TEST> = path to arm-test dir
-  <QEMU>/arm-softmmu/qemu-system-arm -kernel <ARM_TEST>/zImage.integrator -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
+  <QEMU>/arm-softmmu/qemu-system-arm -kernel <ARM_TEST>/zImage.integrator \
+        -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
 
 .. note ::
 
