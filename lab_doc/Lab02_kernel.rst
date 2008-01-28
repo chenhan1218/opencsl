@@ -2,7 +2,7 @@
 Lab 2 編譯 kernel
 =================
 
-1- 什麼是 Linux kernel
+1. 什麼是 Linux kernel
 ======================
 
 1.1 Kernel 結構
@@ -25,7 +25,7 @@ Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*�
        
        patch in unix http://en.wikipedia.org/wiki/Patch_%28Unix%29
 
-2- 編譯 kernel
+2. 編譯 kernel
 ==============
 
 2.1 下載 kernel 原始檔
@@ -60,14 +60,34 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。
 若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。
 
-3- 執行新的 kernel
+3. 執行新的 kernel
 ==================
+我們可以用 QEMU 來測試新編的 kernel image 是否能夠執行；如果在真實的系統中，則是可以將kernel image燒到系統的flash上，或是在開機時將 kernel image 載入。
 
 3.1 下載 file system
 --------------------
+在這裡要找一個確定可以用而且符合此 kernel 相關設定的 file system，QEMU官方網站上的 arm-test disk image 可以符合這項需求。
+如果在實驗一中已經有下載過 arm-test disk image，可以直接使用而不需另外下載
+下載方法如下：
+::
+
+  # 下載 disk image
+  wget http://fabrice.bellard.free.fr/qemu/arm-test-0.2.tar.gz
+  # 解壓縮
+  tar zxf arm-test-0.2.tar.gz
+
 
 3.2 用QEMU執行
 --------------
+若在終端機鍵入下列指令後，能夠看到登入畫面，並用root登入，則代表 kernel 編譯成功
+::
+
+  # <QEMU> = path to qemu root dir (eg. qemu-0.9.0/ )
+  # <KERNEL> = path to kernel image (eg. linux-2.6.18.1/arch/arm/boot/zImage)
+  # <ARM_TEST> = path to arm-test dir
+  <QEMU>/arm-softmmu/qemu-system-arm -kernel <KERNEL> \
+        -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
+
 
 4. 關於本文件
 =============
