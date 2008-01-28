@@ -52,8 +52,9 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
    不會被之前的設定所影響。
 2. make menuconfig
    make menuconfig 是圖性化介面的 configure 模式，configure 是將 linux kernel 調整成適合目標系統使用的手段。
-.. 需補上 menuconfig 的選項
 3. make ARCH=arm CROSS_COMPILE=arm-linux-uclibc-
+
+.. 需補上 menuconfig 的選項
 .. toolchain 需確認，用上述選項邊不出來
 
 在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。
