@@ -44,9 +44,20 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 
 2.2 編譯步驟
 ------------
+
+編譯 kernel 的步驟和編譯一般的應用程式差不多，都需要經過 make configure、make的過程。
+
 1. make mrproper
+   make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel
+   不會被之前的設定所影響。
 2. make menuconfig
-3. make
+   make menuconfig 是圖性化介面的 configure 模式，configure 是將 linux kernel 調整成適合目標系統使用的手段。
+.. 需補上 menuconfig 的選項
+3. make ARCH=arm CROSS_COMPILE=arm-linux-uclibc-
+.. toolchain 需確認，用上述選項邊不出來
+
+在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。
+若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。
 
 3- 執行新的 kernel
 ==================
