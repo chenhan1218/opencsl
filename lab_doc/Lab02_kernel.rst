@@ -22,6 +22,7 @@ Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*�
 在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就是在將將想要更改的程式原始碼自動更新在原來的原始碼上。關於 patch 的詳細介紹可參考 wikipedia [#]_。
 
 .. [#] patch http://en.wikipedia.org/wiki/Patch_%28computing%29
+       
        patch in unix http://en.wikipedia.org/wiki/Patch_%28Unix%29
 
 2- 編譯 kernel
@@ -29,6 +30,17 @@ Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*�
 
 2.1 下載 kernel 原始檔
 ----------------------
+Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux kernel 版本都可以在這裡下載。
+本次實驗中使用的是 linux kernel 2.6.18.1，可在終端機上直接用 wget 下載。
+
+::
+
+  # 下載
+  wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.18.1.tar.bz2
+  # 解壓縮
+  tar jvxf linux-2.6.18.1.tar.bz2
+  # 切換到 linux kernel 目錄
+  cd linux-2.6.18.1
 
 2.2 編譯步驟
 ------------
