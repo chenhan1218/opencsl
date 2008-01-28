@@ -5,11 +5,11 @@ Lab 2 編譯 kernel
 1- 什麼是 Linux kernel
 ======================
 
-1.1 Linux kernel 簡介
----------------------
-
-1.2 Kernel 結構
+1.1 Kernel 結構
 ---------------
+
+1.2 Linux kernel 簡介
+---------------------
 
 1.3 Patch
 ---------
@@ -22,12 +22,9 @@ Lab 2 編譯 kernel
 
 2.2 編譯步驟
 ------------
-
-2.2.1 make menuconfig
-~~~~~~~~~~~~~~~~~~~~~
-
-2.2.2 make
-~~~~~~~~~~
+1. make mrproper
+2. make menuconfig
+3. make
 
 3- 執行新的 kernel
 ==================
