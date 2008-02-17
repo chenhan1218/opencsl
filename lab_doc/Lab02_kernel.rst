@@ -87,7 +87,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 3. make ARCH=arm CROSS_COMPILE=arm-linux-uclibc- （編譯）
 
   在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。
-若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。
+  若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。
 
 3. 執行新的 kernel
 ==================
