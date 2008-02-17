@@ -19,7 +19,7 @@ Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*�
 
 1.3 Patch
 ---------
-在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就是在將將想要更改的程式原始碼自動更新在原來的原始碼上。關於 patch 的詳細介紹可參考 wikipedia [#]_ 。
+在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就在將想要更改的程式原始碼自動更新在舊原始碼上。關於 patch 的詳細介紹可參考 wikipedia [#]_ 。
 
 .. [#] patch http://en.wikipedia.org/wiki/Patch_%28computing%29
        
@@ -45,14 +45,35 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 2.2 編譯步驟
 ------------
 
-編譯 kernel 的步驟和編譯一般的應用程式差不多，都需要經過 make configure、make的過程。
+編譯 kernel 的步驟和編譯一般的應用程式差不多，都需要經過 make configure、make的過程。以下指令都要在 kernel source的根目錄執行。
 
-1. make mrproper
-   make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel
-   不會被之前的設定所影響。
-2. make menuconfig
-   make menuconfig 是圖性化介面的 configure 模式，configure 是將 linux kernel 調整成適合目標系統使用的手段。
-3. make ARCH=arm CROSS_COMPILE=arm-linux-uclibc-
+1. make mrproper （清理原始檔）
+make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel不會被之前的設定所影響。
+
+2. make menuconfig （設定linux kernel）
+configure 是將 linux kernel 調整成適合目標系統使用的手段，在本次實驗中，我們先下載已經設定好的 .config 檔，接著再用 menuconfig 的方式瀏覽 .config 的內容。
+
+::
+
+  # 下載 config 檔
+  wget http://free-electrons.com/pub/qemu/demos/arm/arm-test/linux-2.6.18/linux-2.6.18.config
+
+在下載完成後，鍵入 make menuconfig，即可進入圖形化介面的設定模式。
+make menuconfig 是圖性化介面的 configure 模式，可以依照預先設定好的分類來尋找需要調整的項目。在鍵入 make menuconfig 後，就可以看到圖性化的選單。首先，將游標移到選單最下方的「Load an Alternate Configuration File」，把下載下來的 configure 檔複製到 kernel source 中；這份新的 config 檔將原本的 kernel 調整為一個適合用 ARM 來執行的小型 kernel、使用 ramdisk、取消 module 的使用，並且盡量減少記憶體的消耗。
+如果想要查看或是調整目前的設定，可以用方向鍵、Enter來進出各個項目；以下介紹在 menuconfig 的介面中，一些比較特殊的符號：
+
+  I. [ ]、<>、[*]、<M>
+     在每個選項的左方都可以看到上述的其中一個符號，這四個符號代表該選項目前的狀態。
+     「 [ ] 」（excludes）表示該選項沒有被選取，編譯後的 kernel 將不會有此功能。
+     「 < > 」（module capable）表示該選項沒有被選取，而且是可以被當做是 module，可以在開機之後另外載入的。
+     「 [*] 」（built-in）表示該選項有被選取，編譯後的 kernel 包含此功能，而且該功能會被編入 kernel image 中，這意味著在 kernel 被載入時該功能就已經存在，有些功能是一定要在 kernel 被載入時就存在的，例如讀取 filesystem，因為 kernel 無法從它認不出的 filesystem 裡讀取檔案。雖然將各能選成內建可以將整個 kernel 的功能包成一個 kernel image 檔，但它也會造成執行時一些不必要的記憶體以及初始化時間的浪費。
+     「 <M> 」（module）表示該選項有被選取，而且是被編譯成 module 的形式，它會存放在 filesystem中，並在 kernel 被載入後才動態地載入。編譯成 module 的優點是減少 kernel image 的空間、加快開機時間，以及方便開發 kernel 功能，因為 module 是在開機後才被載入，每次修改該功能時只需要重新編譯並載入 module ，而不需要重新編譯整個 kernel 並且重新開機。
+  II. --->
+    「--->」表示該選項是一個分類，他底下還有其他的項目可以選擇。
+
+在調整完 configure 檔之後，按下方向鍵的「->」，將選項切換到<Exit>，就可以選擇存檔並且離開。
+
+3. make ARCH=arm CROSS_COMPILE=arm-linux-uclibc- （編譯）
 
 .. 需補上 menuconfig 的選項
 .. toolchain 需確認，用上述選項邊不出來
@@ -62,7 +83,9 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 
 3. 執行新的 kernel
 ==================
-我們可以用 QEMU 來測試新編的 kernel image 是否能夠執行；如果在真實的系統中，則是可以將kernel image燒到系統的flash上，或是在開機時將 kernel image 載入。
+我們可以用 QEMU 來測試新編的 kernel image 是否能夠執行。
+
+.. 如果在真實的系統中，則是可以將kernel image燒到系統的flash上，或是在開機時將 kernel image 載入。
 
 3.1 下載 file system
 --------------------
