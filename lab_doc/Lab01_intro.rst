@@ -30,9 +30,31 @@ III. toolchain：buildroot
 
 I. Lab01 環境設定
 
-  整套實驗解說，以及準備實驗環境。
+  介紹實驗，以及準備實驗環境。
 
 II. Lab02 製作 Linux Kernel
+
+  這次實驗是在介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。
+
+III. Lab03 製作 root filesystem
+
+  此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem，以及製作搭配 Linux Kernel 的 root filesystem。
+
+IV. Lab04 OS porting
+
+  在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 [#].. 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。
+
+.. [#] 在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。
+
+V. Lab05 debugger 和 software emulator
+
+  本次實驗在介紹如何在對嵌入式系統進行除錯，內容包含了 GDB 以及 Insight 的使用教學。
+
+VI. Lab06 Interrupt 和 Exceptions
+
+VII. Lab07 Linux Timer Interrupt
+
+VIII. Lab08 Linux Device Driver
 
 
 2. 準備操作環境
