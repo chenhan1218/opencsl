@@ -26,10 +26,27 @@ Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insig
 .. 介紹基本功能，並給額外文件連結
 .. 有空要介紹 multi-thread/multi-process debugging
 
-2.1 基本功能介紹
-----------------
+2.1 安裝 GDB
+------------
+如果有依照之前的實驗進行，gdb應該已經安裝在電腦當中，我們可以用 whereis 指令來確認 gdb 是否存在。
 
-2.2 用 GDB 作為 software emulator
+::
+
+  whereis gdb
+
+若是gdb沒有安裝在電腦當中，可以使用 apt-get 來安裝gdb
+
+::
+
+  sudo apt-get install gdb
+
+2.2 基本功能介紹
+----------------
+GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程式的一個 subroutine ，在使用 GDB 執行程式時是依照 frame 來分類的。目前執行的 subroutine 叫做 frame 0 ，呼叫該 routine 的叫做 frame 1 ，以此類推。當 frame 0 要呼叫下一個 subroutine 時， GDB 會將目前的資料存到 stack 中，然後才執行下一個 frame ，這樣的分法可以方便除錯時檢視各個 subroutine 之間的關係。
+
+以下用實際的例子來介紹 GDB 的使用方式。
+
+2.3 用 GDB 作為 software emulator
 ---------------------------------
 
 3. 使用 Insight
