@@ -6,6 +6,7 @@ Lab 5 debugger 和 software emulator
 
 1. 實驗介紹
 ====================
+本次實驗的目的是學會如何對程式進行除錯，無論程式是被編譯成在 target 還是 host 端執行。底下將分段介紹如何用 GDB 以及它的一套 GUI 程式來進行除錯。
 
 1.1 GDB (GNU Debugger)
 ----------------------
