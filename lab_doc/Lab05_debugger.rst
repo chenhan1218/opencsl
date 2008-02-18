@@ -9,12 +9,15 @@ Lab 5 debugger 和 software emulator
 
 1.1 GDB (GNU Debugger)
 ----------------------
+GDB 是一套在 Unix-like 環境上執行的文字介面 debugger，能夠支援多種平台以及程式語言。和GDB相關的介紹請參考 wikipedia [#]_ 以及 GDB 官方網站 [#]_ 。
+
+.. [#] http://en.wikipedia.org/wiki/Gdb 
+.. [#] http://www.gnu.org/software/gdb/
 
 1.2 Insight
 -----------
-
-1.3 software emulator
----------------------
+Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insight 官方網站 [#]_ 。
+.. [#] http://sourceware.org/insight/
 
 2. 使用 GDB
 ===========
