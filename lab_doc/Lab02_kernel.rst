@@ -2,6 +2,8 @@
 Lab 2 編譯 kernel
 =================
 
+Kernel 是作業系統的核心，作業系統所提供的各項功能就是包含在 Kernel 中。本次實驗將介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。
+
 1. 什麼是 Linux kernel
 ======================
 
