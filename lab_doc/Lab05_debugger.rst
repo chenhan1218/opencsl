@@ -71,14 +71,44 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
 
 2.2.1 用 GDB 執行程式
 ~~~~~~~~~~~~~~~~~~~~~
+如果要用 GDB 來除錯，必須在編譯時加上 -g 參數，使 gcc 多加一些除錯資訊到程式中。
 
-2.2.2 設定中斷點
+::
+ 
+  gcc -g -o encode encode.c
+
+在編譯完成後，就可以將程式用 GDB 來執行。
+
+::
+
+  gdb ./encode
+
+當載入完成後，會出現 GDB 的命令列，此時可以用 set args 設定要丟給程式的參數，並用 show args 來檢查所下的參數。
+
+::
+
+  (gdb) set args abc osss
+  (gdb) show args
+  Argument list to give program being debugged when it is started is "abc osss".
+
+接著就可以用 run 來執行程式。
+
+::
+
+  (gdb) run
+
+在執行之後會看到 GDB 出現提示資訊，跟我們說程式因為 segmentation fault 而終止了，並且會提示導致 segmentation fault 的程式行號。
+
+2.2.2 顯示程式碼
 ~~~~~~~~~~~~~~~~
 
-2.2.3 讀取變數的值
+2.2.3 設定中斷點
+~~~~~~~~~~~~~~~~
+
+2.2.4 讀取變數的值
 ~~~~~~~~~~~~~~~~~~
 
-2.2.4 查看 frame 資訊
+2.2.5 查看 frame 資訊
 ~~~~~~~~~~~~~~~~~~~~~
 
 2.3 用 GDB 作為 software emulator
