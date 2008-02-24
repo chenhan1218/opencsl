@@ -18,6 +18,7 @@ GDB 是一套在 Unix-like 環境上執行的文字介面 debugger，能夠支�
 1.2 Insight
 -----------
 Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insight 官方網站 [#]_ 。
+
 .. [#] http://sourceware.org/insight/
 
 2. 使用 GDB
@@ -44,7 +45,7 @@ Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insig
 ----------------
 GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程式的一個 subroutine ，在使用 GDB 執行程式時是依照 frame 來分塊的。目前執行的 subroutine 叫做 frame 0 ，呼叫該 routine 的叫做 frame 1 ，以此類推。當 frame 0 要呼叫下一個 subroutine 時， GDB 會將目前的資料存到 stack 中，然後才執行下一個 frame ，這樣的分法可以方便除錯時檢視各個 subroutine 之間的關係。
 
-我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加一已達到加密的目的。
+我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加一以達到加密的目的。
 
 ::
 
@@ -67,6 +68,18 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
   	for(i = 0; i < argc; i++)
   		printf("%s\n", encode(argv[i+1]));
   }
+
+2.2.1 用 GDB 執行程式
+~~~~~~~~~~~~~~~~~~~~~
+
+2.2.2 設定中斷點
+~~~~~~~~~~~~~~~~
+
+2.2.3 讀取變數的值
+~~~~~~~~~~~~~~~~~~
+
+2.2.4 查看 frame 資訊
+~~~~~~~~~~~~~~~~~~~~~
 
 2.3 用 GDB 作為 software emulator
 ---------------------------------
