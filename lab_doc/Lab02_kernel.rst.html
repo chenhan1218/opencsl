@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Lab 2 編譯 kernel</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  background: #ffffee;
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="lab-2-kernel">
+<h1 class="title">Lab 2 編譯 kernel</h1>
+
+<p>Kernel 是作業系統的核心，作業系統所提供的各項功能就是包含在 Kernel 中。本次實驗將介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。</p>
+<div class="section" id="linux-kernel">
+<h1>1. 什麼是 Linux kernel</h1>
+<div class="section" id="kernel">
+<h2>1.1 Kernel 結構</h2>
+<p>kernel 是作業系統的核心元件，負責處理應用程式和硬體之間的溝通。關於 kernel 的詳細介紹可以參考 wikipedia <a class="footnote-reference" href="#id2" id="id1">[1]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Kernel_%28computer_science%29">http://en.wikipedia.org/wiki/Kernel_%28computer_science%29</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>1.2 Linux kernel 簡介</h2>
+<p>Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*。關於 Linux kernel 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id5" id="id4">[2]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Linux_kernel">http://en.wikipedia.org/wiki/Linux_kernel</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="patch">
+<h2>1.3 Patch</h2>
+<p>在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就在將想要更改的程式原始碼自動更新在舊原始碼上。關於 patch 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id7" id="id6">[3]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[3]</a></td><td><p class="first">patch <a class="reference external" href="http://en.wikipedia.org/wiki/Patch_%28computing%29">http://en.wikipedia.org/wiki/Patch_%28computing%29</a></p>
+<p class="last">patch in unix <a class="reference external" href="http://en.wikipedia.org/wiki/Patch_%28Unix%29">http://en.wikipedia.org/wiki/Patch_%28Unix%29</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id8">
+<h1>2. 編譯 kernel</h1>
+<div class="section" id="id9">
+<h2>2.1 下載 kernel 原始檔</h2>
+<p>Linux kernel 的檔案庫是在 <a class="reference external" href="http://www.kernel.org/">http://www.kernel.org/</a> ，目前所有的 linux kernel 版本都可以在這裡下載。
+本次實驗中使用的是 linux kernel 2.6.18.1，可在終端機上直接用 wget 下載。</p>
+<pre class="literal-block">
+# 下載
+wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.18.1.tar.bz2
+# 解壓縮
+tar jvxf linux-2.6.18.1.tar.bz2
+# 切換到 linux kernel 目錄
+cd linux-2.6.18.1
+</pre>
+</div>
+<div class="section" id="id10">
+<h2>2.2 編譯步驟</h2>
+<p>編譯 kernel 的步驟和編譯一般的應用程式差不多，都需要經過 make configure、make的過程。以下指令都要在 kernel source的根目錄執行。</p>
+<ol class="arabic">
+<li><p class="first">make mrproper （清理原始檔）</p>
+<p>make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel不會被之前的設定所影響。</p>
+</li>
+<li><p class="first">make menuconfig （設定linux kernel）</p>
+<p>configure 是將 linux kernel 調整成適合目標系統使用的手段，在本次實驗中，我們先下載已經設定好的 .config 檔，接著再用 menuconfig 的方式瀏覽 .config 的內容。</p>
+</li>
+</ol>
+<blockquote>
+<pre class="literal-block">
+# 下載 config 檔
+wget http://free-electrons.com/pub/qemu/demos/arm/arm-test/linux-2.6.18/linux-2.6.18.config
+</pre>
+<p>在下載完成後，鍵入 make menuconfig，即可進入圖形化介面的設定模式。</p>
+<p>make menuconfig 是圖性化介面的 configure 模式，可以依照預先設定好的分類來尋找需要調整的項目。在鍵入 make menuconfig 後，就可以看到圖性化的選單。首先，將游標移到選單最下方的「Load an Alternate Configuration File」，把下載下來的 configure 檔複製到 kernel source 中；這份新的 config 檔將原本的 kernel 調整為一個適合用 ARM 來執行的小型 kernel、使用 ramdisk、取消 module 的使用，並且盡量減少記憶體的消耗。</p>
+<p>如果想要查看或是調整目前的設定，可以用方向鍵、Enter來進出各個項目；以下介紹在 menuconfig 的介面中，一些比較特殊的符號：</p>
+<ol class="upperroman">
+<li><p class="first">[ ]、&lt;&gt;、[*]、&lt;M&gt;</p>
+<p>在每個選項的左方都可以看到上述的其中一個符號，這四個符號代表該選項目前的狀態。</p>
+<p>「 [ ] 」（excludes）表示該選項沒有被選取，編譯後的 kernel 將不會有此功能。</p>
+<p>「 &lt; &gt; 」（module capable）表示該選項沒有被選取，而且是可以被當做是 module，可以在開機之後另外載入的。</p>
+<p>「 [*] 」（built-in）表示該選項有被選取，編譯後的 kernel 包含此功能，而且該功能會被編入 kernel image 中，這意味著在 kernel 被載入時該功能就已經存在，有些功能是一定要在 kernel 被載入時就存在的，例如讀取 filesystem，因為 kernel 無法從它認不出的 filesystem 裡讀取檔案。雖然將各能選成內建可以將整個 kernel 的功能包成一個 kernel image 檔，但它也會造成執行時一些不必要的記憶體以及初始化時間的浪費。</p>
+<p>「 &lt;M&gt; 」（module）表示該選項有被選取，而且是被編譯成 module 的形式，它會存放在 filesystem中，並在 kernel 被載入後才動態地載入。編譯成 module 的優點是減少 kernel image 的空間、加快開機時間，以及方便開發 kernel 功能，因為 module 是在開機後才被載入，每次修改該功能時只需要重新編譯並載入 module ，而不需要重新編譯整個 kernel 並且重新開機。</p>
+</li>
+<li><p class="first">---&gt;</p>
+</li>
+</ol>
+<blockquote>
+「---&gt;」表示該選項是一個分類，他底下還有其他的項目可以選擇。</blockquote>
+<p>在調整完 configure 檔之後，按下方向鍵的「-&gt;」，將選項切換到&lt;Exit&gt;，就可以選擇存檔並且離開。</p>
+</blockquote>
+<ol class="arabic simple" start="3">
+<li>make ARCH=arm CROSS_COMPILE=arm-linux-uclibc- （編譯）</li>
+</ol>
+<blockquote>
+在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。</blockquote>
+</div>
+</div>
+<div class="section" id="id11">
+<h1>3. 執行新的 kernel</h1>
+<p>我們可以用 QEMU 來測試新編的 kernel image 是否能夠執行。</p>
+<!-- 如果在真實的系統中，則是可以將kernel image燒到系統的flash上，或是在開機時將 kernel image 載入。 -->
+<div class="section" id="file-system">
+<h2>3.1 下載 file system</h2>
+<p>在這裡要找一個確定可以用而且符合此 kernel 相關設定的 file system，QEMU官方網站上的 arm-test disk image 可以符合這項需求。
+如果在實驗一中已經有下載過 arm-test disk image，可以直接使用而不需另外下載
+下載方法如下：</p>
+<pre class="literal-block">
+# 下載 disk image
+wget http://fabrice.bellard.free.fr/qemu/arm-test-0.2.tar.gz
+# 解壓縮
+tar zxf arm-test-0.2.tar.gz
+</pre>
+</div>
+<div class="section" id="qemu">
+<h2>3.2 用QEMU執行</h2>
+<p>若在終端機鍵入下列指令後，能夠看到登入畫面，並用root登入，則代表 kernel 編譯成功</p>
+<pre class="literal-block">
+# &lt;QEMU&gt; = path to qemu root dir (eg. qemu-0.9.0/ )
+# &lt;KERNEL&gt; = path to kernel image (eg. linux-2.6.18.1/arch/arm/boot/zImage)
+# &lt;ARM_TEST&gt; = path to arm-test dir
+&lt;QEMU&gt;/arm-softmmu/qemu-system-arm -kernel &lt;KERNEL&gt; \
+      -initrd &lt;ARM_TEST&gt;/arm_root.img -nographic -append &quot;console=ttyAMA0&quot;
+</pre>
+</div>
+</div>
+<div class="section" id="id12">
+<h1>4. 關於本文件</h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+</div>
+</div>
+</body>
+</html>
