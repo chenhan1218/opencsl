@@ -57,16 +57,16 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
   		(*tempStr)++;
   		tempStr++;
   	}
-  
-  	return str;
   }
   
   int main(int argc, char* argv[]){
 
   	int i;
 
-  	for(i = 0; i < argc; i++)
-  		printf("%s\n", encode(argv[i+1]));
+  	for(i = 0; i < argc; i++){
+  		encode(argv[i+1]);
+  		printf("%s\n", argv[i+1]);
+  	}
   }
 
 2.2.1 用 GDB 執行程式（ set, show, run/r ）
@@ -115,7 +115,76 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
 
 2.2.3 設定中斷點並繼續執行（ breakpoint/break/b, continue/cont/c, next/n, step/s）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+在程式碼中插入中斷點可以使 GDB 不會一次把程式執行完，而會停在中斷點處。當程式被中斷時，我們可以使用 GDB 來讀取程式內變數、 CPU register 以及程式的其他資訊，本段先介紹如何設置中斷點以及逐步執行程式。
 
+插入中斷點的指令是 breakpoint 或是縮寫 break、b ，後面可以加上參數指定行號、函式或是程式中的位址。當 GDB 執行遇到中斷點時，它會暫停在中斷點之前，也就是說，被設為中斷點的那行程式或函式就是下一個要執行的程式碼。例如我們可以透過以下指令將執行 encode() 前後都設下中斷點：
+
+::
+
+  (gdb) b encode
+  (gdb) b 10
+
+第十行剛好是 encode 的結尾。
+
+當設定好中斷點之後便可以用 run 開始執行程式，接著會發現 GDB 停在 encode() 的第一行程式碼，並且顯示它的參數。
+
+::
+
+  (gdb) set args abc osss
+  (gdb) run
+  Breakpoint 1, encode (str=0xbfef383c "abc") at bug.c:5
+  5               char* tempStr = str;
+
+此時，我們有三種方式可以選擇下一步的動作：
+
+1. continue ，或是縮寫 cont、c 
+
+   continue 的意思是繼續執行到下一個中斷點或是程式結束為止。
+
+2. next ，或是縮寫 n
+
+   next 是一次執行一行程式碼，當程式碼是呼叫函式時， GDB 只會把它視為一行程式碼。
+
+3. step ，或是縮寫 s
+
+   step 和 next 類似，但當碰到函式呼叫時， GDB 會進入函式中逐行執行。
+
+以下示範三種不同方式的結果：
+
+::
+
+  Breakpoint 1, encode (str=0xbfef383c "abc") at bug.c:5
+  5               char* tempStr = str;
+
+  # 執行下一行程式碼
+  (gdb) n
+  6               while( *tempStr != 0 ){
+
+  # 直接執行到下一個中斷點
+  (gdb) c
+  Continuing.
+
+  Breakpoint 2, encode (str=0xbfef383c "bcd") at bug.c:10
+  10      }
+
+  # encode 結束，所以往下一行會跳回 main 裡的 printf
+  (gdb) n
+  main (argc=3, argv=0xbfef35a4) at bug.c:18
+  18                      printf("%s\n", argv[i+1]);
+
+  (gdb) n
+  bcd
+  16              for(i = 0; i < argc; i++){
+
+  (gdb) s
+  17                      encode(argv[i+1]);
+
+  # 將要執行 encode ，選擇進入 encode 中逐步執行
+  (gdb) s
+  Breakpoint 1, encode (str=0xbfef3840 "osss") at bug.c:5
+  5               char* tempStr = str;
+
+值得注意的一點是，如果被呼叫的函式中有設定中斷點，即使是用 next 逐步執行， GDB 還是會跳到函式中。
 
 2.2.4 讀取變數的值（ print/p, display, info ）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
