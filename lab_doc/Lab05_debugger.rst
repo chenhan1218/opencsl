@@ -220,10 +220,24 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
   (gdb) p/x str[1]@2
   $10 = {0x62, 0x63}
 
-如果不想要每次中斷時都重新用 print 來讀取自己想要看的值，可以用 display 在每次程式被中斷時顯示想要的資訊。 display 的使用方法和 print 相同，在這裡就不另外作示範。
+如果不想要每次中斷時都重新用 print 來讀取自己想要看的值，可以用 display 設定在每次程式被中斷時想要顯示的資訊。 display 的設定方法和 print 相同，在這裡就不另外作示範。
 
 2.2.5 查看程式資訊（ backtrace/bt, info ）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+當我們想要知道目前函式之間的呼叫狀態時，可以使用 backtrace 指令，或是簡稱 bt ，它能顯示目前 frame stack 的狀態，也可以在後面加上參數「 full 」來顯示每個 frame 裡的 local variavle 。
+
+info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設定的中斷點、 display ，或是 CPU registers 的內容都可以用這個指令辦到，如：
+
+::
+
+  # 顯示目前設定的中斷點
+  (gdb) info b
+
+  # 顯示目前設定的 display
+  (gdb) info display
+
+  # 顯示 eax 的值
+  (gdb) info register eax
 
 2.3 用 GDB 作為 software emulator
 ---------------------------------
