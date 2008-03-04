@@ -42,9 +42,7 @@ III. Lab03 製作 root filesystem
 
 IV. Lab04 OS porting
 
-  在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 [#].. 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。
-
-.. [#] 在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。
+  在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 [#]_ 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。
 
 V. Lab05 debugger 和 software emulator
 
@@ -56,6 +54,7 @@ VII. Lab07 Linux Timer Interrupt
 
 VIII. Lab08 Linux Device Driver
 
+.. [#] 在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。
 
 2. 準備操作環境
 ===============
