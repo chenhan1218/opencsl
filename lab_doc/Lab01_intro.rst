@@ -127,12 +127,13 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 3. 用 QEMU 執行 disk image
 ::
 
-  # <QEMU> = path to qemu root dir (eg. qemu-0.9.0/ )
-  # <ARM_TEST> = path to arm-test dir
   <QEMU>/arm-softmmu/qemu-system-arm -kernel <ARM_TEST>/zImage.integrator \
         -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
 
 .. note ::
+
+  <QEMU>：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.0/
+  <ARM_TEST>：存放 arm-test 目錄的路徑
 
   -kernel：指定要載入的 linux kernel
 
@@ -145,6 +146,20 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 2.3 toolchain
 -------------
 
+toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於 toolchain 的介紹可以參考維基百科 [#]_ 。 每一套 toolchain 都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain ，取而代之的方法便是使用具有 cross compiler [#]_ 功能的 toolchain ，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。
+
+Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作 cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM 平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。
+
+.. [#] http://en.wikipedia.org/wiki/Toolchain / http://en.wikipedia.org/wiki/GNU_toolchain
+.. [#] http://en.wikipedia.org/wiki/Cross_compiler
+.. [#] http://buildroot.uclibc.org
+.. [#] http://en.wikipedia.org/wiki/Uclibc
+
+2.3.1 用 buildroot 製作 toolchain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2.3.2 測試 toolchain
+~~~~~~~~~~~~~~~~~~~~
 
 3. 參考資料
 ===========
