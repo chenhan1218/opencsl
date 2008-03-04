@@ -158,6 +158,30 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 2.3.1 用 buildroot 製作 toolchain
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+1. 下載 buildroot 原始碼
+
+   我們可以用 subversion [#]_ 直接下載最新的 buildroot 原始碼。在終端機底下鍵入
+
+   ::
+
+     svn co svn://uclibc.org/trunk/buildroot
+
+   就會在目前所在的目錄下建立一個叫做 buildroot 的資料夾，並將相關檔案從 buildroot 的 subversion 下載下來。
+
+2. 更改 configure
+
+   由於我們只需要製作一套 cross-compilation toolchain ，因此要先將 buildroot 的其他功能關掉。在 buildroot 的目錄下鍵入
+
+   ::
+
+     make menuconfig
+
+   就可以進入 buildroot 的編輯選單，選單化面如下：
+
+3. 製作 toolchain
+
+.. [#] http://en.wikipedia.org/wiki/Subversion_%28software%29
+
 2.3.2 測試 toolchain
 ~~~~~~~~~~~~~~~~~~~~
 
