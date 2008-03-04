@@ -198,8 +198,28 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
 .. [#] http://en.wikipedia.org/wiki/Subversion_%28software%29
 
-2.3.2 測試 toolchain
+2.3.2 設定 toolchain
 ~~~~~~~~~~~~~~~~~~~~
+
+等 buildroot 完成編譯後，我們可以在 build_arm/staging_dir/usr/bin 下找到我們在往後實驗中要使用的 toolchain ，他們全部是以 arm-linux-uclibc- 開頭，後面則是接著各個程式的功能，如 gcc 、 as 、 ld 等。
+
+為了方便往後使用，我們可以設定 $PATH 參數，讓 bash shell 在搜尋可執行檔時也會搜尋這組編好的 toolchain 。假設 buildroot 的根目錄是 <buildroot> ，則在終端機鍵入
+
+::
+  
+  export PATH=<buildroot>/build_arm/build_arm/staging_dir/usr/bin:$PATH
+
+或是在家目錄的 .bashrc 中加入這一行指令，再用
+
+::
+
+  source ~/.bashrc
+
+來載入 bash shell 的新設定。
+
+當設定完成後，我們可以試著直接在終端機鍵入 arm-linux ，再按 tab ，就會直接列出我們剛編好的 toolchain 供選擇。
+
+.. image:: images/setPath.png
 
 3. 參考資料
 ===========
