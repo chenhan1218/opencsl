@@ -176,9 +176,26 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
      make menuconfig
 
-   就可以進入 buildroot 的編輯選單，選單化面如下：
+  就可以進入 buildroot 的編輯選單，選單畫面如下：
+
+  .. image:: images/buildroot.png
+
+  接著，我們要將 target 改成 ARM ，並取消製作 filesystem 。
+
+  I. 將 target 改成 ARM architechure
+    
+    將游標移至「Target Architechure」，並按 enter 進入選項，接著選擇「arm」，按下 enter 即可。
+
+  II. 取消製作 filesystem
+
+    在主選單中，進入「Target filesystem options」選項，並在「ext2 root filesystem」上按「n」以取消製作 ext2 root filesystem，接著按「->」，將游標移至「Exit」，並按下 enter 回到上一層選單。
+    接著，在回到主選單後，進入「Kernel」選項，再進入「Kernel type」選項，把 kernel type 選為「none」以取消製作 linux kernel 。
+
+  待調整完選項後回到主選單，按「->」，將游標移至「Exit」，即可存檔離開。
 
 3. 製作 toolchain
+
+   在設定完成之後，只要直接在 buildroot 的目錄上鍵入 make ，buildroot 就會製作 toolchain ，此時請記得讓電腦處在有網路連線的狀態，因為 buildroot 會到網路上抓一些需要的程式碼。
 
 .. [#] http://en.wikipedia.org/wiki/Subversion_%28software%29
 
