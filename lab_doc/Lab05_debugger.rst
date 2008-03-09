@@ -263,7 +263,7 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 
 就會出現 Insight 的視窗介面。
 
-.. image:: images/insight.png
+.. image:: images/lab05_insight.png
 
 3.2 基本功能介紹
 ----------------
@@ -281,7 +281,15 @@ next                n
 local variable      ctrl + n
 ==============    =================
 
+例如按下 ctrl + b 之後就會可以設定中斷點， Insight 也會新增一個視窗來顯示目前所有中斷點的資訊。
 
+.. image:: images/lab05_breakpoint.png
+
+3.3 用 Insight 除錯
+-------------------
+雖然 Insight 可以比較方便地設定一些功能，像是一次顯示所有 registers 、 stack 的狀況，但並無法使用 GDB 所有的功能，例如我們無法用 Insight 來設定 args （ set args ）以及環境變數，因此，比較好的方式是使用 Insight 附的文字介面再加上其他我們想要使用的功能，將視窗切割成很多個不同的區塊，如此一來，我們就可以一邊觀察目前程式執行的位址，一邊觀察所有變數的值，並很容易的設定中斷點，因為視窗介面讓我們可以比較容易找到想觀察的程式碼。
+
+.. image:: images/lab05_multi_windows.png
 
 4. 關於本文件
 =============
