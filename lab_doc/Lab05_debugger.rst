@@ -268,6 +268,21 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 3.2 基本功能介紹
 ----------------
 
+在 Insight 視窗中可以看到各個對應 GDB 的指令，如 breakpoint 、 file ，甚至還可以直接跳回 GDB 使用純文字的介面（ ctrl + N ）。以下列出在本實驗中有介紹的 GDB 相關指令在 insight 中對應的快捷鍵：
+
+==============    =================
+GDB 指令           Insight 快捷鍵
+==============    =================
+breadpoint          ctrl + b
+run                 r
+continue            c
+step                s
+next                n
+local variable      ctrl + n
+==============    =================
+
+
+
 4. 關於本文件
 =============
 
