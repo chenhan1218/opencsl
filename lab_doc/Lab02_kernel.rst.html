@@ -346,7 +346,7 @@ cd linux-2.6.18.1
 <li><p class="first">make mrproper （清理原始檔）</p>
 <p>make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel不會被之前的設定所影響。</p>
 </li>
-<li><p class="first">make menuconfig （設定linux kernel）</p>
+<li><p class="first">make menuconfig ARCH=arm （設定linux kernel）</p>
 <p>configure 是將 linux kernel 調整成適合目標系統使用的手段，在本次實驗中，我們先下載已經設定好的 .config 檔，接著再用 menuconfig 的方式瀏覽 .config 的內容。</p>
 </li>
 </ol>
@@ -400,12 +400,15 @@ tar zxf arm-test-0.2.tar.gz
 <h2>3.2 用QEMU執行</h2>
 <p>若在終端機鍵入下列指令後，能夠看到登入畫面，並用root登入，則代表 kernel 編譯成功</p>
 <pre class="literal-block">
-# &lt;QEMU&gt; = path to qemu root dir (eg. qemu-0.9.0/ )
-# &lt;KERNEL&gt; = path to kernel image (eg. linux-2.6.18.1/arch/arm/boot/zImage)
-# &lt;ARM_TEST&gt; = path to arm-test dir
 &lt;QEMU&gt;/arm-softmmu/qemu-system-arm -kernel &lt;KERNEL&gt; \
       -initrd &lt;ARM_TEST&gt;/arm_root.img -nographic -append &quot;console=ttyAMA0&quot;
 </pre>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">&lt;QEMU&gt; = qemu 的根目錄 （如 qemu-0.9.0/ ）
+&lt;KERNEL&gt; = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
+&lt;ARM_TEST&gt; = arm-test 的位置</p>
+</div>
 </div>
 </div>
 <div class="section" id="id12">

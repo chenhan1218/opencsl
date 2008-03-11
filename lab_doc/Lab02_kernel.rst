@@ -53,7 +53,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
   
    make mrproper 會將所有編譯出來的檔案（包含 configure ）都清除，這個動作可以確保這次編譯的kernel不會被之前的設定所影響。
 
-2. make menuconfig （設定linux kernel）
+2. make menuconfig ARCH=arm （設定linux kernel）
 
    configure 是將 linux kernel 調整成適合目標系統使用的手段，在本次實驗中，我們先下載已經設定好的 .config 檔，接著再用 menuconfig 的方式瀏覽 .config 的內容。
 
@@ -114,11 +114,13 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 若在終端機鍵入下列指令後，能夠看到登入畫面，並用root登入，則代表 kernel 編譯成功
 ::
 
-  # <QEMU> = path to qemu root dir (eg. qemu-0.9.0/ )
-  # <KERNEL> = path to kernel image (eg. linux-2.6.18.1/arch/arm/boot/zImage)
-  # <ARM_TEST> = path to arm-test dir
   <QEMU>/arm-softmmu/qemu-system-arm -kernel <KERNEL> \
         -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
+
+.. note::
+  <QEMU> = qemu 的根目錄 （如 qemu-0.9.0/ ）
+  <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
+  <ARM_TEST> = arm-test 的位置
 
 
 4. 關於本文件
