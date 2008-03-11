@@ -23,6 +23,8 @@ OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab cour
 I.   作業系統：ubuntu 7.10
 II.  模擬軟體：QEMU
 III. toolchain：buildroot
+IV.  模擬平台：ARM
+V.   模擬的作業系統：Linux
 
 1.3 實驗流程
 --------------
@@ -50,9 +52,15 @@ V. Lab05 debugger 和 software emulator
 
 VI. Lab06 Interrupt 和 Exceptions
 
+  Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹 interrupt 和 exception 的觀念，並透過實做一個新的 system call 來更深入了解 Linux 的運作方式。
+
 VII. Lab07 Linux Timer Interrupt
 
+  Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的效能有關。本實驗將介紹如何調整 linux kernel 中的 timer 以及了解其對系統的影響。
+
 VIII. Lab08 Linux Device Driver
+
+  由於嵌入式系統的多樣性，每個系統常常擁有和其他平台不同的裝置，也就需要額外的驅動程式才能控制裝置。本實驗將介紹兩種撰寫驅動程式的方法，以及學會在 linux 中使用額外裝置的方法。
 
 .. [#] 在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。
 
