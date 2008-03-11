@@ -171,7 +171,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
    ::
 
-     svn co svn://uclibc.org/trunk/buildroot
+     svn co -r 21163 svn://uclibc.org/trunk/buildroot
 
    就會在目前所在的目錄下建立一個叫做 buildroot 的資料夾，並將相關檔案從 buildroot 的 subversion 下載下來。
 
