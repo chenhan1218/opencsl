@@ -296,6 +296,10 @@ local variable      ctrl + n
 
 本實驗只對 GDB 作了最基本的介紹，但 GDB 其實還可以在其他的情況下除錯，如同時除錯 multi-thread / multi-process 的程式、對已經在執行的程式除錯等，另外，在除錯的過程中也可以使用更多的指令來提昇效率，如設定遇到中斷點時要執行哪些指令（ commands ）。以下提供一些關於 GDB 的教學網站，供有興趣的人自行參考學習。
 
+- 完整版的 GDB 線上文件：http://dirac.org/linux/gdb
+
+- 一些 GDB 的進階技巧：http://www.study-area.org/cyril/opentools/opentools/x1265.html
+
 5. 關於本文件
 =============
 
