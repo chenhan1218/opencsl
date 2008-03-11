@@ -148,7 +148,9 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 
   -nographic -append "console=ttyAMA0"：關掉視窗介面
 
-若在一連串開計畫面後有看到登入提示列，可用 root 登入，就代表 QEMU 編譯成功了。
+若在一連串開計畫面後有看到登入提示列，可用 root 登入，就代表 QEMU 編譯成功了。（如下圖）
+
+.. image:: images/lab01_qemu.png
 
 2.3 toolchain
 -------------
@@ -185,7 +187,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
   就可以進入 buildroot 的編輯選單，選單畫面如下：
 
-  .. image:: images/buildroot.png
+  .. image:: images/lab01_buildroot.png
 
   接著，我們要將 target 改成 ARM ，並取消製作 filesystem 。
 
@@ -227,7 +229,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
 當設定完成後，我們可以試著直接在終端機鍵入 arm-linux ，再按 tab ，就會直接列出我們剛編好的 toolchain 供選擇。
 
-.. image:: images/setPath.png
+.. image:: images/lab01_setPath.png
 
 3. 參考資料
 ===========
