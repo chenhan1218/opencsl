@@ -14,6 +14,8 @@ Root filesystem 是構成 filesystem 的最小集合，它包含所有 Linux 開
 2. 製作 root filesystem
 =======================
 
+Root filesystem 大致上包含兩部份-- 各種常用的工具以及一些
+
 2.1 編譯 busybox
 -----------------
 
