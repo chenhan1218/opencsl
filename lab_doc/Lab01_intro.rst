@@ -198,7 +198,15 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
   II. 取消製作 filesystem
 
     在主選單中，進入「Target filesystem options」選項，並在「ext2 root filesystem」上按「n」以取消製作 ext2 root filesystem，接著按「->」，將游標移至「Exit」，並按下 enter 回到上一層選單。
+    接著，在主選單中進入「Package  Selection for the target」中，按下 n 取消「Busybox」選項。
+
+  III. 取消編譯 kernel
+
     接著，在回到主選單後，進入「Kernel」選項，再進入「Kernel type」選項，把 kernel type 選為「none」以取消製作 linux kernel 。
+
+  IV. 擴充 toolchain 功能
+
+    為了在往後能夠使用 NFS (Network filesystem)，需增加一些 toolchain 的功能。請在主選單中，進入「Toolchain」選項，並在底下找到一個「Enable RPC」，按下 y 即可選取。
 
   待調整完選項後回到主選單，按「->」，將游標移至「Exit」，即可存檔離開。
 
