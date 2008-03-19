@@ -35,6 +35,20 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 2.1.2 調整編譯選項
 ~~~~~~~~~~~~~~~~~~
 
+在開始編譯之前，我們需要先調整一些 busybox 的選項。請先下載 busybox 的 config 檔，
+
+::
+
+  wget http://svn.openfoundry.org/opencsl/lab_doc/config/busybox-1.9.config
+
+接著便如同編譯 kernel 時一樣，在 busybox 的根目錄 <busybox> 下鍵入 make menuconfig ，即可進入 configure 畫面。
+
+首先，我們先將載入剛下載的 config 檔，將游標移到選單的最下面可以找到「Load an Alternative Configuration File」，並鍵入 busybox-1.9.config ，這個設定檔會調整 busybox 編譯出的工具以及一些 busybox 的基本設定。
+
+接下來，再進入「Busybox Settings」的「Build Options」，在「Build BusyBox as a static binary(no shared libs)」前按 y 以選擇該項目，將 busybox 編成 static linked 的執行檔。
+
+最後在存檔離開 configure 畫面即可。
+
 2.1.3 編譯及產生 root filesystem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
