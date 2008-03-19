@@ -52,6 +52,19 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 2.1.3 編譯及產生 root filesystem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+接下來便是編譯的過程，我們同樣使用 make 來編譯以及安裝 busybox。
+
+::
+
+  make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
+  make install CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
+
+和編譯 kernel 時相同，我們可以使用 make mrproper 來清除包含 config 在內的所有編譯出來的檔案，或是用 make clean 來清除 config 以外的所有編譯出來的檔案，當更改過 config 檔而需重新編譯時，常常需要 make clean 來將所有的 object file 清除才能成功編譯。 
+
+在 make install 後，我們可以在 <busybox> 下發現一個 _install 資料夾，裡面就放著最基本的檔案結構以及剛才選擇要產生的各項工具。
+
+另外，不仿在 <busybox> 目錄下鍵入 ls -l _install/bin | less ，你會發現除了 busybox 之外的所有執行檔其實都是指向 busybox 的 symbolic link，這也印證了在 2.1 開頭時所提到的資訊。
+
 2.2 製作所需檔案、目錄
 -----------------------
 
