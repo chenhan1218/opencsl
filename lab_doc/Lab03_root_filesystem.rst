@@ -68,6 +68,42 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 2.2 製作所需檔案、目錄
 -----------------------
 
+在製作完 busybox 後，我們需要補足 linux 需要的一些檔案，包含資料夾、裝置檔以及開機的設定檔，以下分別介紹三類檔案的製作方法。
+
+1. 必須的資料夾
+
+   我們需要 etc、init.d 來放置一些和系統有關的設定、dev 來儲存裝置、root 當作家目錄以及 tmp 來放暫存資料，在 _install 目錄下鍵入：
+
+   ::
+
+     mkdir etc etc/init.d dev root tmp
+
+2. 裝置檔
+
+   為了使用 command line 以及開機，我們需要新增三項裝置 console 、 null 以及 ttyAMA0 ，在 _install/dev 下鍵入
+
+   :: 
+
+     sudo mknod console c 5 1
+     sudo mknod null c 1 3
+     sudo mknod ttyAMA0 c 204 64
+
+3. 開機的設定檔
+
+   開機所需的檔案包括了 /init 以及 /etc 底下的一些檔案。
+
+   首先製作 init ，它是 linux 在開機時就會去執行的程式，我們編出來的 busybox 已經包含此功能，只要在 _install 下鍵入：
+
+   ::
+
+     ln -s bin/busybox init
+
+   即可把 init 連到 busybox 。
+
+   接著是編輯開機要執行的 script ，我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 svn 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。
+
+.. 檔案應該要放在哪裡呢？
+
 3. 使用新的 root filesystem
 ===========================
 
