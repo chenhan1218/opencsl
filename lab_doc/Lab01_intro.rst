@@ -169,7 +169,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
 1. 下載 buildroot 原始碼
 
-   我們可以用 subversion [#]_ 直接下載最新的 buildroot 原始碼。在終端機底下鍵入
+   我們可以用 subversion [#]_ 直接下載 buildroot 原始碼。在終端機底下鍵入
 
    ::
 
