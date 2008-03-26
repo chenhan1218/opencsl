@@ -92,15 +92,23 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
    開機所需的檔案包括了 /init 以及 /etc 底下的一些檔案。
 
-   首先製作 init ，它是 linux 在開機時就會去執行的程式，我們編出來的 busybox 已經包含此功能，只要在 _install 下鍵入：
+   I. 製作 init：
 
-   ::
+      init 是 linux 在開機時就會去執行的程式，我們編出來的 busybox 已經包含此功能，只要在 _install 下鍵入：
 
-     ln -s bin/busybox init
+      ::
 
-   即可把 init 連到 busybox 。
+         ln -s bin/busybox init
 
-   接著是編輯開機要執行的 script ，我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 svn 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。
+      即可把 init 連到 busybox 。
+
+   II. 編輯開機要執行的 script：
+
+      我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 svn 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。
+
+   III. 登入帳號的相關檔案
+
+      要登入 Linux shell 需要帳號的資料以及群組的資料，我們目前只需設定一個不需要密碼的 root 。請先至 svn 下載 passwd 以及 group 兩個檔案，在將它放到 /etc 底下即可。
 
 .. 檔案應該要放在哪裡呢？
 
