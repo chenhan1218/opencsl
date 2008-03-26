@@ -312,7 +312,7 @@ svn co svn://busybox.net/branches/busybox_1_9_stable ./busybox
 <h3>2.1.2 調整編譯選項</h3>
 <p>在開始編譯之前，我們需要先調整一些 busybox 的選項。請先下載 busybox 的 config 檔，</p>
 <pre class="literal-block">
-wget http://svn.openfoundry.org/opencsl/lab_doc/config/busybox-1.9.config
+wget http://svn.openfoundry.org/opencsl/lab_doc/data/busybox-1.9.config
 </pre>
 <p>接著便如同編譯 kernel 時一樣，在 busybox 的根目錄 &lt;busybox&gt; 下鍵入 make menuconfig ，即可進入 configure 畫面。</p>
 <p>首先，我們先將載入剛下載的 config 檔，將游標移到選單的最下面可以找到「Load an Alternative Configuration File」，並鍵入 busybox-1.9.config ，這個設定檔會調整 busybox 編譯出的工具以及一些 busybox 的基本設定。</p>

@@ -39,7 +39,7 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
 ::
 
-  wget http://svn.openfoundry.org/opencsl/lab_doc/config/busybox-1.9.config
+  wget http://svn.openfoundry.org/opencsl/lab_doc/data/busybox-1.9.config
 
 接著便如同編譯 kernel 時一樣，在 busybox 的根目錄 <busybox> 下鍵入 make menuconfig ，即可進入 configure 畫面。
 
