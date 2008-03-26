@@ -404,9 +404,7 @@ cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 <p>Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些設定即可。在此，我們要將原本的 root filesystem 加入 NFS 可連線的資料夾中，並且讓 host 端網路能夠接受從 QEMU 發起的連線。</p>
 <p>在 /etc/exports 中加入</p>
 <pre class="literal-block">
-&lt;rfs&gt; 192.168.0.1(rw,async,no_root_squash,no_subtree_check)
 &lt;rfs&gt; 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
-&lt;rfs&gt; localhost(rw,async,no_root_squash,no_subtree_check)
 </pre>
 <p>以上三行是設定可以掛載 &lt;rfs&gt; 的 IP 位址以及其權限，各選項的說明如下：</p>
 <ol class="arabic simple">
