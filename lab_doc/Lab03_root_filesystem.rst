@@ -104,11 +104,92 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
 .. 檔案應該要放在哪裡呢？
 
+2.4 確定 root filesystem 位置
+-----------------------------
+
+由於 _install 目錄裡的就檔案在每次重新製作 busybox 時會被清空，我們必須要把 root filesystem 先移至其他的目錄，搬移的方法如下：
+
+::
+
+  # <rfs> 是 root filesystem 將要放置的位置
+  cp -r <busybox>/_install <rfs>
+
 3. 使用新的 root filesystem
 ===========================
 
-3.1 設定 host 端的 NFS 環境
----------------------------
+我們選擇使用 NFS 來當作 target 的 root file system ，因為透過 NFS ，我們可以很容易調整並且保留整個 file system 。 為了使用 NFS ，我們需要先設定 host 和 target 的網路環境。
+
+3.1 設定 host 端的 NFS 及網路環境
+---------------------------------
+
+3.1.1 設定網路
+~~~~~~~~~~~~~~
+
+QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。
+
+由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。
+
+在 /etc/qemu-ifup 中加入一行指令：
+
+::
+
+  /sbin/ifconfig $1 192.168.0.1  promisc up
+
+這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。
+
+3.1.2 設定 NFS
+~~~~~~~~~~~~~~
+
+Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些設定即可。在此，我們要將原本的 root filesystem 加入 NFS 可連線的資料夾中，並且讓 host 端網路能夠接受從 QEMU 發起的連線。
+
+在 /etc/exports 中加入
+
+::
+
+  <rfs> 192.168.0.1(rw,async,no_root_squash,no_subtree_check)
+  <rfs> 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
+  <rfs> localhost(rw,async,no_root_squash,no_subtree_check)
+
+以上三行是設定可以掛載 <rfs> 的 IP 位址以及其權限，各選項的說明如下：
+
+1. rw：設為可讀寫
+2. async：更改的結果不會馬上寫回硬碟，而事先儲存在記憶體中
+3. no_root_squash：掛載的帳號可以在此資料夾使用 root 權限
+4. no_subtree_check：
+
+.. no_subtree_check 有需要嗎？
+.. 我覺得 exports 應該不用那樣設，但一直試不出來，有不重開機而重設 NFS 的方法嗎？
+
+接著，在 /etc/hos.allow 加入
+
+::
+
+  nfsd:ALL
+  portmap:ALL
+  mountd:ALL
+
+將 NFS 需要的網路連線打開。
+
+最後，我們要將新的設定套用在 NFS 上，在終端機下鍵入
+
+::
+
+  sudo /etc/init.d/portmap restart
+  sudo /etc/init.d/nfs-kernel-server restart
+
+這樣就可以使用 NFS 了。你不仿可以先在 host 端試試看 NFS 是否有設定成功，只要鍵入
+
+::
+
+  sudo mount -t nfs localhost:<rfs> <想要/掛載/的/目錄>
+
+再去掛載上去的目錄查看是否可以看到 <rfs> 底下的內容，或是進一步用 ls -i 比對兩邊的 inode 是否相同。如果要卸載目錄的話，請鍵入
+
+::
+
+  sudo umount <rfs>
+
+即可。
 
 3.2 用QEMU執行
 --------------
