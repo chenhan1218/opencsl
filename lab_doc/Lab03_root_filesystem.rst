@@ -194,6 +194,34 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 3.2 用QEMU執行
 --------------
 
+在開使用 QEMU 執行之前，要先打開 QEMU 的網路需要的虛擬裝置 tun ，請鍵入
+
+::
+
+  sudo modprobe tun
+
+接著，就可以用 QEMU 執行以 NFS 為 root filesystem 的 Linux 了。
+
+由於指令有點長，建議可以先將指令寫成一個 script ，需要時再直接執行即可。完整的指令為：
+
+::
+
+  <QEMU>/arm-softmmu/qemu-system-arm \
+        -kernel <KERNEL> \
+        -net nic -net tap \
+        -nographic \
+        -append "console=ttyAMA0 root=/dev/nfs rw nfsroot=192.168.0.1:<RFS> ip=192.168.0.2::192.168.0.1:255.255.255.0"
+
+.. note::
+  <QEMU> = qemu 的根目錄 （如 qemu-0.9.0/ ）
+
+  <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
+
+  <RFS> = root filesyste 的位置
+
+這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。
+
+
 4. 關於本文件
 =============
 
