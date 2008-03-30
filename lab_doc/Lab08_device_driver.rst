@@ -1,5 +1,5 @@
 =====================
-Lab 88888888 driver
+Lab 8 device driver
 =====================
 
 1. 什麼是 device driver
