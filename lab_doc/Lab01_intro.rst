@@ -152,6 +152,10 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 
 .. image:: images/lab01_qemu.png
 
+4. 中斷、結束 QEMU
+
+如果想結束執行 QEMU 回到終端機，可以先按「 ctrl + a」，然後再按「x」，即可結束 QEMU ；另外，按下「 ctrl + a 」再按下「c」則是可以從 Linux 切換到 QEMU 自己操作介面。
+
 2.3 toolchain
 -------------
 
