@@ -156,7 +156,7 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 
   <rfs> 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
 
-以上三行是設定可以掛載 <rfs> 的 IP 位址以及其權限，各選項的說明如下：
+設定可以掛載 <rfs> 的 IP 位址以及其權限，各選項的說明如下：
 
 1. rw：設為可讀寫
 2. async：更改的結果不會馬上寫回硬碟，而事先儲存在記憶體中
@@ -164,7 +164,6 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 4. no_subtree_check：
 
 .. no_subtree_check 有需要嗎？
-.. 我覺得 exports 應該不用那樣設，但一直試不出來，有不重開機而重設 NFS 的方法嗎？
 
 接著，在 /etc/hos.allow 加入
 
