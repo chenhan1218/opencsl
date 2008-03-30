@@ -40,7 +40,7 @@ II. Lab02 製作 Linux Kernel
 
 III. Lab03 製作 root filesystem
 
-  此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem，以及製作搭配 Linux Kernel 的 root filesystem。
+  此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem、製作搭配 Linux Kernel 的 root filesystem 以及使用 NFS。
 
 IV. Lab04 OS porting
 
@@ -52,7 +52,7 @@ V. Lab05 debugger 和 software emulator
 
 VI. Lab06 Interrupt 和 Exceptions
 
-  Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹 interrupt 和 exception 的觀念，並透過實做一個新的 system call 來更深入了解 Linux 的運作方式。
+  Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹 interrupt 和 exception 的觀念，並透過實做一個新的 system call 以及修改 device driver 來更深入了解 Linux 的運作方式。
 
 VII. Lab07 Linux Timer Interrupt
 
