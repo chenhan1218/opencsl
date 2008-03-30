@@ -19,8 +19,14 @@ Interrupt 和 exception 是兩種改變系統執行程式順序的方式，分�
 1.2 interrupt 的使用時機
 ------------------------
 
+Linux 通常使用兩種方式與與外部元件溝通： polling 以及 interrupt ，前者是 kernel 會定期去偵測外部元件的狀況；而後者是當外不元件有狀況時會馬上通知 kernel 。對於某些發生頻率不高的外部元件（如鍵盤）而言， interrupt 常常是較不影響系統效能的機制。當 interrupt 發生時，系統會如本文件 1.1 所說的優先處理 interrupt ，然後才讓 CPU 切回原本執行的程式。
+
 1.3 exception 的使用時機
 ------------------------
+
+Exception 依照發生的場合可以分為兩種類型： 程式執行錯誤或例外事件，前者是發生在程式執行錯誤時，如被除數為零、 overflow 等；後者則像是 system call 等作業系統所提供的服務。本實驗將針對 exception 中的 system call 來介紹。
+
+System call 是作業系統提供給 user program 服務的介面，例如處理 I/O 或是使用額外的記憶體，它的目的是為了保護系統的穩定，防止 user program 惡意或者不小心對系統造成的傷害。 System call 實際的運作機制和 Interrupt 相同，它也是透過同樣的對照表來採取對應的處理。
 
 2. 觀察 Linux 中的 interrupt
 ============================
