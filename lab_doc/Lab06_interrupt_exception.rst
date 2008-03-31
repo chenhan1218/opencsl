@@ -50,7 +50,7 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 註冊 system call 的步驟如下：
 
-1. 增加 system call 的名字
+1. 註冊 system call 的名字
 
 2. 定義新 system call 的代碼
 
@@ -58,7 +58,8 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 4. 增加 system call 的 header file ，讓 user program 能夠 include
 
-另外在撰寫 system call 程式方面，因為程式是在 kernel space 執行，要注意所使用的函式和一般的 user program 不同，使用上也必須特別小心，像是
+
+另外在撰寫 system call 程式方面，因為程式是在 kernel space 執行， user program 和 system call 所使用的記憶體位置是無法直接互通的，所使用的函式也和一般的 user program 不同，使用上也必須特別小心，像是
 
 - 使用 printk 而不是 print
 
@@ -69,7 +70,78 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 3.2 加入自己的 system call
 ---------------------------
 
-3.2 用 QEMU 測試
+在本節中，我們將透過 3.1 所敘述的步驟自己在系統中新增一個 system call ，這個 system call 將會顯示開機後它總共被呼叫了幾次。
+
+另外，以下步驟所寫的 <linux> 皆為 linux kernel 的原始碼位置。
+
+1. 撰寫 system call 的程式
+
+   system call 的程式是放在 <linux>/arch/arm/kernel 中，檔名即是 system call 的名字。
+
+2. 註冊 system call 的名字
+
+   <linux>/arch/arm/kernel/call.S 定義了系統中 system call 的名字，我們要將新的 system call 紀錄在這個檔案中。請用編輯器打開 call.S 之後，找到目前的最後一個 system call，
+
+   ::
+
+      CALL(sys_get_mempolicy)
+      CALL(sys_set_mempolicy)
+
+   然後在後面加上
+
+   ::
+
+      CALL(sys_mysyscall)
+
+   再存檔即可。
+
+3. 定義新 system call 的代碼
+
+   <linux>/include/asm-arm/unistd.h 定義了系統中 system call 的代碼，我們也需要在這裡定義新的 system call 代碼。請用編輯器打開 unistd.h 後，找到目前的最後一個 system call（大約在350行），
+
+   ::
+
+     #define __NR_get_mempolicy              (__NR_SYSCALL_BASE+320)
+     #define __NR_set_mempolicy              (__NR_SYSCALL_BASE+321)
+
+
+   然後在後面加上
+
+   ::
+
+     #define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
+
+
+4. 調整 Makefile ，使 systam call 被包含在 kernel 中
+
+   <linux>/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。
+
+5. 增加 system call 的 header file ，讓 user program 能夠 include
+
+   接著，我們要將 mysyscall 的 header 加入 linux 的 header 目錄中，它的位置是 <linux>/include/linux ，在該目錄裡新增 mysyscall.h 的檔案，並填入以下內容：
+
+   ::
+
+     #include <linux/unistd.h>
+     #include <errno.h>
+
+     #define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
+     int errno;
+     _syscall0(void, mysyscall);
+
+   再存檔即可。
+
+6. 重新編譯 kernel
+
+   最後，回到 <linux> 並鍵入
+
+   ::
+
+     make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm 
+
+   重新編譯 kernel 後，就會產生新的 kernel image 了。
+
+3.3 用 QEMU 測試
 -----------------
 
 
