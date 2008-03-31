@@ -46,6 +46,26 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 3.1 system call 的撰寫方法
 ---------------------------
 
+要新增 system call 除了撰寫程式本身之外，還需要向 Linux 註冊讓 kernel 知道它的存在 ，這樣 user program 才能夠透過 kernel 呼叫 system call。
+
+註冊 system call 的步驟如下：
+
+1. 增加 system call 的名字
+
+2. 定義新 system call 的代碼
+
+3. 調整 Makefile ，使 systam call 被包含在 kernel 中
+
+4. 增加 system call 的 header file ，讓 user program 能夠 include
+
+另外在撰寫 system call 程式方面，因為程式是在 kernel space 執行，要注意所使用的函式和一般的 user program 不同，使用上也必須特別小心，像是
+
+- 使用 printk 而不是 print
+
+- 使用 kmalloc、kfree 而不是 malloc、free
+
+.. 應該加個如何寫 sys call 的連結
+
 3.2 加入自己的 system call
 ---------------------------
 
