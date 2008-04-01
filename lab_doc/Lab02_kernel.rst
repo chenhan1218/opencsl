@@ -118,7 +118,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
         -initrd <ARM_TEST>/arm_root.img -nographic -append "console=ttyAMA0"
 
 .. note::
-  <QEMU> = qemu 的根目錄 （如 qemu-0.9.0/ ）
+  <QEMU> = qemu 的根目錄 （如 qemu-0.9.1/ ）
   <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
   <ARM_TEST> = arm-test 的位置
 

@@ -97,19 +97,19 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 2. 在欲安裝的目錄下，下載原始碼
 ::
 
-  wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.0.tar.gz
+  wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.1.tar.gz
 
 
 3. 解壓縮原始碼包裹
 ::
 
-  tar zxf qemu-0.9.0.tar.gz
+  tar zxf qemu-0.9.1.tar.gz
 
 
 4. 編譯 QEMU
 ::
 
-  cd qemu-0.9.0/
+  cd qemu-0.9.1/
   ./configure --cc=/usr/bin/gcc-3.4 --host-cc=/usr/bin/gcc-3.4 --target-list=arm-softmmu
   make
 
@@ -139,7 +139,7 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 
 .. note ::
 
-  <QEMU>：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.0/
+  <QEMU>：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.1/
   <ARM_TEST>：存放 arm-test 目錄的路徑
 
   -kernel：指定要載入的 linux kernel

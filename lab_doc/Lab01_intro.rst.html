@@ -410,15 +410,15 @@ sudo apt-get install gcc-3.4 libsdl1.2debian-all libsdl1.2-dev zlib1g-dev
 </pre>
 <p>2. 在欲安裝的目錄下，下載原始碼</p>
 <pre class="literal-block">
-wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.0.tar.gz
+wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.1.tar.gz
 </pre>
 <p>3. 解壓縮原始碼包裹</p>
 <pre class="literal-block">
-tar zxf qemu-0.9.0.tar.gz
+tar zxf qemu-0.9.1.tar.gz
 </pre>
 <p>4. 編譯 QEMU</p>
 <pre class="literal-block">
-cd qemu-0.9.0/
+cd qemu-0.9.1/
 ./configure --cc=/usr/bin/gcc-3.4 --host-cc=/usr/bin/gcc-3.4 --target-list=arm-softmmu
 make
 </pre>
@@ -442,7 +442,7 @@ tar zxf arm-test-0.2.tar.gz
 </pre>
 <div class="note">
 <p class="first admonition-title">Note</p>
-<p>&lt;QEMU&gt;：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.0/
+<p>&lt;QEMU&gt;：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.1/
 &lt;ARM_TEST&gt;：存放 arm-test 目錄的路徑</p>
 <p>-kernel：指定要載入的 linux kernel</p>
 <p>-initrd：指定要使用的 RAM disk</p>

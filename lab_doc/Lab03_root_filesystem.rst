@@ -237,7 +237,7 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
         -append "console=ttyAMA0 root=/dev/nfs rw nfsroot=192.168.0.1:<RFS> ip=192.168.0.2::192.168.0.1:255.255.255.0"
 
 .. note::
-  <QEMU> = qemu 的根目錄 （如 qemu-0.9.0/ ）
+  <QEMU> = qemu 的根目錄 （如 qemu-0.9.1/ ）
 
   <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
 
