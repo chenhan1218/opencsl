@@ -155,6 +155,7 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 ::
 
   <rfs> 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
+  <rfs> localhost(rw,async,no_root_squash,no_subtree_check)
 
 設定可以掛載 <rfs> 的 IP 位址以及其權限，各選項的說明如下：
 
@@ -165,7 +166,8 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 
 .. no_subtree_check 有需要嗎？
 
-接著，在 /etc/hos.allow 加入
+
+接著，在 /etc/host.allow 加入
 
 ::
 

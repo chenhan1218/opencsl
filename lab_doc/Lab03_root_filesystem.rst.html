@@ -405,6 +405,7 @@ cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 <p>在 /etc/exports 中加入</p>
 <pre class="literal-block">
 &lt;rfs&gt; 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
+&lt;rfs&gt; localhost(rw,async,no_root_squash,no_subtree_check)
 </pre>
 <p>設定可以掛載 &lt;rfs&gt; 的 IP 位址以及其權限，各選項的說明如下：</p>
 <ol class="arabic simple">
@@ -414,7 +415,7 @@ cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 <li>no_subtree_check：</li>
 </ol>
 <!-- no_subtree_check 有需要嗎？ -->
-<p>接著，在 /etc/hos.allow 加入</p>
+<p>接著，在 /etc/host.allow 加入</p>
 <pre class="literal-block">
 nfsd:ALL
 portmap:ALL
