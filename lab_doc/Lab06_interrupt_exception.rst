@@ -48,7 +48,9 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 .. [#] 
   request_irq 基本觀念  http://www.jollen.org/blog/2008/03/interrupt_handling_1.html
+
   深入淺出中斷模式      http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html
+
   Bottom Half 的觀念    http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html
 
 2.2 加入自己的 interrupt
@@ -93,8 +95,23 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 1. 撰寫 system call 的程式
 
-   system call 的程式是放在 <linux>/arch/arm/kernel 中，檔名即是 system call 的名字。
+   system call 的程式是放在 <linux>/arch/arm/kernel 中，檔名即為 system call 的名字。
 
+   用編輯器打開 mysyscall.c 後，將以下內容複製進去：
+
+   ::
+
+     #include <linux/linkage.h>
+     #include <linux/kernel.h>
+
+     asmlinkage void sys_mysyscall(void){
+
+        static int count = 0;
+
+        printk("mysyscall has been called for %d time(s)\n", ++count);
+     }
+
+  
 2. 註冊 system call 的名字
 
    <linux>/arch/arm/kernel/call.S 定義了系統中 system call 的名字，我們要將新的 system call 紀錄在這個檔案中。請用編輯器打開 call.S 之後，找到目前的最後一個 system call，
@@ -140,11 +157,9 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
    ::
 
      #include <linux/unistd.h>
-     #include <errno.h>
 
      #define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
-     int errno;
-     _syscall0(void, mysyscall);
+     #define mysyscall(void) syscall(__NR_mysyscall); 
 
    再存檔即可。
 
@@ -161,6 +176,39 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 3.3 用 QEMU 測試
 -----------------
 
+為了測試 system call 是否有成功加到 kernel 中，我們可以先用 QEMU 載入新的 kernel image ，並另外寫一個 user program 來呼叫 mysyscall 。
+
+1. 撰寫 user program
+
+   若要呼叫 mysyscall ，要在程式中 include linux/mysyscall.h 。以下為使用 mysyscall 的範例：
+
+   ::
+
+     #include "linux/mysyscall.h"
+
+     int main(){
+
+        mysyscall();
+
+        return 0;
+     }
+
+
+2. 編譯程式
+
+  在寫好程式之後，我們可以用之前做好的 cross-compiler 來編譯程式，不過要注意的一點是，因為程式的內容牽涉到 kernel 的資訊（ system call 是包含在 kernel 中的 ），因此我們也需要加入 kernel 的 include 檔。
+
+  假設要編譯的程式檔名為 test.c ，而要生成的執行檔為 test.out ，則在終端機下鍵入：
+
+  ::
+
+    arm-linux-uclibc-gcc -I<linux>/include/ -static test.c -o test.out 
+
+  即可。
+
+3. 用 QEMU 執行
+
+   我們只需要將 執行 QEMU 時的 -kernel 參數後面換成新編譯完成的 kernel ，就可以使用新的 system call 了。如果 system call 製作成功，你應該可以發現 mysyscall 會隨著呼叫的次數而改變顯示的訊息。
 
 4. 關於本文件
 =============
