@@ -10,7 +10,7 @@ Lab 6 interrupt 和 exception
 1.1 interrupt 和 exception 的功能
 ---------------------------------
 
-Interrupt 和 exception 是兩種改變系統執行程式順序的方式，分別透過不同的元件觸發。當 interrupt 或 exception 被觸發時，系統會經由查表找到相對應的處理程式（ ISR: Interrupt Service Routine ），並中斷原本在執行的程式，讓 CPU 執行 ISR 的內容，之後才再轉回原來的程式中。這是多工（ multi-tasking ）環境中常常用到的技術。
+Interrupt 和 exception 是兩種改變系統執行程式順序的方式，分別透過不同的元件觸發。當 interrupt 或 exception 被觸發時，系統會經由查表找到相對應的處理程式（ ISR: Interrupt Service Routine，或稱 interrupt handler ），並中斷原本在執行的程式，讓 CPU 執行 ISR 的內容，之後才再轉回原來的程式中。這是多工（ multi-tasking ）環境中常常用到的技術。
 
 在此， interrupt 指的是由硬體發出的中斷訊號，而 exception 指的是由軟體或系統所產生的中斷訊號。和 interrupt 、 exception 相關的更多訊息可以參見 wikipedia [#]_ 。
 
@@ -19,7 +19,7 @@ Interrupt 和 exception 是兩種改變系統執行程式順序的方式，分�
 1.2 interrupt 的使用時機
 ------------------------
 
-Linux 通常使用兩種方式與與外部元件溝通： polling 以及 interrupt ，前者是 kernel 會定期去偵測外部元件的狀況；而後者是當外不元件有狀況時會馬上通知 kernel 。對於某些發生頻率不高的外部元件（如鍵盤）而言， interrupt 常常是較不影響系統效能的機制。當 interrupt 發生時，系統會如本文件 1.1 所說的優先處理 interrupt ，然後才讓 CPU 切回原本執行的程式。
+Linux 通常使用兩種方式與與外部元件溝通： polling 以及 interrupt ，前者是 kernel 會定期去偵測外部元件的狀況；而後者是當外部元件有狀況時會馬上通知 kernel 。對於某些發生頻率不高的外部元件（如鍵盤）而言， interrupt 常常是較不影響系統效能的機制。當 interrupt 發生時，系統會如本文件 1.1 所說的優先處理 interrupt ，然後才讓 CPU 切回原本執行的程式。
 
 1.3 exception 的使用時機
 ------------------------
@@ -33,6 +33,23 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 2.1 interrupt 的處理方法
 -------------------------
+
+外部元件可能會隨著時間而改變需要的 interrupt 個數，再加上由於硬體資源的限制，同一時間能夠存在的 interrupt 並不是無限而且不一定是可分享的 [#]_ ，所以我們需要一套註冊和釋放的機制來使用 interrupt 。
+
+以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 jollen's Blog [#]_
+
+1. request_irq() ：向系統註冊使用某一個 interrupt ，並指定負責處理該 interrupt 的 ISR 。
+
+2. free_irq() ：告知系統釋放特定的 interrupt 。
+
+以下我們將藉由觀察 interrupt 在實際程式運作的情況來加強 上面所提的觀念。
+
+.. [#] 我們可以在 <linux>/include/asm-arm/irqs.h 、 <linux>/include/arch/irqs.h 中找到系統上已有的 interrupt以及 NR_IRQ ，它定義了 ARM CPU 中 interrupt 的個數，。
+
+.. [#] 
+  request_irq 基本觀念  http://www.jollen.org/blog/2008/03/interrupt_handling_1.html
+  深入淺出中斷模式      http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html
+  Bottom Half 的觀念    http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html
 
 2.2 加入自己的 interrupt
 -------------------------
