@@ -83,6 +83,8 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 2.3 用 QEMU 測試
 -----------------
 
+我們可以將新編譯出來的 kernel image 放到 QEMU 中執行，就可以在開機時發現我們剛才想要顯示的訊息。
+
 3. Linux 中的 exception
 =======================
 
