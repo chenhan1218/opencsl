@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Lab 6 interrupt 和 exception</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  background: #ffffcc;
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="lab-6-interrupt-exception">
+<h1 class="title">Lab 6 interrupt 和 exception</h1>
+
+<p>一個系統的運作除了單一程式的執行外，還必須讓程式能夠和硬體以及系統溝通， interrupt 和 exception 在這個目的上扮演了重要的角色。本次實驗將介紹 Linux 中 interrupt 和 exception 的運作機制，以及如何撰寫/ 修改它們。</p>
+<div class="section" id="interrupt-exception">
+<h1>1. 什麼是 interrupt 和 exception</h1>
+<div class="section" id="id1">
+<h2>1.1 interrupt 和 exception 的功能</h2>
+<p>Interrupt 和 exception 是兩種改變系統執行程式順序的方式，分別透過不同的元件觸發。當 interrupt 或 exception 被觸發時，系統會經由查表找到相對應的處理程式（ ISR: Interrupt Service Routine，或稱 interrupt handler ），並中斷原本在執行的程式，讓 CPU 執行 ISR 的內容，之後才再轉回原來的程式中。這是多工（ multi-tasking ）環境中常常用到的技術。</p>
+<p>在此， interrupt 指的是由硬體發出的中斷訊號，而 exception 指的是由軟體或系統所產生的中斷訊號。和 interrupt 、 exception 相關的更多訊息可以參見 wikipedia <a class="footnote-reference" href="#id3" id="id2">[1]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Interrupt">http://en.wikipedia.org/wiki/Interrupt</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="interrupt">
+<h2>1.2 interrupt 的使用時機</h2>
+<p>Linux 通常使用兩種方式與與外部元件溝通： polling 以及 interrupt ，前者是 kernel 會定期去偵測外部元件的狀況；而後者是當外部元件有狀況時會馬上通知 kernel 。對於某些發生頻率不高的外部元件（如鍵盤）而言， interrupt 常常是較不影響系統效能的機制。當 interrupt 發生時，系統會如本文件 1.1 所說的優先處理 interrupt ，然後才讓 CPU 切回原本執行的程式。</p>
+</div>
+<div class="section" id="exception">
+<h2>1.3 exception 的使用時機</h2>
+<p>Exception 依照發生的場合可以分為兩種類型： 程式執行錯誤或例外事件，前者是發生在程式執行錯誤時，如被除數為零、 overflow 等；後者則像是 system call 等作業系統所提供的服務。本實驗將針對 exception 中的 system call 來介紹。</p>
+<p>System call 是作業系統提供給 user program 服務的介面，例如處理 I/O 或是使用額外的記憶體，它的目的是為了保護系統的穩定，防止 user program 惡意或者不小心對系統造成的傷害。 System call 實際的運作機制和 Interrupt 相同，它也是透過同樣的對照表來採取對應的處理。</p>
+</div>
+</div>
+<div class="section" id="linux-interrupt">
+<h1>2. 觀察 Linux 中的 interrupt</h1>
+<div class="section" id="id4">
+<h2>2.1 interrupt 的處理方法</h2>
+<p>外部元件可能會隨著時間而改變需要的 interrupt 個數，再加上由於硬體資源的限制，同一時間能夠存在的 interrupt 並不是無限而且不一定是可分享的 <a class="footnote-reference" href="#id7" id="id5">[2]</a> ，所以我們需要一套註冊和釋放的機制來使用 interrupt 。</p>
+<p>以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 jollen's Blog <a class="footnote-reference" href="#id8" id="id6">[3]</a></p>
+<ol class="arabic simple">
+<li>request_irq() ：向系統註冊使用某一個 interrupt ，並指定負責處理該 interrupt 的 ISR 。</li>
+<li>free_irq() ：告知系統釋放特定的 interrupt 。</li>
+</ol>
+<p>以下我們將藉由觀察 interrupt 在實際程式運作的情況來加強 上面所提的觀念。</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td>我們可以在 &lt;linux&gt;/include/asm-arm/irqs.h 、 &lt;linux&gt;/include/arch/irqs.h 中找到系統上已有的 interrupt以及 NR_IRQ ，它定義了 ARM CPU 中 interrupt 的個數，。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[3]</a></td><td><p class="first">request_irq 基本觀念  <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_1.html">http://www.jollen.org/blog/2008/03/interrupt_handling_1.html</a></p>
+<p>深入淺出中斷模式      <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html">http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html</a></p>
+<p class="last">Bottom Half 的觀念    <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html">http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h2>2.2 觀察實際的 interrupt</h2>
+<p>在此，我們用 ARM 的 SD Card Host Controller driver 來當作觀察的對象。在該 driver 部份的程式碼 &lt;linux&gt; <a class="footnote-reference" href="#id11" id="id10">[4]</a> /driver/mmc/mmci.c 的 mmci_probe() 中，我們可以找到一行指令：</p>
+<pre class="literal-block">
+ret = request_irq(dev-&gt;irq[0], mmci_irq, IRQF_SHARED, DRIVER_NAME &quot; (cmd)&quot;, host);
+</pre>
+<p>其中 dev-&gt;irq[0] 即為該裝置所要使用的其中一個 interrupt ， mmci_irq 則是所要註冊的 ISR ，我們可以在同一個檔案中找到 mmci_irq 這個函式。</p>
+<p>為了觀察方便，我們可以在 mmci_irq 中加入一些訊息，在函式的開頭加入</p>
+<pre class="literal-block">
+printk(&quot;\n---------------------------\nInvoke mmci_irq()\n---------------------------\n&quot;);
+</pre>
+<p>接著再回到 &lt;linux&gt; 來 compile kernel</p>
+<pre class="literal-block">
+make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
+</pre>
+<p>就可以製作出一個當 mmc 需要的那個 interrupt 被觸發時，就印出相關訊息的 kernel 。</p>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[4]</a></td><td>在本文件中， &lt;linux&gt; 皆為 linux kernel 的原始碼位置</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="qemu">
+<h2>2.3 用 QEMU 測試</h2>
+<p>我們可以將新編譯出來的 kernel image 放到 QEMU 中執行，就可以在開機時發現我們剛才想要顯示的訊息。</p>
+</div>
+</div>
+<div class="section" id="linux-exception">
+<h1>3. Linux 中的 exception</h1>
+<div class="section" id="system-call">
+<h2>3.1 system call 的撰寫方法</h2>
+<p>要新增 system call 除了撰寫程式本身之外，還需要向 Linux 註冊讓 kernel 知道它的存在 ，這樣 user program 才能夠透過 kernel 呼叫 system call。</p>
+<p>註冊 system call 的步驟如下：</p>
+<ol class="arabic simple">
+<li>註冊 system call 的名字</li>
+<li>定義新 system call 的代碼</li>
+<li>調整 Makefile ，使 systam call 被包含在 kernel 中</li>
+<li>增加 system call 的 header file ，讓 user program 能夠 include</li>
+</ol>
+<p>另外在撰寫 system call 程式方面，因為程式是在 kernel space 執行， user program 和 system call 所使用的記憶體位置是無法直接互通的，所使用的函式也和一般的 user program 不同，使用上也必須特別小心，像是</p>
+<ul class="simple">
+<li>使用 printk 而不是 print</li>
+<li>使用 kmalloc、kfree 而不是 malloc、free</li>
+</ul>
+<!-- 應該加個如何寫 sys call 的連結 -->
+</div>
+<div class="section" id="id12">
+<h2>3.2 加入自己的 system call</h2>
+<p>在本節中，我們將透過 3.1 所敘述的步驟自己在系統中新增一個 system call ，這個 system call 將會顯示開機後它總共被呼叫了幾次。</p>
+<ol class="arabic">
+<li><p class="first">撰寫 system call 的程式</p>
+<p>system call 的程式是放在 &lt;linux&gt;/arch/arm/kernel 中，檔名即為 system call 的名字。</p>
+<p>用編輯器打開 mysyscall.c 後，將以下內容複製進去：</p>
+<pre class="literal-block">
+#include &lt;linux/linkage.h&gt;
+#include &lt;linux/kernel.h&gt;
+
+asmlinkage void sys_mysyscall(void){
+
+   static int count = 0;
+
+   printk(&quot;mysyscall has been called for %d time(s)\n&quot;, ++count);
+}
+</pre>
+</li>
+<li><p class="first">註冊 system call 的名字</p>
+<p>&lt;linux&gt;/arch/arm/kernel/call.S 定義了系統中 system call 的名字，我們要將新的 system call 紀錄在這個檔案中。請用編輯器打開 call.S 之後，找到目前的最後一個 system call，</p>
+<pre class="literal-block">
+CALL(sys_get_mempolicy)
+CALL(sys_set_mempolicy)
+</pre>
+<p>然後在後面加上</p>
+<pre class="literal-block">
+CALL(sys_mysyscall)
+</pre>
+<p>再存檔即可。</p>
+</li>
+<li><p class="first">定義新 system call 的代碼</p>
+<p>&lt;linux&gt;/include/asm-arm/unistd.h 定義了系統中 system call 的代碼，我們也需要在這裡定義新的 system call 代碼。請用編輯器打開 unistd.h 後，找到目前的最後一個 system call（大約在350行），</p>
+<pre class="literal-block">
+#define __NR_get_mempolicy              (__NR_SYSCALL_BASE+320)
+#define __NR_set_mempolicy              (__NR_SYSCALL_BASE+321)
+</pre>
+<p>然後在後面加上</p>
+<pre class="literal-block">
+#define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
+</pre>
+</li>
+<li><p class="first">調整 Makefile ，使 systam call 被包含在 kernel 中</p>
+<p>&lt;linux&gt;/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。</p>
+</li>
+<li><p class="first">增加 system call 的 header file ，讓 user program 能夠 include</p>
+<p>接著，我們要將 mysyscall 的 header 加入 linux 的 header 目錄中，它的位置是 &lt;linux&gt;/include/linux ，在該目錄裡新增 mysyscall.h 的檔案，並填入以下內容：</p>
+<pre class="literal-block">
+#include &lt;linux/unistd.h&gt;
+
+#define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
+#define mysyscall(void) syscall(__NR_mysyscall);
+</pre>
+<p>再存檔即可。</p>
+</li>
+<li><p class="first">重新編譯 kernel</p>
+<p>最後，回到 &lt;linux&gt; 並鍵入</p>
+<pre class="literal-block">
+make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
+</pre>
+<p>重新編譯 kernel 後，就會產生新的 kernel image 了。</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id13">
+<h2>3.3 用 QEMU 測試</h2>
+<p>為了測試 system call 是否有成功加到 kernel 中，我們可以先用 QEMU 載入新的 kernel image ，並另外寫一個 user program 來呼叫 mysyscall 。</p>
+<ol class="arabic">
+<li><p class="first">撰寫 user program</p>
+<p>若要呼叫 mysyscall ，要在程式中 include linux/mysyscall.h 。以下為使用 mysyscall 的範例：</p>
+<pre class="literal-block">
+#include &quot;linux/mysyscall.h&quot;
+
+int main(){
+
+   mysyscall();
+
+   return 0;
+}
+</pre>
+</li>
+<li><p class="first">編譯程式</p>
+</li>
+</ol>
+<blockquote>
+<p>在寫好程式之後，我們可以用之前做好的 cross-compiler 來編譯程式，不過要注意的一點是，因為程式的內容牽涉到 kernel 的資訊（ system call 是包含在 kernel 中的 ），因此我們也需要加入 kernel 的 include 檔。</p>
+<p>假設要編譯的程式檔名為 test.c ，而要生成的執行檔為 test.out ，則在終端機下鍵入：</p>
+<pre class="literal-block">
+arm-linux-uclibc-gcc -I&lt;linux&gt;/include/ -static test.c -o test.out
+</pre>
+<p>即可。</p>
+</blockquote>
+<ol class="arabic" start="3">
+<li><p class="first">用 QEMU 執行</p>
+<p>我們只需要將 執行 QEMU 時的 -kernel 參數後面換成新編譯完成的 kernel ，就可以使用新的 system call 了。如果 system call 製作成功，你應該可以發現 mysyscall 會隨著呼叫的次數而改變顯示的訊息。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id14">
+<h1>4. 關於本文件</h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+</div>
+</div>
+</body>
+</html>
