@@ -390,12 +390,26 @@ cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 <div class="section" id="host-nfs">
 <h2>3.1 設定 host 端的 NFS 及網路環境</h2>
 <div class="section" id="id8">
+<h3>3.1.1 安裝必須套件</h3>
+<p>在開始使用 NFS 之前，我們要先安裝 NFS 相關的套件，請在終端機下鍵入</p>
+<pre class="literal-block">
+sudo apt-get install nfs-kernel-server uml-utilities
+</pre>
+<p>即可。</p>
+</div>
+<div class="section" id="id9">
 <h3>3.1.1 設定網路</h3>
 <p>QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。</p>
 <p>由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。</p>
-<p>在 /etc/qemu-ifup 中加入一行指令：</p>
+<p>新增 /etc/qemu-ifup ：</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>#!/bin/sh
+/sbin/ifconfig $1 192.168.0.1  promisc up</dd>
+</dl>
+<p>並且把 qemu-ifup 改成可執行的 shell script</p>
 <pre class="literal-block">
-/sbin/ifconfig $1 192.168.0.1  promisc up
+sudo chmoe u+x /etc/qemu-ifup
 </pre>
 <p>這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。</p>
 </div>
@@ -462,7 +476,7 @@ sudo modprobe tun
 <p>這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。</p>
 </div>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id10">
 <h1>4. 關於本文件</h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>

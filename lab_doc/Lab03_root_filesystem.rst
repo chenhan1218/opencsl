@@ -130,6 +130,17 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 3.1 設定 host 端的 NFS 及網路環境
 ---------------------------------
 
+3.1.1 安裝必須套件
+~~~~~~~~~~~~~~~~~~
+
+在開始使用 NFS 之前，我們要先安裝 NFS 相關的套件，請在終端機下鍵入
+
+::
+
+  sudo apt-get install nfs-kernel-server uml-utilities
+
+即可。
+
 3.1.1 設定網路
 ~~~~~~~~~~~~~~
 
@@ -137,11 +148,17 @@ QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU �
 
 由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。
 
-在 /etc/qemu-ifup 中加入一行指令：
+新增 /etc/qemu-ifup ：
+
+::
+  #!/bin/sh
+  /sbin/ifconfig $1 192.168.0.1  promisc up
+
+並且把 qemu-ifup 改成可執行的 shell script
 
 ::
 
-  /sbin/ifconfig $1 192.168.0.1  promisc up
+  sudo chmoe u+x /etc/qemu-ifup
 
 這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。
 
