@@ -398,7 +398,7 @@ sudo apt-get install nfs-kernel-server uml-utilities
 <p>即可。</p>
 </div>
 <div class="section" id="id9">
-<h3>3.1.1 設定網路</h3>
+<h3>3.1.2 設定網路</h3>
 <p>QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。</p>
 <p>由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。</p>
 <p>新增 /etc/qemu-ifup ：</p>
@@ -414,7 +414,7 @@ sudo chmoe u+x /etc/qemu-ifup
 <p>這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。</p>
 </div>
 <div class="section" id="nfs">
-<h3>3.1.2 設定 NFS</h3>
+<h3>3.1.3 設定 NFS</h3>
 <p>Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些設定即可。在此，我們要將原本的 root filesystem 加入 NFS 可連線的資料夾中，並且讓 host 端網路能夠接受從 QEMU 發起的連線。</p>
 <p>在 /etc/exports 中加入</p>
 <pre class="literal-block">
