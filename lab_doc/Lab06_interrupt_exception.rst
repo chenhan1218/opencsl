@@ -53,8 +53,32 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
   Bottom Half 的觀念    http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html
 
-2.2 加入自己的 interrupt
+2.2 觀察實際的 interrupt
 -------------------------
+
+在此，我們用 ARM 的 SD Card Host Controller driver 來當作觀察的對象。在該 driver 部份的程式碼 <linux> [#]_ /driver/mmc/mmci.c 的 mmci_probe() 中，我們可以找到一行指令：
+
+::
+
+  ret = request_irq(dev->irq[0], mmci_irq, IRQF_SHARED, DRIVER_NAME " (cmd)", host);
+
+其中 dev->irq[0] 即為該裝置所要使用的其中一個 interrupt ， mmci_irq 則是所要註冊的 ISR ，我們可以在同一個檔案中找到 mmci_irq 這個函式。
+
+為了觀察方便，我們可以在 mmci_irq 中加入一些訊息，在函式的開頭加入
+
+::
+
+   printk("\n---------------------------\nInvoke mmci_irq()\n---------------------------\n");
+
+接著再回到 <linux> 來 compile kernel 
+
+::
+
+   make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm 
+
+就可以製作出一個當 mmc 需要的那個 interrupt 被觸發時，就印出相關訊息的 kernel 。
+ 
+.. [#] 在本文件中， <linux> 皆為 linux kernel 的原始碼位置
 
 2.3 用 QEMU 測試
 -----------------
@@ -90,8 +114,6 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 ---------------------------
 
 在本節中，我們將透過 3.1 所敘述的步驟自己在系統中新增一個 system call ，這個 system call 將會顯示開機後它總共被呼叫了幾次。
-
-另外，以下步驟所寫的 <linux> 皆為 linux kernel 的原始碼位置。
 
 1. 撰寫 system call 的程式
 
