@@ -76,16 +76,16 @@ Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理�
   int main(){
 
      clock_t t1;
-     int i, j, k, m;
+     int i, j, k;
 
      t1 = clock();
 
      for(i=0;i<1000;i++)
         for(j=0;j<1000;j++)
-           for(k=0;k<1000;k++)
-               for(m=0;m<10;m++);
+            for(k=0;k<300;k++)
+					;
+     printf("Loop has cost %lf seconds\n",((double)(clock()-t1))/CLOCKS_PER_SEC);
 
-     printf("%lf\n",((double)(clock()-t1))/CLOCKS_PER_SEC);
      return 0;
   }
 
@@ -93,11 +93,13 @@ Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理�
 
 ::
 
-  arm-linux-uclibc-gcc -I <linux>/include test.c -o test.out
+  arm-linux-uclibc-gcc -static -I <linux>/include test.c -o test.out
 
 
 2.3 用 QEMU 測試
 -----------------
+
+我們可以分別用之前的 kernel image 和剛製作的 kernel image 來執行 test.out ，就可以發現雖然是相同的程式，但用新編譯 kernel 執行要花較久的時間 [#]_ 。
 
 3. 觀察 top/bottom half
 =========================
