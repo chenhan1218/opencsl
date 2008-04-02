@@ -130,7 +130,7 @@ do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
 
   vs_count++;
   if ( vs_count < 50 ){
-     printk("\n----------\ntop-half vs bottom-half=%ld vs 1\n----------\n", th_vs_bh);
+     printk("-----top-half vs bottom-half=%ld vs 1\n", th_vs_bh);
      th_vs_bh = 0;
   }
 
