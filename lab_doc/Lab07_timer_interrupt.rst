@@ -107,6 +107,39 @@ Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理�
 3.1 調整 kernel 
 ----------------
 
+timer interrupt 的 ISR 放在 <linux>/kernel/timer.c 中，裡面包含了 top half 和 bottom half 的函式。我們可以將它們作一些調整，以了解兩個函式之間執行次數的比例。
+
+在 timer.c 中，先加入兩個全域變數：
+
+::
+
+  long th_vs_bh = 0;
+  int vs_count = 0;
+
+其中， th_vs_bh 是用來紀錄目前 top half 的執行次數，而 vs_count 則是用來紀錄 bottom half 的次數。由於呼叫 bottom half 之前一定會先呼叫 top half ，所以我們可以在每次 bottom half 被呼叫時印出目前 top half 被呼叫的次數，即可知道兩者之間的比例了。
+
+do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
+
+::
+  
+  long th_vs_bh++;
+
+接著，在 bottom half 函式 run_timer_softirq 中加入
+
+::
+
+  vs_count++;
+  if ( vs_count < 50 ){
+     printk("\n----------\ntop-half vs bottom-half=%ld vs 1\n----------\n", th_vs_bh);
+     th_vs_bh = 0;
+  }
+
+最後再重新製作 kernel image 即可。
+
+::
+
+     make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm 
+
 3.2 用 QEMU 執行觀察
 ---------------------
 
