@@ -30,10 +30,73 @@ Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理�
 2.1 調整 kernel
 ----------------
 
+1. 找到初始化 timer 的程式碼
+
+   我們可以在 <linux> [#]_ /init/main.c 中找到 kernel 初始化的流程，其中就包含了 time_init() 。如果有興趣的話，可以自行搜尋 time_init() 的內容（在 <linux>/arm/kernel/time.c 中），在此我們先在 time_init() 後面加上 printk() 印出提示訊息，來驗證該函式是否有備執行。
+
+   ::
+
+     timekepping_init();
+     time_init();
+     printk("----------------\ntime_init()\n----------------\n");
+
+2. 更改 timer interrupt 頻率
+
+   在 <linux>/include/linux/jiffies.h 中定義了 timer interrupt 的頻率，我們可以在該檔案中發現一行程式碼
+
+   ::
+
+     #define ACTHZ (SH_DIV (CLOCK_TICK_RATE, LATCH, 8))
+
+   我們可以將 CLOCK_TICK_RATE 改成 CLOCK_TICK_RATE/2 ，就可以將 timer interrupt 的頻率增加一倍，
+
+   ::
+
+     #define ACTHZ (SH_DIV (CLOCK_TICK_RATE/2, LATCH, 8))
+
+3. 重新編譯 kernel
+
+   接著，請先備份原本的 kernel image 以比較不同 timer interrupt 頻率間的差異，然後再回到 <linux> 重新編譯 kernel ：
+
+   ::
+
+     make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm 
+
+.. [#] 在本文件中， <linux> 皆為 linux kernel 的原始碼位置
+
 2.2 撰寫 user program
 -----------------------
 
-2.2 用 QEMU 測試
+我們可以藉由撰寫一個需要較多執行時間的程式來簡單測量系統的效能。
+::
+
+  #include<stdio.h>
+  #include<time.h>
+
+  int main(){
+
+     clock_t t1;
+     int i, j, k, m;
+
+     t1 = clock();
+
+     for(i=0;i<1000;i++)
+        for(j=0;j<1000;j++)
+           for(k=0;k<1000;k++)
+               for(m=0;m<10;m++);
+
+     printf("%lf\n",((double)(clock()-t1))/CLOCKS_PER_SEC);
+     return 0;
+  }
+
+接著再用之前製作的 cross-compiler 編譯（假設程式叫做 test.c ，執行檔叫做 test.out）：
+
+::
+
+  arm-linux-uclibc-gcc -I <linux>/include test.c -o test.out
+
+
+2.3 用 QEMU 測試
 -----------------
 
 3. 觀察 top/bottom half
