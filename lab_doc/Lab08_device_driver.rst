@@ -136,8 +136,49 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 3.2 方法二：將 driver 寫成 kernel 的一部分
 -------------------------------------------
 
-3.2.1 調整 kernel 、 makefile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+若想要將 driver 編成 kernel 的一部分，在開機時就直接掛載到 Linux 上，要先將 driver 程式放在 kernel source 裡，並將 Makefile 作一些調整使編譯 kernrl 時能夠將 driver 囊括進去。
+
+3.2.1 編輯 driver source
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+請將在 2.2 完成的 driver source 放到 <linux> [#]_ /driver/char/ 目錄中，這裡放的是 linux character device driver 的程式碼。
+
+.. [#] <linux> 為 linux source 的根目錄路徑
+
+3.2.2 調整 Kconfig
+~~~~~~~~~~~~~~~~~~~~~
+
+接下來，我們要調整 Kconfig 使 make menuconfig 時出現 demo driver 的選項。 <linux>/driver/char/Kconfig 是定義 menuconfig 的檔案，請跳到最後一行，並在 endmenu 前加入
+
+::
+
+  config DEMO
+     tristate "DEMO driver for OPENCSL"
+     default n
+
+其中 config DEMO 是宣告一個新的選項叫做 DEMO ，它的說明為 DEMO driver for OPENCSL ， menuconfig 的預設是沒有選取。
+
+3.2.3 調整 Makefile
+~~~~~~~~~~~~~~~~~~~~
+
+再來是調整 Makefile ，使 driver 能夠在編譯時被包含到 kernel 中。在 <linux>/driver/char/Makefile 這個關於 character device driver 的 Makefile 中找到 
+
+::
+
+  obj-$(CONFIG_TCG_TPM) += tpm/ 
+
+並在其下一行加入
+
+::
+
+  obj-$(CONFIG_DEMO)   += demo.o
+
+即可。
+
+3.2.4 重新編譯 kernel
+~~~~~~~~~~~~~~~~~~~~~
+
+最後，使用 cross-compiler 重新編譯 kernel ，即可產生包含 DEMO driver 的 kernel image 。
 
 3.3 測試 driver
 -----------------
