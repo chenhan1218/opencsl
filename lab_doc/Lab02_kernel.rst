@@ -62,7 +62,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
     # 下載 config 檔
     wget http://free-electrons.com/pub/qemu/demos/arm/arm-test/linux-2.6.18/linux-2.6.18.config
 
-  在下載完成後，鍵入 make menuconfig，即可進入圖形化介面的設定模式。
+  在下載完成後，鍵入 make menuconfig ARCH=arm ，即可進入圖形化介面的設定模式。
 
   make menuconfig 是圖性化介面的 configure 模式，可以依照預先設定好的分類來尋找需要調整的項目。在鍵入 make menuconfig 後，就可以看到圖性化的選單。首先，將游標移到選單最下方的「Load an Alternate Configuration File」，把下載下來的 configure 檔複製到 kernel source 中；這份新的 config 檔將原本的 kernel 調整為一個適合用 ARM 來執行的小型 kernel、使用 ramdisk、取消 module 的使用，並且盡量減少記憶體的消耗。
 
