@@ -187,11 +187,48 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 3.3 測試 driver
 -----------------
 
+我們可以撰寫一個簡單的測試程式來觀察 driver 的運作模式。
+
+::
+
+  #include <stdio.h>
+  int main() 
+  {
+     char buf[512];
+     FILE *fp = fopen("/dev/demo", "w+");
+     if(fp == NULL) {
+        printf("can't open device!\n");
+        return -1;
+     }
+     fread(buf, sizeof(buf), 1, fp);
+     fwrite(buf, sizeof(buf), 1, fp);
+     fclose(fp);
+     return 0;
+  }
+
+接著，使用 cross-compiler 並加上 -static 參數即可編譯出執行檔。
+
 3.3.1 新增 device
 ~~~~~~~~~~~~~~~~~~
 
+在使用測試程式之前，我們必須先在 /dev 中建立 driver 要用到 device ，在開啟 qemu 後鍵入
+
+::
+
+  mknod /dev/demo c 60 0
+
+其中 c 為 character device 的意思，60 以及 0 則分別為該 device 的 major 和 minor number
+
 3.3.2 使用 driver
 ~~~~~~~~~~~~~~~~~~
+
+我們可以透過執行剛編譯出的測試程式來觀察 driver 的運作流程，或是直接在命令列鍵入
+
+::
+
+  echo "?" >  /dev/demo 
+
+對 /dev/demo 寫入一些資料，也會產生類似的效果。
 
 4. 關於本文件
 =============
