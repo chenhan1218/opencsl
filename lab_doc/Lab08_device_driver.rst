@@ -32,8 +32,93 @@ Device driver 是介於實體設備與程式間的橋樑，它是 kernel 的一�
 2.1 driver 程式的基本結構
 -------------------------
 
+Driver 作為程式和元件之間的橋樑，它必須提供一些基本的使用介面，如讀、寫或是其他控制元件的指令，本節將介紹撰寫一個 driver 所需的最基本架構。
+
+Driver 主要由兩部份構成：初始化、結束元件以及使用元件。Driver 在初始化以及結束使用元件時必須向系統註冊或釋放元件；而在使用元件方面，Linux提供一個統一的 structure 來描述對元件的控制指令，分別定義了read、write、ioctl（IO control）、open 以及 release 五個函式的 function pointer，讓系統知道每個 driver 要用到的 function 分別是哪些。
+
 2.2 撰寫 driver 程式
 ---------------------
+
+以下分三段介紹 driver 程式的內容，原始的程式碼請到 data/demo.c 下載。
+
+1. 引入標頭檔
+
+   在撰寫 driver 前必須先 include 一些標頭檔：
+
+   ::
+
+     #include <linux/init.h>
+     #include <linux/kernel.h>
+     #include <linux/module.h>
+     #include <linux/fs.h>
+
+2. 撰寫初始化、結束元件的函式
+
+   ::
+
+     #define MAJOR_NUM		60
+     #define MODULE_NAME		"DEMO"
+     static int demo_init(void) {
+        if (register_chrdev(MAJOR_NUM, "demo", &drv_fops) < 0) {
+           printk("<1>%s: can't get major %d\n", MODULE_NAME, MAJOR_NUM);
+           return (-EBUSY);
+        }
+        printk("<1>%s: started\n", MODULE_NAME);
+        return 0;
+     }
+     static void demo_exit(void) {
+        unregister_chrdev(MAJOR_NUM, "demo");
+        printk("<1>%s: removed\n", MODULE_NAME);	
+     }
+     module_init(demo_init);
+     module_exit(demo_exit);
+
+3. 撰寫控制元件的函式
+
+   struct file_operations 即為定義各個 function pointer 的 structure。
+
+   ::
+
+     struct file_operations drv_fops = 
+     {
+        read:		drv_read,
+        write:		drv_write,
+        ioctl:		drv_ioctl,
+        open:		drv_open,
+        release:	drv_release,
+     };
+
+     static ssize_t drv_read(struct file *filp, char *buf, size_t count, loff_t *ppos)
+     {
+        printk("device read\n");
+        return count;
+     }
+
+     static ssize_t drv_write(struct file *filp, const char *buf, size_t count, loff_t *ppos) 
+     {	
+        printk("device write\n");
+        return count;
+     }
+
+     static int drv_open(struct inode *inode, struct file *filp)
+     {
+        printk("device open\n");
+        return 0;
+     }
+
+     int drv_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long arg) 
+     {
+        printk("device ioctl\n");
+        return 0;
+     }
+
+     static int drv_release(struct inode *inode, struct file *filp)
+     {
+        printk("device close\n");
+        return 0;
+     }
+
+
 
 3. 將 driver 掛載到 kernel 上
 ==============================
