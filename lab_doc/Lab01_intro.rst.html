@@ -487,6 +487,18 @@ tar zxf arm-test-0.2.tar.gz
 <div class="section" id="buildroot-toolchain">
 <h3>2.3.1 用 buildroot 製作 toolchain</h3>
 <ol class="arabic">
+<li><p class="first">安裝必須套件</p>
+<p>在開始編譯 buildroot 前，要先在 Ubuntu 上安裝一些套件，請在終端機下鍵入：</p>
+<pre class="literal-block">
+sudo apt-get install bison flex gettext patch build-essential texinfo
+
+sudo apt-get install subversion
+
+sudo apt-get install libncurses5-dev
+</pre>
+</li>
+</ol>
+<ol class="arabic">
 <li><p class="first">下載 buildroot 原始碼</p>
 <p>我們可以用 subversion <a class="footnote-reference" href="#id28" id="id27">[11]</a> 直接下載 buildroot 原始碼。在終端機底下鍵入</p>
 <pre class="literal-block">

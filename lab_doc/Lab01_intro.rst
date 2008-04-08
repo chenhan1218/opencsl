@@ -171,6 +171,18 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 2.3.1 用 buildroot 製作 toolchain
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+1. 安裝必須套件
+
+   在開始編譯 buildroot 前，要先在 Ubuntu 上安裝一些套件，請在終端機下鍵入：
+
+   ::
+
+     sudo apt-get install bison flex gettext patch build-essential texinfo 
+
+     sudo apt-get install subversion
+
+     sudo apt-get install libncurses5-dev
+
 1. 下載 buildroot 原始碼
 
    我們可以用 subversion [#]_ 直接下載 buildroot 原始碼。在終端機底下鍵入
