@@ -310,7 +310,7 @@ svn co svn://busybox.net/branches/busybox_1_9_stable ./busybox
 </div>
 <div class="section" id="id3">
 <h3>2.1.2 調整編譯選項</h3>
-<p>在開始編譯之前，我們需要先調整一些 busybox 的選項。請先下載 busybox 的 config 檔，</p>
+<p>在開始編譯之前，我們需要先調整一些 busybox 的選項。請先將 busybox 的 config 檔下載到 busybox 的目錄內，</p>
 <pre class="literal-block">
 wget http://svn.openfoundry.org/opencsl/lab_doc/data/busybox-1.9.config
 </pre>
@@ -380,7 +380,7 @@ ln -s bin/busybox init
 <p>由於 _install 目錄裡的就檔案在每次重新製作 busybox 時會被清空，我們必須要把 root filesystem 先移至其他的目錄，搬移的方法如下：</p>
 <pre class="literal-block">
 # &lt;rfs&gt; 是 root filesystem 將要放置的位置
-cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
+sudo cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 </pre>
 </div>
 </div>
@@ -409,7 +409,7 @@ sudo apt-get install nfs-kernel-server uml-utilities
 </dl>
 <p>並且把 qemu-ifup 改成可執行的 shell script</p>
 <pre class="literal-block">
-sudo chmoe u+x /etc/qemu-ifup
+sudo chmod u+x /etc/qemu-ifup
 </pre>
 <p>這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。</p>
 </div>
@@ -465,13 +465,16 @@ sudo modprobe tun
       -kernel &lt;KERNEL&gt; \
       -net nic -net tap \
       -nographic \
-      -append &quot;console=ttyAMA0 root=/dev/nfs rw nfsroot=192.168.0.1:&lt;RFS&gt; ip=192.168.0.2::192.168.0.1:255.255.255.0&quot;
+      -append &quot;console=ttyAMA0 root=/dev/nfs rw nfsroot=&lt;HOST_IP&gt;:&lt;RFS&gt; ip=&lt;TARGET_IP&gt;::&lt;HOST_IP&gt;:&lt;MASK&gt;&quot;
 </pre>
 <div class="note">
 <p class="first admonition-title">Note</p>
 <p>&lt;QEMU&gt; = qemu 的根目錄 （如 qemu-0.9.1/ ）</p>
 <p>&lt;KERNEL&gt; = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）</p>
-<p class="last">&lt;RFS&gt; = root filesyste 的位置</p>
+<p>&lt;RFS&gt; = root filesyste 的位置</p>
+<p>&lt;HOST_IP&gt; = 192.168.0.1 （qemu 在 host 端的IP）</p>
+<p>&lt;TARGET_IP&gt; = 192.168.0.2 （target 端的 IP）</p>
+<p class="last">&lt;MASK&gt; = 255.255.255.0 （IP的MASK）</p>
 </div>
 <p>這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。</p>
 </div>

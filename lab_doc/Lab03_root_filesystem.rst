@@ -35,7 +35,7 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 2.1.2 調整編譯選項
 ~~~~~~~~~~~~~~~~~~
 
-在開始編譯之前，我們需要先調整一些 busybox 的選項。請先下載 busybox 的 config 檔，
+在開始編譯之前，我們需要先調整一些 busybox 的選項。請先將 busybox 的 config 檔下載到 busybox 的目錄內，
 
 ::
 
@@ -120,7 +120,7 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 ::
 
   # <rfs> 是 root filesystem 將要放置的位置
-  cp -r <busybox>/_install <rfs>
+  sudo cp -r <busybox>/_install <rfs>
 
 3. 使用新的 root filesystem
 ===========================
@@ -158,7 +158,7 @@ QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU �
 
 ::
 
-  sudo chmoe u+x /etc/qemu-ifup
+  sudo chmod u+x /etc/qemu-ifup
 
 這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。
 
@@ -234,7 +234,7 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
         -kernel <KERNEL> \
         -net nic -net tap \
         -nographic \
-        -append "console=ttyAMA0 root=/dev/nfs rw nfsroot=192.168.0.1:<RFS> ip=192.168.0.2::192.168.0.1:255.255.255.0"
+        -append "console=ttyAMA0 root=/dev/nfs rw nfsroot=<HOST_IP>:<RFS> ip=<TARGET_IP>::<HOST_IP>:<MASK>"
 
 .. note::
   <QEMU> = qemu 的根目錄 （如 qemu-0.9.1/ ）
@@ -242,6 +242,12 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
   <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
 
   <RFS> = root filesyste 的位置
+
+  <HOST_IP> = 192.168.0.1 （qemu 在 host 端的IP）
+
+  <TARGET_IP> = 192.168.0.2 （target 端的 IP）
+
+  <MASK> = 255.255.255.0 （IP的MASK）
 
 這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。
 
