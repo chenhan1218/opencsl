@@ -52,43 +52,13 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
      #include <linux/module.h>
      #include <linux/fs.h>
 
-2. 撰寫初始化、結束元件的函式
-
-   ::
-
-     #define MAJOR_NUM		60
-     #define MODULE_NAME		"DEMO"
-     static int demo_init(void) {
-        if (register_chrdev(MAJOR_NUM, "demo", &drv_fops) < 0) {
-           printk("<1>%s: can't get major %d\n", MODULE_NAME, MAJOR_NUM);
-           return (-EBUSY);
-        }
-        printk("<1>%s: started\n", MODULE_NAME);
-        return 0;
-     }
-     static void demo_exit(void) {
-        unregister_chrdev(MAJOR_NUM, "demo");
-        printk("<1>%s: removed\n", MODULE_NAME);	
-     }
-     module_init(demo_init);
-     module_exit(demo_exit);
-
-3. 撰寫控制元件的函式
+2. 撰寫控制元件的函式
 
    struct file_operations 即為定義各個 function pointer 的 structure。
 
    ::
 
-     struct file_operations drv_fops = 
-     {
-        read:		drv_read,
-        write:		drv_write,
-        ioctl:		drv_ioctl,
-        open:		drv_open,
-        release:	drv_release,
-     };
-
-     static ssize_t drv_read(struct file *filp, char *buf, size_t count, loff_t *ppos)
+    static ssize_t drv_read(struct file *filp, char *buf, size_t count, loff_t *ppos)
      {
         printk("device read\n");
         return count;
@@ -117,6 +87,40 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
         printk("device close\n");
         return 0;
      }
+     
+     struct file_operations drv_fops = 
+     {
+        read:		drv_read,
+        write:		drv_write,
+        ioctl:		drv_ioctl,
+        open:		drv_open,
+        release:	drv_release,
+     };
+
+ 
+
+3. 撰寫初始化、結束元件的函式
+
+   ::
+
+     #define MAJOR_NUM		60
+     #define MODULE_NAME		"DEMO"
+     static int demo_init(void) {
+        if (register_chrdev(MAJOR_NUM, "demo", &drv_fops) < 0) {
+           printk("<1>%s: can't get major %d\n", MODULE_NAME, MAJOR_NUM);
+           return (-EBUSY);
+        }
+        printk("<1>%s: started\n", MODULE_NAME);
+        return 0;
+     }
+     static void demo_exit(void) {
+        unregister_chrdev(MAJOR_NUM, "demo");
+        printk("<1>%s: removed\n", MODULE_NAME);	
+     }
+     module_init(demo_init);
+     module_exit(demo_exit);
+
+   其中 MAJOR_NUM 即為 driver 所對應的 device 的 major number
 
 3. 將 driver 掛載到 kernel 上
 ==============================
