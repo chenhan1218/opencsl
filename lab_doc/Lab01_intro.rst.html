@@ -288,13 +288,35 @@ ul.auto-toc {
 <div class="document" id="lab-1">
 <h1 class="title">Lab 1 環境設定</h1>
 
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id32">1. 實驗簡介</a><ul>
+<li><a class="reference internal" href="#id2" id="id33">1.1 什麼是嵌入式系統？</a></li>
+<li><a class="reference internal" href="#id5" id="id34">1.2 實驗操作環境介紹</a></li>
+<li><a class="reference internal" href="#id6" id="id35">1.3 實驗流程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id36">2. 準備操作環境</a><ul>
+<li><a class="reference internal" href="#ubuntu-7-10" id="id37">2.1 Ubuntu 7.10</a></li>
+<li><a class="reference internal" href="#qemu" id="id38">2.2 QEMU</a></li>
+<li><a class="reference internal" href="#toolchain" id="id39">2.3 toolchain</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30" id="id40">3. 參考資料</a><ul>
+<li><a class="reference internal" href="#linux" id="id41">3.1 Linux 版本狀況</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id31" id="id42">4. 關於本文件</a></li>
+</ul>
+</div>
 <!-- 操作環境先以 Linux 為範例，完成八成草稿後，再加入 Windows 環境的操作範例。 -->
 <p>OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab course material），想要透過各種 open source 工具的使用來模擬嵌入式系統的開發環境，並提供對嵌入式系統有興趣的人一項入門的管道。</p>
 <div class="section" id="id1">
-<h1>1. 實驗簡介</h1>
+<h1><a class="toc-backref" href="#id32">1. 實驗簡介</a></h1>
 <p>在第一次實驗中，我們將介紹本實驗的環境、環境的相關設定，以及整套實驗的流程。</p>
 <div class="section" id="id2">
-<h2>1.1 什麼是嵌入式系統？</h2>
+<h2><a class="toc-backref" href="#id33">1.1 什麼是嵌入式系統？</a></h2>
 <p>嵌入式系統是電腦系統的一種，和一般個人電腦不同的是，它通常是為了特定目的而設計的，而且只有有限的硬體資源可以使用，這些特性使得開發嵌入式系統比一般系統開發還要複雜。嵌入式系統的相關介紹可以參考 wikipedia <a class="footnote-reference" href="#id4" id="id3">[1]</a> 。</p>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -304,7 +326,7 @@ ul.auto-toc {
 </table>
 </div>
 <div class="section" id="id5">
-<h2>1.2 實驗操作環境介紹</h2>
+<h2><a class="toc-backref" href="#id34">1.2 實驗操作環境介紹</a></h2>
 <p>在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：</p>
 <ol class="upperroman simple">
 <li>作業系統：ubuntu 7.10</li>
@@ -315,7 +337,7 @@ ul.auto-toc {
 </ol>
 </div>
 <div class="section" id="id6">
-<h2>1.3 實驗流程</h2>
+<h2><a class="toc-backref" href="#id35">1.3 實驗流程</a></h2>
 <p>本套實驗將以循序漸進的方式，逐步介紹開發嵌入式系統所需的知識及技術，並搭配 open source 工具來實做各個實驗。</p>
 <ol class="upperroman simple">
 <li>Lab01 環境設定</li>
@@ -366,9 +388,9 @@ Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的�
 </div>
 </div>
 <div class="section" id="id9">
-<h1>2. 準備操作環境</h1>
+<h1><a class="toc-backref" href="#id36">2. 準備操作環境</a></h1>
 <div class="section" id="ubuntu-7-10">
-<h2>2.1 Ubuntu 7.10</h2>
+<h2><a class="toc-backref" href="#id37">2.1 Ubuntu 7.10</a></h2>
 <p>Ubuntu <a class="footnote-reference" href="#id12" id="id10">[3]</a>  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 <a class="footnote-reference" href="#id13" id="id11">[4]</a> 上下載到安裝/ 試用光碟。
 若要安裝 Ubuntu 在電腦上，請至少預留2G的空間，供日後各程式原始碼、執行檔儲存。</p>
 <table class="docutils footnote" frame="void" id="id12" rules="none">
@@ -385,7 +407,7 @@ Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的�
 </table>
 </div>
 <div class="section" id="qemu">
-<h2>2.2 QEMU</h2>
+<h2><a class="toc-backref" href="#id38">2.2 QEMU</a></h2>
 <p>QEMU 是一套 emulator <a class="footnote-reference" href="#id16" id="id14">[5]</a> 軟體，能在 PC 系統上模擬其他 processor 的運作方式，在 Linux 或 Windows 上都能執行。
 QEMU 的相關介紹可參考維基百科或是其官方網站 <a class="footnote-reference" href="#id17" id="id15">[6]</a></p>
 <table class="docutils footnote" frame="void" id="id16" rules="none">
@@ -457,7 +479,7 @@ tar zxf arm-test-0.2.tar.gz
 </div>
 </div>
 <div class="section" id="toolchain">
-<h2>2.3 toolchain</h2>
+<h2><a class="toc-backref" href="#id39">2.3 toolchain</a></h2>
 <p>toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於 toolchain 的介紹可以參考維基百科 <a class="footnote-reference" href="#id23" id="id19">[7]</a> 。 每一套 toolchain 都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain ，取而代之的方法便是使用具有 cross compiler <a class="footnote-reference" href="#id24" id="id20">[8]</a> 功能的 toolchain ，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。</p>
 <p>Buildroot <a class="footnote-reference" href="#id25" id="id21">[9]</a> 是一套基於 uClibc C library <a class="footnote-reference" href="#id26" id="id22">[10]</a> ，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作 cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM 平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。</p>
 <table class="docutils footnote" frame="void" id="id23" rules="none">
@@ -571,9 +593,9 @@ source ~/.bashrc
 </div>
 </div>
 <div class="section" id="id30">
-<h1>3. 參考資料</h1>
+<h1><a class="toc-backref" href="#id40">3. 參考資料</a></h1>
 <div class="section" id="linux">
-<h2>3.1 Linux 版本狀況</h2>
+<h2><a class="toc-backref" href="#id41">3.1 Linux 版本狀況</a></h2>
 <p>An extremely rushed history of the Linux kernel</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -643,7 +665,7 @@ source ~/.bashrc
 </div>
 </div>
 <div class="section" id="id31">
-<h1>4. 關於本文件</h1>
+<h1><a class="toc-backref" href="#id42">4. 關於本文件</a></h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
 </div>
