@@ -60,7 +60,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
   ::
 
     # 下載 config 檔
-    wget http://free-electrons.com/pub/qemu/demos/arm/arm-test/linux-2.6.18/linux-2.6.18.config
+    wget http://opencsl.openfoundry.org/setting/linux-2.6.18.config
 
   在下載完成後，鍵入 make menuconfig ARCH=arm ，即可進入圖形化介面的設定模式。
 
