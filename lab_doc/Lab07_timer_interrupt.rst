@@ -113,7 +113,6 @@ timer interrupt 的 ISR 放在 <linux>/kernel/timer.c 中，裡面包含了 top 
 
 ::
 
-  long th_vs_bh = 0;
   int vs_count = 0;
 
 其中， th_vs_bh 是用來紀錄目前 top half 的執行次數，而 vs_count 則是用來紀錄 bottom half 的次數。由於呼叫 bottom half 之前一定會先呼叫 top half ，所以我們可以在每次 bottom half 被呼叫時印出目前 top half 被呼叫的次數，即可知道兩者之間的比例了。
@@ -121,8 +120,12 @@ timer interrupt 的 ISR 放在 <linux>/kernel/timer.c 中，裡面包含了 top 
 do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
 
 ::
-  
-  long th_vs_bh++;
+ 
+  if ( vs_count < 50 ){
+     printk("timer interrupt top half");
+  }
+
+ 
 
 接著，在 bottom half 函式 run_timer_softirq 中加入
 
@@ -130,8 +133,7 @@ do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
 
   vs_count++;
   if ( vs_count < 50 ){
-     printk("-----top-half vs bottom-half=%ld vs 1\n", th_vs_bh);
-     th_vs_bh = 0;
+     printk("      +-----timer interrupt:: bottom half\n");
   }
 
 最後再重新製作 kernel image 即可。
@@ -142,6 +144,14 @@ do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
 
 3.2 用 QEMU 執行觀察
 ---------------------
+
+我們可以發現當 QEMU 啟動 Linux 時，會不斷地印出 
+
+::
+
+  timer interrupt  top half      +-----timer interrupt:: bottom half
+
+的訊息，表示 timer interrupt 是不斷被觸發，而且 top half 是先於 bottom half 的。
 
 4. 關於本文件
 =============
