@@ -39,7 +39,9 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 2.2 撰寫 driver 程式
 ---------------------
 
-以下分三段介紹 driver 程式的內容，原始的程式碼請到 data/demo.c 下載。
+以下分三段介紹 driver 程式的內容，原始的程式碼請到 opencsl 網頁 [#]_ 下載。
+
+.. [#] http://opencsl.openfoundry.org/src/
 
 1. 引入標頭檔
 
