@@ -229,6 +229,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 3. 製作 toolchain
 
    在設定完成之後，只要直接在 buildroot 的目錄上鍵入 make ，buildroot 就會製作 toolchain ，此時請記得讓電腦處在有網路連線的狀態，因為 buildroot 會到網路上抓一些需要的程式碼。
+   當 buildroot 開始編譯後，建議不妨休息一下，或找本書來看，因為製作 toolchain 需要一段不短的時間。
 
 .. [#] http://en.wikipedia.org/wiki/Subversion_%28software%29
 
