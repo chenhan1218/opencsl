@@ -325,7 +325,7 @@ printk(&quot;----------------\ntime_init()\n----------------\n&quot;);
 </pre>
 <p>我們可以將 CLOCK_TICK_RATE 改成 CLOCK_TICK_RATE/2 ，就可以將 timer interrupt 的頻率增加一倍，</p>
 <pre class="literal-block">
-#define ACTHZ (SH_DIV (CLOCK_TICK_RATE/2, LATCH, 8))
+#define ACTHZ (SH_DIV (CLOCK_TICK_RATE/10, LATCH, 8))
 </pre>
 </li>
 <li><p class="first">重新編譯 kernel</p>
@@ -372,12 +372,12 @@ arm-linux-uclibc-gcc -static -I &lt;linux&gt;/include test.c -o test.out
 </div>
 <div class="section" id="qemu">
 <h2>2.3 用 QEMU 測試</h2>
-<p>我們可以分別用之前的 kernel image 和剛製作的 kernel image 來執行 test.out ，就可以發現雖然是相同的程式，但用新編譯 kernel 執行要花較久的時間 <a href="#id10"><span class="problematic" id="id11"><span id="id6"></span>[#]_</span></a> 。</p>
+<p>我們可以分別用之前的 kernel image 和剛製作的 kernel image 來執行 test.out ，就可以發現雖然是相同的程式，但用新編譯 kernel 執行要花較久的時間 。</p>
 </div>
 </div>
 <div class="section" id="top-bottom-half">
 <h1>3. 觀察 top/bottom half</h1>
-<div class="section" id="id7">
+<div class="section" id="id6">
 <h2>3.1 調整 kernel</h2>
 <p>timer interrupt 的 ISR 放在 &lt;linux&gt;/kernel/timer.c 中，裡面包含了 top half 和 bottom half 的函式。我們可以將它們作一些調整，以了解兩個函式之間執行次數的比例。</p>
 <p>在 timer.c 中，先加入兩個全域變數：</p>
@@ -403,7 +403,7 @@ if ( vs_count &lt; 50 ){
 make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
 </pre>
 </div>
-<div class="section" id="id8">
+<div class="section" id="id7">
 <h2>3.2 用 QEMU 執行觀察</h2>
 <p>我們可以發現當 QEMU 啟動 Linux 時，會不斷地印出</p>
 <pre class="literal-block">
@@ -412,15 +412,9 @@ timer interrupt  top half      +-----timer interrupt:: bottom half
 <p>的訊息，表示 timer interrupt 是不斷被觸發，而且 top half 是先於 bottom half 的。</p>
 </div>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id8">
 <h1>4. 關於本文件</h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
-</div>
-<div class="system-messages section">
-<h1>Docutils System Messages</h1>
-<div class="system-message" id="id10">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Lab07_timer_interrupt.rst</tt>, line 102); <em><a href="#id11">backlink</a></em></p>
-Too many autonumbered footnote references: only 1 corresponding footnotes available.</div>
 </div>
 </div>
 </body>
