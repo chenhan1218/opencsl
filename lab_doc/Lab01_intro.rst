@@ -22,45 +22,45 @@ OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab cour
 ---------------------
 在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：
 
-I.   作業系統：ubuntu 7.10
-II.  模擬軟體：QEMU
-III. toolchain：buildroot
-IV.  模擬平台：ARM
-V.   模擬的作業系統：Linux
+1.   作業系統：ubuntu 7.10
+2.  模擬軟體：QEMU
+3. toolchain：buildroot
+4.  模擬平台：ARM
+5.   模擬的作業系統：Linux
 
 1.3 實驗流程
 --------------
 本套實驗將以循序漸進的方式，逐步介紹開發嵌入式系統所需的知識及技術，並搭配 open source 工具來實做各個實驗。
 
-I. Lab01 環境設定
+1. Lab01 環境設定
 
   介紹實驗，以及準備實驗環境。
 
-II. Lab02 製作 Linux Kernel
+2. Lab02 製作 Linux Kernel
 
   這次實驗是在介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。
 
-III. Lab03 製作 root filesystem
+3. Lab03 製作 root filesystem
 
   此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem、製作搭配 Linux Kernel 的 root filesystem 以及使用 NFS。
 
-IV. Lab04 OS porting
+4. Lab04 OS porting
 
   在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 [#]_ 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。
 
-V. Lab05 debugger 和 software emulator
+5. Lab05 debugger 和 software emulator
 
   本次實驗在介紹如何在對嵌入式系統進行除錯，內容包含了 GDB 以及 Insight 的使用教學。
 
-VI. Lab06 Interrupt 和 Exceptions
+6. Lab06 Interrupt 和 Exceptions
 
   Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹 interrupt 和 exception 的觀念，並透過實做一個新的 system call 以及修改 device driver 來更深入了解 Linux 的運作方式。
 
-VII. Lab07 Linux Timer Interrupt
+7. Lab07 Linux Timer Interrupt
 
   Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的效能有關。本實驗將介紹如何調整 linux kernel 中的 timer 以及了解其對系統的影響。
 
-VIII. Lab08 Linux Device Driver
+8. Lab08 Linux Device Driver
 
   由於嵌入式系統的多樣性，每個系統常常擁有和其他平台不同的裝置，也就需要額外的驅動程式才能控制裝置。本實驗將介紹兩種撰寫驅動程式的方法，以及學會在 linux 中使用額外裝置的方法。
 
