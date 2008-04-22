@@ -130,14 +130,71 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 3.1 方法一：用 module 的方式撰寫 driver
 -----------------------------------------
 
+將 driver 製作成 module 的好處是可以在不重開機的狀下，重複載入更新過的 driver ，在開發 driver 時是一個方便的許選擇。
+
+在編譯 module 前，要先更新 ubuntu 的套件。請在終端機下鍵入：
+
+::
+
+  sudo apt-get install module-assistant
+
+
 3.1.1 調整 kernel 為接受 module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+因為原本預設的 kernel config 並不接受動態掛載 module ，我們要新增對 loadable module 的支援。
+
+在 linux kernel 的 menuconfig 中 [#]_ ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。
+
+接著請重新編譯 kernel ，即可產生支援動態掛載 module 的 kernel image 了。
+
+.. [#] 編譯 linux kernel 的相關步驟可參考實驗二
 
 3.1.2 編譯 driver module
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+編譯 module 的方法和一般的程式有一些不同，請先到 opencsl 網站下載 Makefile ：
+
+::
+
+  wget http://opencsl.openfoundry.org/src/Makefile
+
+將它和 demo.c 放到同一層目錄，並在上面鍵入 [#]_
+
+::
+
+  make -C <linux>  M=$(pwd) modules 
+
+即可產生 demo.ko ，這是我們之後要拿來掛載的 module 。
+
+.. [#] <linux> 為 linux source 的根目錄路徑
+
 3.1.3 掛載 driver
 ~~~~~~~~~~~~~~~~~~
+
+在 linux 中和 module 有關的指令有三：
+
+1. insmod ： 掛載 module
+2. lsmod ： 檢查目前 module 的狀態
+3. rmmod ：卸載 module 
+
+在用 QEMU 載入新 kernel image 後，可以在 demo.ko 的目錄下鍵入
+
+::
+
+  insmod demo.ko 
+
+即可將 demo 載入 kernel 中。此時可用 lsmod 來確定 demo 是否有被成功掛載。
+
+在掛載 demo 的同時，我們也可以發現 linux 有印出我們在 demo.c 裡定義的訊息。
+
+若要將 demo 移除或重新掛載，可以鍵入
+
+::
+
+  rmmod demo.ko 
+
+就可以將 demo 移除。
 
 3.2 方法二：將 driver 寫成 kernel 的一部分
 -------------------------------------------
@@ -147,9 +204,7 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 3.2.1 編輯 driver source
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-請將在 2.2 完成的 driver source 放到 <linux> [#]_ /driver/char/ 目錄中，這裡放的是 linux character device driver 的程式碼。
-
-.. [#] <linux> 為 linux source 的根目錄路徑
+請將在 2.2 完成的 driver source 放到 <linux>/driver/char/ 目錄中，這裡放的是 linux character device driver 的程式碼。
 
 3.2.2 調整 Kconfig
 ~~~~~~~~~~~~~~~~~~~~~
