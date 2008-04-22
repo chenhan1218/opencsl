@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Lab 8 device driver</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  background: #ffffcc;
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="lab-8-device-driver">
+<h1 class="title">Lab 8 device driver</h1>
+
+<p>Driver 是程式和硬體元件溝通的橋樑。本次實驗將介紹在 Linux 中撰寫/使用 driver 的兩種方法，並另外補充關於 module 、 device 的基本知識。</p>
+<div class="section" id="device-driver">
+<h1>1. 什麼是 device driver</h1>
+<div class="section" id="id1">
+<h2>1.1 device driver</h2>
+<p>Device driver 是介於實體設備與程式間的橋樑，它是 kernel 的一部分，user program 可以透過 driver 來使用實體設備。 Driver 大致可以分為 Block Device Driver 和 Character Device Driver，前者每次會傳輸固定的資料量，而後者的資料量則不需固定。</p>
+</div>
+<div class="section" id="device">
+<h2>1.2 device</h2>
+<p>在 Linux 中，所有的設備都是一個檔案，每個檔案都有自己特殊的編號和型態，我們可以在 /dev 中找到目前系統所有的 device ，這些 device 不一定是實際存在的硬體，也有可能是以虛擬的方式掛載上去的。例如，如果想要了解目前系統中總共有多少的 SATA 硬碟以及分割區，可以在終端機下鍵入：</p>
+<pre class="literal-block">
+ls -l /dev/sd*
+</pre>
+<p>如果想知道更多關於 device 、 device driver 的資訊，可以參考 Wikipedia <a class="footnote-reference" href="#id3" id="id2">[1]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><p class="first">device : <a class="reference external" href="http://en.wikipedia.org/wiki/Device_node">http://en.wikipedia.org/wiki/Device_node</a></p>
+<p class="last">device driver: <a class="reference external" href="http://en.wikipedia.org/wiki/Device_driver">http://en.wikipedia.org/wiki/Device_driver</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="driver">
+<h1>2. 撰寫 driver</h1>
+<div class="section" id="id4">
+<h2>2.1 driver 程式的基本結構</h2>
+<p>Driver 作為程式和元件之間的橋樑，它必須提供一些基本的使用介面，如讀、寫或是其他控制元件的指令，本節將介紹撰寫一個 driver 所需的最基本架構。</p>
+<p>Driver 主要由兩部份構成：初始化、結束元件以及使用元件。Driver 在初始化以及結束使用元件時必須向系統註冊或釋放元件；而在使用元件方面，Linux提供一個統一的 structure 來描述對元件的控制指令，分別定義了read、write、ioctl（IO control）、open 以及 release 五個函式的 function pointer，讓系統知道每個 driver 要用到的 function 分別是哪些。</p>
+</div>
+<div class="section" id="id5">
+<h2>2.2 撰寫 driver 程式</h2>
+<p>以下分三段介紹 driver 程式的內容，原始的程式碼請到 opencsl 網頁 <a class="footnote-reference" href="#id7" id="id6">[2]</a> 下載。</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[2]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/src/">http://opencsl.openfoundry.org/src/</a></td></tr>
+</tbody>
+</table>
+<ol class="arabic">
+<li><p class="first">引入標頭檔</p>
+<p>在撰寫 driver 前必須先 include 一些標頭檔：</p>
+<pre class="literal-block">
+#include &lt;linux/init.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/fs.h&gt;
+</pre>
+</li>
+<li><p class="first">撰寫控制元件的函式</p>
+<p>struct file_operations 即為定義各個 function pointer 的 structure。</p>
+<pre class="literal-block">
+static ssize_t drv_read(struct file *filp, char *buf, size_t count, loff_t *ppos)
+ {
+    printk(&quot;device read\n&quot;);
+    return count;
+ }
+
+ static ssize_t drv_write(struct file *filp, const char *buf, size_t count, loff_t *ppos)
+ {
+    printk(&quot;device write\n&quot;);
+    return count;
+ }
+
+ static int drv_open(struct inode *inode, struct file *filp)
+ {
+    printk(&quot;device open\n&quot;);
+    return 0;
+ }
+
+ int drv_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long arg)
+ {
+    printk(&quot;device ioctl\n&quot;);
+    return 0;
+ }
+
+ static int drv_release(struct inode *inode, struct file *filp)
+ {
+    printk(&quot;device close\n&quot;);
+    return 0;
+ }
+
+ struct file_operations drv_fops =
+ {
+    read:           drv_read,
+    write:          drv_write,
+    ioctl:          drv_ioctl,
+    open:           drv_open,
+    release:        drv_release,
+ };
+</pre>
+</li>
+<li><p class="first">撰寫初始化、結束元件的函式</p>
+<pre class="literal-block">
+#define MAJOR_NUM          60
+#define MODULE_NAME                &quot;DEMO&quot;
+static int demo_init(void) {
+   if (register_chrdev(MAJOR_NUM, &quot;demo&quot;, &amp;drv_fops) &lt; 0) {
+      printk(&quot;&lt;1&gt;%s: can't get major %d\n&quot;, MODULE_NAME, MAJOR_NUM);
+      return (-EBUSY);
+   }
+   printk(&quot;&lt;1&gt;%s: started\n&quot;, MODULE_NAME);
+   return 0;
+}
+static void demo_exit(void) {
+   unregister_chrdev(MAJOR_NUM, &quot;demo&quot;);
+   printk(&quot;&lt;1&gt;%s: removed\n&quot;, MODULE_NAME);
+}
+module_init(demo_init);
+module_exit(demo_exit);
+</pre>
+<p>其中 MAJOR_NUM 即為 driver 所對應的 device 的 major number</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="driver-kernel">
+<h1>3. 將 driver 掛載到 kernel 上</h1>
+<div class="section" id="module-driver">
+<h2>3.1 方法一：用 module 的方式撰寫 driver</h2>
+<p>將 driver 製作成 module 的好處是可以在不重開機的狀下，重複載入更新過的 driver ，在開發 driver 時是一個方便的許選擇。</p>
+<p>在編譯 module 前，要先更新 ubuntu 的套件。請在終端機下鍵入：</p>
+<pre class="literal-block">
+sudo apt-get install module-assistant
+</pre>
+<div class="section" id="kernel-module">
+<h3>3.1.1 調整 kernel 為接受 module</h3>
+<p>因為原本預設的 kernel config 並不接受動態掛載 module ，我們要新增對 loadable module 的支援。</p>
+<p>在 linux kernel 的 menuconfig 中 <a class="footnote-reference" href="#id9" id="id8">[3]</a> ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。</p>
+<p>接著請重新編譯 kernel ，即可產生支援動態掛載 module 的 kernel image 了。</p>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[3]</a></td><td>編譯 linux kernel 的相關步驟可參考實驗二</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="driver-module">
+<h3>3.1.2 編譯 driver module</h3>
+<p>編譯 module 的方法和一般的程式有一些不同，請先到 opencsl 網站下載 Makefile ：</p>
+<pre class="literal-block">
+wget http://opencsl.openfoundry.org/src/Makefile
+</pre>
+<p>將它和 demo.c 放到同一層目錄，並在上面鍵入 <a class="footnote-reference" href="#id11" id="id10">[4]</a></p>
+<pre class="literal-block">
+make -C &lt;linux&gt;  M=$(pwd) modules
+</pre>
+<p>即可產生 demo.ko ，這是我們之後要拿來掛載的 module 。</p>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[4]</a></td><td>&lt;linux&gt; 為 linux source 的根目錄路徑</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>3.1.3 掛載 driver</h3>
+<p>在 linux 中和 module 有關的指令有三：</p>
+<ol class="arabic simple">
+<li>insmod ： 掛載 module</li>
+<li>lsmod ： 檢查目前 module 的狀態</li>
+<li>rmmod ：卸載 module</li>
+</ol>
+<p>在用 QEMU 載入新 kernel image 後，可以在 demo.ko 的目錄下鍵入</p>
+<pre class="literal-block">
+insmod demo.ko
+</pre>
+<p>即可將 demo 載入 kernel 中。此時可用 lsmod 來確定 demo 是否有被成功掛載。</p>
+<p>在掛載 demo 的同時，我們也可以發現 linux 有印出我們在 demo.c 裡定義的訊息。</p>
+<p>若要將 demo 移除或重新掛載，可以鍵入</p>
+<pre class="literal-block">
+rmmod demo.ko
+</pre>
+<p>就可以將 demo 移除。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>3.2 方法二：將 driver 寫成 kernel 的一部分</h2>
+<p>若想要將 driver 編成 kernel 的一部分，在開機時就直接掛載到 Linux 上，要先將 driver 程式放在 kernel source 裡，並將 Makefile 作一些調整使編譯 kernrl 時能夠將 driver 囊括進去。</p>
+<div class="section" id="driver-source">
+<h3>3.2.1 編輯 driver source</h3>
+<p>請將在 2.2 完成的 driver source 放到 &lt;linux&gt;/driver/char/ 目錄中，這裡放的是 linux character device driver 的程式碼。</p>
+</div>
+<div class="section" id="kconfig">
+<h3>3.2.2 調整 Kconfig</h3>
+<p>接下來，我們要調整 Kconfig 使 make menuconfig 時出現 demo driver 的選項。 &lt;linux&gt;/driver/char/Kconfig 是定義 menuconfig 的檔案，請跳到最後一行，並在 endmenu 前加入</p>
+<pre class="literal-block">
+config DEMO
+   tristate &quot;DEMO driver for OPENCSL&quot;
+   default n
+</pre>
+<p>其中 config DEMO 是宣告一個新的選項叫做 DEMO ，它的說明為 DEMO driver for OPENCSL ， menuconfig 的預設是沒有選取。</p>
+</div>
+<div class="section" id="makefile">
+<h3>3.2.3 調整 Makefile</h3>
+<p>再來是調整 Makefile ，使 driver 能夠在編譯時被包含到 kernel 中。在 &lt;linux&gt;/driver/char/Makefile 這個關於 character device driver 的 Makefile 中找到</p>
+<pre class="literal-block">
+obj-$(CONFIG_TCG_TPM) += tpm/
+</pre>
+<p>並在其下一行加入</p>
+<pre class="literal-block">
+obj-$(CONFIG_DEMO)   += demo.o
+</pre>
+<p>即可。</p>
+</div>
+<div class="section" id="kernel">
+<h3>3.2.4 重新編譯 kernel</h3>
+<p>最後，使用 cross-compiler 重新編譯 kernel ，即可產生包含 DEMO driver 的 kernel image 。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>3.3 測試 driver</h2>
+<p>我們可以撰寫一個簡單的測試程式來觀察 driver 的運作模式。</p>
+<pre class="literal-block">
+#include &lt;stdio.h&gt;
+int main()
+{
+   char buf[512];
+   FILE *fp = fopen(&quot;/dev/demo&quot;, &quot;w+&quot;);
+   if(fp == NULL) {
+      printf(&quot;can't open device!\n&quot;);
+      return -1;
+   }
+   fread(buf, sizeof(buf), 1, fp);
+   fwrite(buf, sizeof(buf), 1, fp);
+   fclose(fp);
+   return 0;
+}
+</pre>
+<p>接著，使用 cross-compiler 並加上 -static 參數即可編譯出執行檔。</p>
+<div class="section" id="id15">
+<h3>3.3.1 新增 device</h3>
+<p>在使用測試程式之前，我們必須先在 /dev 中建立 driver 要用到 device ，在開啟 qemu 後鍵入</p>
+<pre class="literal-block">
+mknod /dev/demo c 60 0
+</pre>
+<p>其中 c 為 character device 的意思，60 以及 0 則分別為該 device 的 major 和 minor number</p>
+</div>
+<div class="section" id="id16">
+<h3>3.3.2 使用 driver</h3>
+<p>我們可以透過執行剛編譯出的測試程式來觀察 driver 的運作流程，或是直接在命令列鍵入</p>
+<pre class="literal-block">
+echo &quot;?&quot; &gt;  /dev/demo
+</pre>
+<p>對 /dev/demo 寫入一些資料，也會產生類似的效果。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h1>4. 關於本文件</h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+</div>
+</div>
+</body>
+</html>
