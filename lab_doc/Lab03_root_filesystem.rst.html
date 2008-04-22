@@ -7,280 +7,84 @@
 <title>Lab 3 製作 root filesystem</title>
 <style type="text/css">
 
-/*
-:Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
-:Copyright: This stylesheet has been placed in the public domain.
-
-Default cascading style sheet for the HTML output of Docutils.
-
-See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
-customize this style sheet.
-*/
-
-/* used to remove borders from tables and images */
-.borderless, table.borderless td, table.borderless th {
-  border: 0 }
-
-table.borderless td, table.borderless th {
-  /* Override padding for "table.docutils td" with "! important".
-     The right padding separates the table cells. */
-  padding: 0 0.5em 0 0 ! important }
-
-.first {
-  /* Override more specific margin styles with "! important". */
-  margin-top: 0 ! important }
-
-.last, .with-subtitle {
-  margin-bottom: 0 ! important }
-
-.hidden {
-  display: none }
-
-a.toc-backref {
-  text-decoration: none ;
-  color: black }
-
-blockquote.epigraph {
-  margin: 2em 5em ; }
-
-dl.docutils dd {
-  margin-bottom: 0.5em }
-
-/* Uncomment (and remove this text!) to get bold-faced definition list terms
-dl.docutils dt {
-  font-weight: bold }
-*/
-
-div.abstract {
-  margin: 2em 5em }
-
-div.abstract p.topic-title {
-  font-weight: bold ;
-  text-align: center }
-
-div.admonition, div.attention, div.caution, div.danger, div.error,
-div.hint, div.important, div.note, div.tip, div.warning {
-  margin: 2em ;
-  border: medium outset ;
-  padding: 1em }
-
-div.admonition p.admonition-title, div.hint p.admonition-title,
-div.important p.admonition-title, div.note p.admonition-title,
-div.tip p.admonition-title {
-  font-weight: bold ;
-  font-family: sans-serif }
-
-div.attention p.admonition-title, div.caution p.admonition-title,
-div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title {
-  color: red ;
-  font-weight: bold ;
-  font-family: sans-serif }
-
-/* Uncomment (and remove this text!) to get reduced vertical space in
-   compound paragraphs.
-div.compound .compound-first, div.compound .compound-middle {
-  margin-bottom: 0.5em }
 
-div.compound .compound-last, div.compound .compound-middle {
-  margin-top: 0.5em }
-*/
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+ol.upperroman{
+	list-style: upper-roman
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
 
-div.dedication {
-  margin: 2em 5em ;
-  text-align: center ;
-  font-style: italic }
-
-div.dedication p.topic-title {
-  font-weight: bold ;
-  font-style: normal }
-
-div.figure {
-  margin-left: 2em ;
-  margin-right: 2em }
-
-div.footer, div.header {
-  clear: both;
-  font-size: smaller }
-
-div.line-block {
-  display: block ;
-  margin-top: 1em ;
-  margin-bottom: 1em }
-
-div.line-block div.line-block {
-  margin-top: 0 ;
-  margin-bottom: 0 ;
-  margin-left: 1.5em }
-
-div.sidebar {
-  margin: 0 0 0.5em 1em ;
-  border: medium outset ;
-  padding: 1em ;
-  background-color: #ffffee ;
-  width: 40% ;
-  float: right ;
-  clear: right }
-
-div.sidebar p.rubric {
-  font-family: sans-serif ;
-  font-size: medium }
-
-div.system-messages {
-  margin: 5em }
-
-div.system-messages h1 {
-  color: red }
-
-div.system-message {
-  border: medium outset ;
-  padding: 1em }
-
-div.system-message p.system-message-title {
-  color: red ;
-  font-weight: bold }
-
-div.topic {
-  margin: 2em }
-
-h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
-h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
-  margin-top: 0.4em }
-
-h1.title {
-  text-align: center }
-
-h2.subtitle {
-  text-align: center }
-
-hr.docutils {
-  width: 75% }
-
-img.align-left {
-  clear: left }
-
-img.align-right {
-  clear: right }
-
-ol.simple, ul.simple {
-  margin-bottom: 1em }
-
-ol.arabic {
-  list-style: decimal }
-
-ol.loweralpha {
-  list-style: lower-alpha }
-
-ol.upperalpha {
-  list-style: upper-alpha }
-
-ol.lowerroman {
-  list-style: lower-roman }
-
-ol.upperroman {
-  list-style: upper-roman }
-
-p.attribution {
-  text-align: right ;
-  margin-left: 50% }
-
-p.caption {
-  font-style: italic }
-
-p.credits {
-  font-style: italic ;
-  font-size: smaller }
-
-p.label {
-  white-space: nowrap }
-
-p.rubric {
-  font-weight: bold ;
-  font-size: larger ;
-  color: maroon ;
-  text-align: center }
-
-p.sidebar-title {
-  font-family: sans-serif ;
-  font-weight: bold ;
-  font-size: larger }
-
-p.sidebar-subtitle {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-p.topic-title {
-  font-weight: bold }
-
-pre.address {
-  margin-bottom: 0 ;
-  margin-top: 0 ;
-  font-family: serif ;
-  font-size: 100% }
-
-pre.literal-block, pre.doctest-block {
-  background: #ffffcc;
-  margin-left: 2em ;
-  margin-right: 2em }
-
-span.classifier {
-  font-family: sans-serif ;
-  font-style: oblique }
-
-span.classifier-delimiter {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-span.interpreted {
-  font-family: sans-serif }
-
-span.option {
-  white-space: nowrap }
-
-span.pre {
-  white-space: pre }
-
-span.problematic {
-  color: red }
-
-span.section-subtitle {
-  /* font-size relative to parent (h1..h6 element) */
-  font-size: 80% }
-
-table.citation {
-  border-left: solid 1px gray;
-  margin-left: 1px }
-
-table.docinfo {
-  margin: 2em 4em }
-
-table.docutils {
-  margin-top: 0.5em ;
-  margin-bottom: 0.5em }
-
-table.footnote {
-  border-left: solid 1px black;
-  margin-left: 1px }
-
-table.docutils td, table.docutils th,
-table.docinfo td, table.docinfo th {
-  padding-left: 0.5em ;
-  padding-right: 0.5em ;
-  vertical-align: top }
-
-table.docutils th.field-name, table.docinfo th.docinfo-name {
-  font-weight: bold ;
-  text-align: left ;
-  white-space: nowrap ;
-  padding-left: 0 }
-
-h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
-h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
-  font-size: 100% }
-
-ul.auto-toc {
-  list-style-type: none }
 
 </style>
 </head>
@@ -288,19 +92,37 @@ ul.auto-toc {
 <div class="document" id="lab-3-root-filesystem">
 <h1 class="title">Lab 3 製作 root filesystem</h1>
 
+<div class="contents topic" id="id1">
+<p class="topic-title first">文件目錄</p>
+<ul class="simple">
+<li><a class="reference internal" href="#root-filesystem" id="id14">1. 什麼是 root filesystem</a></li>
+<li><a class="reference internal" href="#id2" id="id15">2. 製作 root filesystem</a><ul>
+<li><a class="reference internal" href="#busybox" id="id16">2.1 編譯 busybox</a></li>
+<li><a class="reference internal" href="#id6" id="id17">2.2 製作所需檔案、目錄</a></li>
+<li><a class="reference internal" href="#id9" id="id18">2.4 確定 root filesystem 位置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id19">3. 使用新的 root filesystem</a><ul>
+<li><a class="reference internal" href="#host-nfs" id="id20">3.1 設定 host 端的 NFS 及網路環境</a></li>
+<li><a class="reference internal" href="#qemu" id="id21">3.2 用QEMU執行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13" id="id22">4. 關於本文件</a></li>
+</ul>
+</div>
 <!-- 將來可以介紹 ramdisk 是什麼，還有 linux 的開機流程 -->
 <p>除了 kernel 之外，讓作業系統能順利運作還需要另外一項元素-- filesystem，它紀錄了一個作業系統在運作的過程中所需的程式、資料紀錄等，本次實驗將介紹如何從無到有建立一個最基本的 filesystem ，並學習透過網路使用 filesystem 。</p>
 <div class="section" id="root-filesystem">
 <h1>1. 什麼是 root filesystem</h1>
 <p>Root filesystem 是構成 filesystem 的最小集合，它包含所有 Linux 開機時需要的檔案及資料夾，如 initrd 、init.d裡的各項服務，、/etc、/proc、/lib等，而且位置全都是從根目錄（ / ）開始，它可以算是整個 filesystem 的源頭。在嵌入式系統中， root filesystem 通常包含了能滿足各種基本使用的工具，如 ls 、 mount 等，之後如果需要額外的儲存空間或檔案則是再透過 mount 來把其他的儲存裝置掛載進來。</p>
 </div>
-<div class="section" id="id1">
+<div class="section" id="id2">
 <h1>2. 製作 root filesystem</h1>
 <p>Root filesystem 大致上包含三部份-- 各種常用的工具、一些關於系統組態的設定檔、基本的資料夾結構。以下我們主要使用 busybox 來製作各項工具及生成基本的資料夾。</p>
 <p>Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提供了各種常用的指令來操作系統，並且將所有指令包成一個執行檔，因為他的各項指令經過改寫，編譯出來的執行檔大小會較一般 Linux 上使用的指令來得小，很適合在嵌入式系統這種資源有限的情況下使用。</p>
 <div class="section" id="busybox">
 <h2>2.1 編譯 busybox</h2>
-<div class="section" id="id2">
+<div class="section" id="id3">
 <h3>2.1.1 下載原始碼</h3>
 <p>我們可以透過 subversion 的工具下載原始碼，請先切換到欲安裝 busybox 的目錄，然後在終端機下鍵入</p>
 <pre class="literal-block">
@@ -308,7 +130,7 @@ svn co svn://busybox.net/branches/busybox_1_9_stable ./busybox
 </pre>
 <p>即可下載 busybox 1.9 stable 的原始碼，以下編譯過程即以 busybox 1.9 stable 為對象，不同版本間可能會有些微的差異。</p>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h3>2.1.2 調整編譯選項</h3>
 <p>在開始編譯之前，我們需要先調整一些 busybox 的選項。請先將 busybox 的 config 檔下載到 busybox 的目錄內，</p>
 <pre class="literal-block">
@@ -319,7 +141,7 @@ wget http://opencsl.openfoundry.org/setting/busybox-1.9.config
 <p>接下來，再進入「Busybox Settings」的「Build Options」，在「Build BusyBox as a static binary(no shared libs)」前按 y 以選擇該項目，將 busybox 編成 static linked 的執行檔。</p>
 <p>最後在存檔離開 configure 畫面即可。</p>
 </div>
-<div class="section" id="id4">
+<div class="section" id="id5">
 <h3>2.1.3 編譯及產生 root filesystem</h3>
 <p>接下來便是編譯的過程，我們同樣使用 make 來編譯以及安裝 busybox。</p>
 <pre class="literal-block">
@@ -331,7 +153,7 @@ make install CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
 <p>另外，不仿在 &lt;busybox&gt; 目錄下鍵入 ls -l _install/bin | less ，你會發現除了 busybox 之外的所有執行檔其實都是指向 busybox 的 symbolic link，這也印證了在 2.1 開頭時所提到的資訊。</p>
 </div>
 </div>
-<div class="section" id="id5">
+<div class="section" id="id6">
 <h2>2.2 製作所需檔案、目錄</h2>
 <p>在製作完 busybox 後，我們需要補足 linux 需要的一些檔案，包含資料夾、裝置檔以及開機的設定檔，以下分別介紹三類檔案的製作方法。</p>
 <ol class="arabic">
@@ -363,7 +185,7 @@ ln -s bin/busybox init
 </li>
 </ol>
 <blockquote>
-<p>我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 opencsl 網頁 <a class="footnote-reference" href="#id7" id="id6">[1]</a> 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。</p>
+<p>我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 opencsl 網頁 <a class="footnote-reference" href="#id8" id="id7">[1]</a> 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。</p>
 </blockquote>
 <ol class="upperroman simple" start="3">
 <li>登入帳號的相關檔案</li>
@@ -373,14 +195,14 @@ ln -s bin/busybox init
 </blockquote>
 </li>
 </ol>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[1]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/setting/">http://opencsl.openfoundry.org/setting/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[1]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/setting/">http://opencsl.openfoundry.org/setting/</a></td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="id8">
+<div class="section" id="id9">
 <h2>2.4 確定 root filesystem 位置</h2>
 <p>由於 _install 目錄裡的就檔案在每次重新製作 busybox 時會被清空，我們必須要把 root filesystem 先移至其他的目錄，搬移的方法如下：</p>
 <pre class="literal-block">
@@ -389,12 +211,12 @@ sudo cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
 </pre>
 </div>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id10">
 <h1>3. 使用新的 root filesystem</h1>
 <p>我們選擇使用 NFS 來當作 target 的 root file system ，因為透過 NFS ，我們可以很容易調整並且保留整個 file system 。 為了使用 NFS ，我們需要先設定 host 和 target 的網路環境。</p>
 <div class="section" id="host-nfs">
 <h2>3.1 設定 host 端的 NFS 及網路環境</h2>
-<div class="section" id="id10">
+<div class="section" id="id11">
 <h3>3.1.1 安裝必須套件</h3>
 <p>在開始使用 NFS 之前，我們要先安裝 NFS 相關的套件，請在終端機下鍵入</p>
 <pre class="literal-block">
@@ -402,16 +224,15 @@ sudo apt-get install nfs-kernel-server uml-utilities
 </pre>
 <p>即可。</p>
 </div>
-<div class="section" id="id11">
+<div class="section" id="id12">
 <h3>3.1.2 設定網路</h3>
 <p>QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。</p>
 <p>由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。</p>
 <p>新增 /etc/qemu-ifup ：</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd>#!/bin/sh
-/sbin/ifconfig $1 192.168.0.1  promisc up</dd>
-</dl>
+<pre class="literal-block">
+#!/bin/sh
+/sbin/ifconfig $1 192.168.0.1  promisc up
+</pre>
 <p>並且把 qemu-ifup 改成可執行的 shell script</p>
 <pre class="literal-block">
 sudo chmod u+x /etc/qemu-ifup
@@ -484,7 +305,7 @@ sudo modprobe tun
 <p>這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。</p>
 </div>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id13">
 <h1>4. 關於本文件</h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>

@@ -2,6 +2,9 @@
 Lab 3 製作 root filesystem
 ==========================
 
+.. contents:: 文件目錄
+        :depth: 2
+
 .. 將來可以介紹 ramdisk 是什麼，還有 linux 的開機流程
 
 除了 kernel 之外，讓作業系統能順利運作還需要另外一項元素-- filesystem，它紀錄了一個作業系統在運作的過程中所需的程式、資料紀錄等，本次實驗將介紹如何從無到有建立一個最基本的 filesystem ，並學習透過網路使用 filesystem 。
@@ -151,6 +154,7 @@ QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU �
 新增 /etc/qemu-ifup ：
 
 ::
+
   #!/bin/sh
   /sbin/ifconfig $1 192.168.0.1  promisc up
 
