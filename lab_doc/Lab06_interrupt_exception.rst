@@ -2,6 +2,9 @@
 Lab 6 interrupt 和 exception
 =============================
 
+.. contents:: 文件目錄
+        :depth: 2
+
 一個系統的運作除了單一程式的執行外，還必須讓程式能夠和硬體以及系統溝通， interrupt 和 exception 在這個目的上扮演了重要的角色。本次實驗將介紹 Linux 中 interrupt 和 exception 的運作機制，以及如何撰寫/ 修改它們。
 
 1. 什麼是 interrupt 和 exception
@@ -182,8 +185,8 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
      #include <linux/unistd.h>
 
-     #define __NR_mysyscall                  (__NR_SYSCALL_BASE+322)
-     #define mysyscall(void) syscall(__NR_mysyscall); 
+     #define __NR_mysyscall         (__NR_SYSCALL_BASE+322)
+     #define mysyscall(void)        syscall(__NR_mysyscall); 
 
    再存檔即可。
 
