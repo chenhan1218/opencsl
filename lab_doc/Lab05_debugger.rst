@@ -2,6 +2,9 @@
 Lab 5 debugger 和 software emulator
 ===================================
 
+.. contents:: 文件目錄
+        :depth: 2
+
 .. QEMU 的 debug 方式還沒研究
 
 1. 實驗介紹
