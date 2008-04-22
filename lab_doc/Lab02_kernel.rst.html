@@ -7,280 +7,84 @@
 <title>Lab 2 編譯 kernel</title>
 <style type="text/css">
 
-/*
-:Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
-:Copyright: This stylesheet has been placed in the public domain.
-
-Default cascading style sheet for the HTML output of Docutils.
-
-See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
-customize this style sheet.
-*/
-
-/* used to remove borders from tables and images */
-.borderless, table.borderless td, table.borderless th {
-  border: 0 }
-
-table.borderless td, table.borderless th {
-  /* Override padding for "table.docutils td" with "! important".
-     The right padding separates the table cells. */
-  padding: 0 0.5em 0 0 ! important }
-
-.first {
-  /* Override more specific margin styles with "! important". */
-  margin-top: 0 ! important }
-
-.last, .with-subtitle {
-  margin-bottom: 0 ! important }
-
-.hidden {
-  display: none }
-
-a.toc-backref {
-  text-decoration: none ;
-  color: black }
-
-blockquote.epigraph {
-  margin: 2em 5em ; }
-
-dl.docutils dd {
-  margin-bottom: 0.5em }
-
-/* Uncomment (and remove this text!) to get bold-faced definition list terms
-dl.docutils dt {
-  font-weight: bold }
-*/
-
-div.abstract {
-  margin: 2em 5em }
-
-div.abstract p.topic-title {
-  font-weight: bold ;
-  text-align: center }
-
-div.admonition, div.attention, div.caution, div.danger, div.error,
-div.hint, div.important, div.note, div.tip, div.warning {
-  margin: 2em ;
-  border: medium outset ;
-  padding: 1em }
-
-div.admonition p.admonition-title, div.hint p.admonition-title,
-div.important p.admonition-title, div.note p.admonition-title,
-div.tip p.admonition-title {
-  font-weight: bold ;
-  font-family: sans-serif }
-
-div.attention p.admonition-title, div.caution p.admonition-title,
-div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title {
-  color: red ;
-  font-weight: bold ;
-  font-family: sans-serif }
-
-/* Uncomment (and remove this text!) to get reduced vertical space in
-   compound paragraphs.
-div.compound .compound-first, div.compound .compound-middle {
-  margin-bottom: 0.5em }
 
-div.compound .compound-last, div.compound .compound-middle {
-  margin-top: 0.5em }
-*/
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+ol.upperroman{
+	list-style: upper-roman
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
 
-div.dedication {
-  margin: 2em 5em ;
-  text-align: center ;
-  font-style: italic }
-
-div.dedication p.topic-title {
-  font-weight: bold ;
-  font-style: normal }
-
-div.figure {
-  margin-left: 2em ;
-  margin-right: 2em }
-
-div.footer, div.header {
-  clear: both;
-  font-size: smaller }
-
-div.line-block {
-  display: block ;
-  margin-top: 1em ;
-  margin-bottom: 1em }
-
-div.line-block div.line-block {
-  margin-top: 0 ;
-  margin-bottom: 0 ;
-  margin-left: 1.5em }
-
-div.sidebar {
-  margin: 0 0 0.5em 1em ;
-  border: medium outset ;
-  padding: 1em ;
-  background-color: #ffffee ;
-  width: 40% ;
-  float: right ;
-  clear: right }
-
-div.sidebar p.rubric {
-  font-family: sans-serif ;
-  font-size: medium }
-
-div.system-messages {
-  margin: 5em }
-
-div.system-messages h1 {
-  color: red }
-
-div.system-message {
-  border: medium outset ;
-  padding: 1em }
-
-div.system-message p.system-message-title {
-  color: red ;
-  font-weight: bold }
-
-div.topic {
-  margin: 2em }
-
-h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
-h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
-  margin-top: 0.4em }
-
-h1.title {
-  text-align: center }
-
-h2.subtitle {
-  text-align: center }
-
-hr.docutils {
-  width: 75% }
-
-img.align-left {
-  clear: left }
-
-img.align-right {
-  clear: right }
-
-ol.simple, ul.simple {
-  margin-bottom: 1em }
-
-ol.arabic {
-  list-style: decimal }
-
-ol.loweralpha {
-  list-style: lower-alpha }
-
-ol.upperalpha {
-  list-style: upper-alpha }
-
-ol.lowerroman {
-  list-style: lower-roman }
-
-ol.upperroman {
-  list-style: upper-roman }
-
-p.attribution {
-  text-align: right ;
-  margin-left: 50% }
-
-p.caption {
-  font-style: italic }
-
-p.credits {
-  font-style: italic ;
-  font-size: smaller }
-
-p.label {
-  white-space: nowrap }
-
-p.rubric {
-  font-weight: bold ;
-  font-size: larger ;
-  color: maroon ;
-  text-align: center }
-
-p.sidebar-title {
-  font-family: sans-serif ;
-  font-weight: bold ;
-  font-size: larger }
-
-p.sidebar-subtitle {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-p.topic-title {
-  font-weight: bold }
-
-pre.address {
-  margin-bottom: 0 ;
-  margin-top: 0 ;
-  font-family: serif ;
-  font-size: 100% }
-
-pre.literal-block, pre.doctest-block {
-  background: #ffffcc;
-  margin-left: 2em ;
-  margin-right: 2em }
-
-span.classifier {
-  font-family: sans-serif ;
-  font-style: oblique }
-
-span.classifier-delimiter {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-span.interpreted {
-  font-family: sans-serif }
-
-span.option {
-  white-space: nowrap }
-
-span.pre {
-  white-space: pre }
-
-span.problematic {
-  color: red }
-
-span.section-subtitle {
-  /* font-size relative to parent (h1..h6 element) */
-  font-size: 80% }
-
-table.citation {
-  border-left: solid 1px gray;
-  margin-left: 1px }
-
-table.docinfo {
-  margin: 2em 4em }
-
-table.docutils {
-  margin-top: 0.5em ;
-  margin-bottom: 0.5em }
-
-table.footnote {
-  border-left: solid 1px black;
-  margin-left: 1px }
-
-table.docutils td, table.docutils th,
-table.docinfo td, table.docinfo th {
-  padding-left: 0.5em ;
-  padding-right: 0.5em ;
-  vertical-align: top }
-
-table.docutils th.field-name, table.docinfo th.docinfo-name {
-  font-weight: bold ;
-  text-align: left ;
-  white-space: nowrap ;
-  padding-left: 0 }
-
-h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
-h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
-  font-size: 100% }
-
-ul.auto-toc {
-  list-style-type: none }
 
 </style>
 </head>
@@ -288,45 +92,67 @@ ul.auto-toc {
 <div class="document" id="lab-2-kernel">
 <h1 class="title">Lab 2 編譯 kernel</h1>
 
+<div class="contents topic" id="id1">
+<p class="topic-title first">文件目錄</p>
+<ul class="simple">
+<li><a class="reference internal" href="#linux-kernel" id="id14">1. 什麼是 Linux kernel</a><ul>
+<li><a class="reference internal" href="#kernel" id="id15">1.1 Kernel 結構</a></li>
+<li><a class="reference internal" href="#id4" id="id16">1.2 Linux kernel 簡介</a></li>
+<li><a class="reference internal" href="#patch" id="id17">1.3 Patch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id18">2. 編譯 kernel</a><ul>
+<li><a class="reference internal" href="#id10" id="id19">2.1 下載 kernel 原始檔</a></li>
+<li><a class="reference internal" href="#id11" id="id20">2.2 編譯步驟</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12" id="id21">3. 執行新的 kernel</a><ul>
+<li><a class="reference internal" href="#file-system" id="id22">3.1 下載 file system</a></li>
+<li><a class="reference internal" href="#qemu" id="id23">3.2 用QEMU執行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13" id="id24">4. 關於本文件</a></li>
+</ul>
+</div>
 <p>Kernel 是作業系統的核心，作業系統所提供的各項功能就是包含在 Kernel 中。本次實驗將介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。</p>
 <div class="section" id="linux-kernel">
 <h1>1. 什麼是 Linux kernel</h1>
 <div class="section" id="kernel">
 <h2>1.1 Kernel 結構</h2>
-<p>kernel 是作業系統的核心元件，負責處理應用程式和硬體之間的溝通。關於 kernel 的詳細介紹可以參考 wikipedia <a class="footnote-reference" href="#id2" id="id1">[1]</a> 。</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<p>kernel 是作業系統的核心元件，負責處理應用程式和硬體之間的溝通。關於 kernel 的詳細介紹可以參考 wikipedia <a class="footnote-reference" href="#id3" id="id2">[1]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Kernel_%28computer_science%29">http://en.wikipedia.org/wiki/Kernel_%28computer_science%29</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Kernel_%28computer_science%29">http://en.wikipedia.org/wiki/Kernel_%28computer_science%29</a></td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h2>1.2 Linux kernel 簡介</h2>
-<p>Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*。關於 Linux kernel 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id5" id="id4">[2]</a> 。</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<p>Linux kernel 是 Linux 作業系統的 kernel，目前的最新版本是 2.6.*。關於 Linux kernel 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id6" id="id5">[2]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Linux_kernel">http://en.wikipedia.org/wiki/Linux_kernel</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Linux_kernel">http://en.wikipedia.org/wiki/Linux_kernel</a></td></tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="patch">
 <h2>1.3 Patch</h2>
-<p>在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就在將想要更改的程式原始碼自動更新在舊原始碼上。關於 patch 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id7" id="id6">[3]</a> 。</p>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<p>在 kernel 中，為符合不同計算機結構的需求，可能需要對 kernel source 作一些調整，如調整 memory mapped I/O 或增加專屬於該結構的特殊功能。patch 的目的就在將想要更改的程式原始碼自動更新在舊原始碼上。關於 patch 的詳細介紹可參考 wikipedia <a class="footnote-reference" href="#id8" id="id7">[3]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[3]</a></td><td><p class="first">patch <a class="reference external" href="http://en.wikipedia.org/wiki/Patch_%28computing%29">http://en.wikipedia.org/wiki/Patch_%28computing%29</a></p>
+<tr><td class="label"><a class="fn-backref" href="#id7">[3]</a></td><td><p class="first">patch <a class="reference external" href="http://en.wikipedia.org/wiki/Patch_%28computing%29">http://en.wikipedia.org/wiki/Patch_%28computing%29</a></p>
 <p class="last">patch in unix <a class="reference external" href="http://en.wikipedia.org/wiki/Patch_%28Unix%29">http://en.wikipedia.org/wiki/Patch_%28Unix%29</a></p>
 </td></tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section" id="id8">
-<h1>2. 編譯 kernel</h1>
 <div class="section" id="id9">
+<h1>2. 編譯 kernel</h1>
+<div class="section" id="id10">
 <h2>2.1 下載 kernel 原始檔</h2>
 <p>Linux kernel 的檔案庫是在 <a class="reference external" href="http://www.kernel.org/">http://www.kernel.org/</a> ，目前所有的 linux kernel 版本都可以在這裡下載。
 本次實驗中使用的是 linux kernel 2.6.18.1，可在終端機上直接用 wget 下載。</p>
@@ -339,7 +165,7 @@ tar jvxf linux-2.6.18.1.tar.bz2
 cd linux-2.6.18.1
 </pre>
 </div>
-<div class="section" id="id10">
+<div class="section" id="id11">
 <h2>2.2 編譯步驟</h2>
 <p>編譯 kernel 的步驟和編譯一般的應用程式差不多，都需要經過 make configure、make的過程。以下指令都要在 kernel source的根目錄執行。</p>
 <ol class="arabic">
@@ -380,7 +206,7 @@ wget http://opencsl.openfoundry.org/setting/linux-2.6.18.config
 在編譯完成之後，可以在 arch/arm/boot/ 底下發現編譯完成的 kernel image -- zImage。若編譯失敗，或想重新編譯，可以打 make clean 來清除所有除了 config 以外的編譯出來的檔案。</blockquote>
 </div>
 </div>
-<div class="section" id="id11">
+<div class="section" id="id12">
 <h1>3. 執行新的 kernel</h1>
 <p>我們可以用 QEMU 來測試新編的 kernel image 是否能夠執行。</p>
 <!-- 如果在真實的系統中，則是可以將kernel image燒到系統的flash上，或是在開機時將 kernel image 載入。 -->
@@ -411,7 +237,7 @@ tar zxf arm-test-0.2.tar.gz
 </div>
 </div>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id13">
 <h1>4. 關於本文件</h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
