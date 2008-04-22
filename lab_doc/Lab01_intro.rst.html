@@ -7,280 +7,80 @@
 <title>Lab 1 環境設定</title>
 <style type="text/css">
 
-/*
-:Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
-:Copyright: This stylesheet has been placed in the public domain.
 
-Default cascading style sheet for the HTML output of Docutils.
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
 
-See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
-customize this style sheet.
-*/
-
-/* used to remove borders from tables and images */
-.borderless, table.borderless td, table.borderless th {
-  border: 0 }
-
-table.borderless td, table.borderless th {
-  /* Override padding for "table.docutils td" with "! important".
-     The right padding separates the table cells. */
-  padding: 0 0.5em 0 0 ! important }
-
-.first {
-  /* Override more specific margin styles with "! important". */
-  margin-top: 0 ! important }
-
-.last, .with-subtitle {
-  margin-bottom: 0 ! important }
-
-.hidden {
-  display: none }
-
-a.toc-backref {
-  text-decoration: none ;
-  color: black }
-
-blockquote.epigraph {
-  margin: 2em 5em ; }
-
-dl.docutils dd {
-  margin-bottom: 0.5em }
-
-/* Uncomment (and remove this text!) to get bold-faced definition list terms
-dl.docutils dt {
-  font-weight: bold }
-*/
-
-div.abstract {
-  margin: 2em 5em }
-
-div.abstract p.topic-title {
-  font-weight: bold ;
-  text-align: center }
-
-div.admonition, div.attention, div.caution, div.danger, div.error,
-div.hint, div.important, div.note, div.tip, div.warning {
-  margin: 2em ;
-  border: medium outset ;
-  padding: 1em }
-
-div.admonition p.admonition-title, div.hint p.admonition-title,
-div.important p.admonition-title, div.note p.admonition-title,
-div.tip p.admonition-title {
-  font-weight: bold ;
-  font-family: sans-serif }
-
-div.attention p.admonition-title, div.caution p.admonition-title,
-div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title {
-  color: red ;
-  font-weight: bold ;
-  font-family: sans-serif }
-
-/* Uncomment (and remove this text!) to get reduced vertical space in
-   compound paragraphs.
-div.compound .compound-first, div.compound .compound-middle {
-  margin-bottom: 0.5em }
-
-div.compound .compound-last, div.compound .compound-middle {
-  margin-top: 0.5em }
-*/
-
-div.dedication {
-  margin: 2em 5em ;
-  text-align: center ;
-  font-style: italic }
-
-div.dedication p.topic-title {
-  font-weight: bold ;
-  font-style: normal }
-
-div.figure {
-  margin-left: 2em ;
-  margin-right: 2em }
-
-div.footer, div.header {
-  clear: both;
-  font-size: smaller }
-
-div.line-block {
-  display: block ;
-  margin-top: 1em ;
-  margin-bottom: 1em }
-
-div.line-block div.line-block {
-  margin-top: 0 ;
-  margin-bottom: 0 ;
-  margin-left: 1.5em }
-
-div.sidebar {
-  margin: 0 0 0.5em 1em ;
-  border: medium outset ;
-  padding: 1em ;
-  background-color: #ffffee ;
-  width: 40% ;
-  float: right ;
-  clear: right }
-
-div.sidebar p.rubric {
-  font-family: sans-serif ;
-  font-size: medium }
-
-div.system-messages {
-  margin: 5em }
-
-div.system-messages h1 {
-  color: red }
-
-div.system-message {
-  border: medium outset ;
-  padding: 1em }
-
-div.system-message p.system-message-title {
-  color: red ;
-  font-weight: bold }
-
-div.topic {
-  margin: 2em }
-
-h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
-h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
-  margin-top: 0.4em }
-
-h1.title {
-  text-align: center }
-
-h2.subtitle {
-  text-align: center }
-
-hr.docutils {
-  width: 75% }
-
-img.align-left {
-  clear: left }
-
-img.align-right {
-  clear: right }
-
-ol.simple, ul.simple {
-  margin-bottom: 1em }
-
-ol.arabic {
-  list-style: decimal }
-
-ol.loweralpha {
-  list-style: lower-alpha }
-
-ol.upperalpha {
-  list-style: upper-alpha }
-
-ol.lowerroman {
-  list-style: lower-roman }
-
-ol.upperroman {
-  list-style: upper-roman }
-
-p.attribution {
-  text-align: right ;
-  margin-left: 50% }
-
-p.caption {
-  font-style: italic }
-
-p.credits {
-  font-style: italic ;
-  font-size: smaller }
-
-p.label {
-  white-space: nowrap }
-
-p.rubric {
-  font-weight: bold ;
-  font-size: larger ;
-  color: maroon ;
-  text-align: center }
-
-p.sidebar-title {
-  font-family: sans-serif ;
-  font-weight: bold ;
-  font-size: larger }
-
-p.sidebar-subtitle {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-p.topic-title {
-  font-weight: bold }
-
-pre.address {
-  margin-bottom: 0 ;
-  margin-top: 0 ;
-  font-family: serif ;
-  font-size: 100% }
-
-pre.literal-block, pre.doctest-block {
-  background: #ffffcc;
-  margin-left: 2em ;
-  margin-right: 2em }
-
-span.classifier {
-  font-family: sans-serif ;
-  font-style: oblique }
-
-span.classifier-delimiter {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-span.interpreted {
-  font-family: sans-serif }
-
-span.option {
-  white-space: nowrap }
-
-span.pre {
-  white-space: pre }
-
-span.problematic {
-  color: red }
-
-span.section-subtitle {
-  /* font-size relative to parent (h1..h6 element) */
-  font-size: 80% }
-
-table.citation {
-  border-left: solid 1px gray;
-  margin-left: 1px }
-
-table.docinfo {
-  margin: 2em 4em }
-
-table.docutils {
-  margin-top: 0.5em ;
-  margin-bottom: 0.5em }
-
-table.footnote {
-  border-left: solid 1px black;
-  margin-left: 1px }
-
-table.docutils td, table.docutils th,
-table.docinfo td, table.docinfo th {
-  padding-left: 0.5em ;
-  padding-right: 0.5em ;
-  vertical-align: top }
-
-table.docutils th.field-name, table.docinfo th.docinfo-name {
-  font-weight: bold ;
-  text-align: left ;
-  white-space: nowrap ;
-  padding-left: 0 }
-
-h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
-h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
-  font-size: 100% }
-
-ul.auto-toc {
-  list-style-type: none }
 
 </style>
 </head>
@@ -288,45 +88,45 @@ ul.auto-toc {
 <div class="document" id="lab-1">
 <h1 class="title">Lab 1 環境設定</h1>
 
-<div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">文件目錄</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id32">1. 實驗簡介</a><ul>
-<li><a class="reference internal" href="#id2" id="id33">1.1 什麼是嵌入式系統？</a></li>
-<li><a class="reference internal" href="#id5" id="id34">1.2 實驗操作環境介紹</a></li>
-<li><a class="reference internal" href="#id6" id="id35">1.3 實驗流程</a></li>
+<li><a class="reference internal" href="#id2" id="id33">1. 實驗簡介</a><ul>
+<li><a class="reference internal" href="#id3" id="id34">1.1 什麼是嵌入式系統？</a></li>
+<li><a class="reference internal" href="#id6" id="id35">1.2 實驗操作環境介紹</a></li>
+<li><a class="reference internal" href="#id7" id="id36">1.3 實驗流程</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id36">2. 準備操作環境</a><ul>
-<li><a class="reference internal" href="#ubuntu-7-10" id="id37">2.1 Ubuntu 7.10</a></li>
-<li><a class="reference internal" href="#qemu" id="id38">2.2 QEMU</a></li>
-<li><a class="reference internal" href="#toolchain" id="id39">2.3 toolchain</a></li>
+<li><a class="reference internal" href="#id10" id="id37">2. 準備操作環境</a><ul>
+<li><a class="reference internal" href="#ubuntu-7-10" id="id38">2.1 Ubuntu 7.10</a></li>
+<li><a class="reference internal" href="#qemu" id="id39">2.2 QEMU</a></li>
+<li><a class="reference internal" href="#toolchain" id="id40">2.3 toolchain</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id30" id="id40">3. 參考資料</a><ul>
-<li><a class="reference internal" href="#linux" id="id41">3.1 Linux 版本狀況</a></li>
+<li><a class="reference internal" href="#id31" id="id41">3. 參考資料</a><ul>
+<li><a class="reference internal" href="#linux" id="id42">3.1 Linux 版本狀況</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id31" id="id42">4. 關於本文件</a></li>
+<li><a class="reference internal" href="#id32" id="id43">4. 關於本文件</a></li>
 </ul>
 </div>
 <!-- 操作環境先以 Linux 為範例，完成八成草稿後，再加入 Windows 環境的操作範例。 -->
 <p>OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab course material），想要透過各種 open source 工具的使用來模擬嵌入式系統的開發環境，並提供對嵌入式系統有興趣的人一項入門的管道。</p>
-<div class="section" id="id1">
-<h1><a class="toc-backref" href="#id32">1. 實驗簡介</a></h1>
-<p>在第一次實驗中，我們將介紹本實驗的環境、環境的相關設定，以及整套實驗的流程。</p>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id33">1.1 什麼是嵌入式系統？</a></h2>
-<p>嵌入式系統是電腦系統的一種，和一般個人電腦不同的是，它通常是為了特定目的而設計的，而且只有有限的硬體資源可以使用，這些特性使得開發嵌入式系統比一般系統開發還要複雜。嵌入式系統的相關介紹可以參考 wikipedia <a class="footnote-reference" href="#id4" id="id3">[1]</a> 。</p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<h1>1. 實驗簡介</h1>
+<p>在第一次實驗中，我們將介紹本實驗的環境、環境的相關設定，以及整套實驗的流程。</p>
+<div class="section" id="id3">
+<h2>1.1 什麼是嵌入式系統？</h2>
+<p>嵌入式系統是電腦系統的一種，和一般個人電腦不同的是，它通常是為了特定目的而設計的，而且只有有限的硬體資源可以使用，這些特性使得開發嵌入式系統比一般系統開發還要複雜。嵌入式系統的相關介紹可以參考 wikipedia <a class="footnote-reference" href="#id5" id="id4">[1]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Embedded_system">http://en.wikipedia.org/wiki/Embedded_system</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Embedded_system">http://en.wikipedia.org/wiki/Embedded_system</a></td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id34">1.2 實驗操作環境介紹</a></h2>
+<div class="section" id="id6">
+<h2>1.2 實驗操作環境介紹</h2>
 <p>在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：</p>
 <ol class="upperroman simple">
 <li>作業系統：ubuntu 7.10</li>
@@ -336,8 +136,8 @@ ul.auto-toc {
 <li>模擬的作業系統：Linux</li>
 </ol>
 </div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id35">1.3 實驗流程</a></h2>
+<div class="section" id="id7">
+<h2>1.3 實驗流程</h2>
 <p>本套實驗將以循序漸進的方式，逐步介紹開發嵌入式系統所需的知識及技術，並搭配 open source 工具來實做各個實驗。</p>
 <ol class="upperroman simple">
 <li>Lab01 環境設定</li>
@@ -358,7 +158,7 @@ ul.auto-toc {
 <li>Lab04 OS porting</li>
 </ol>
 <blockquote>
-在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 <a class="footnote-reference" href="#id8" id="id7">[2]</a> 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。</blockquote>
+在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 <a class="footnote-reference" href="#id9" id="id8">[2]</a> 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。</blockquote>
 <ol class="upperalpha simple" start="22">
 <li>Lab05 debugger 和 software emulator</li>
 </ol>
@@ -379,47 +179,47 @@ Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的�
 </ol>
 <blockquote>
 由於嵌入式系統的多樣性，每個系統常常擁有和其他平台不同的裝置，也就需要額外的驅動程式才能控制裝置。本實驗將介紹兩種撰寫驅動程式的方法，以及學會在 linux 中使用額外裝置的方法。</blockquote>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="id9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[2]</a></td><td>在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id8">[2]</a></td><td>在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。</td></tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section" id="id9">
-<h1><a class="toc-backref" href="#id36">2. 準備操作環境</a></h1>
+<div class="section" id="id10">
+<h1>2. 準備操作環境</h1>
 <div class="section" id="ubuntu-7-10">
-<h2><a class="toc-backref" href="#id37">2.1 Ubuntu 7.10</a></h2>
-<p>Ubuntu <a class="footnote-reference" href="#id12" id="id10">[3]</a>  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 <a class="footnote-reference" href="#id13" id="id11">[4]</a> 上下載到安裝/ 試用光碟。
+<h2>2.1 Ubuntu 7.10</h2>
+<p>Ubuntu <a class="footnote-reference" href="#id13" id="id11">[3]</a>  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 <a class="footnote-reference" href="#id14" id="id12">[4]</a> 上下載到安裝/ 試用光碟。
 若要安裝 Ubuntu 在電腦上，請至少預留2G的空間，供日後各程式原始碼、執行檔儲存。</p>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id10">[3]</a></td><td><a class="reference external" href="http://zh.wikipedia.org/wiki/Ubuntu">http://zh.wikipedia.org/wiki/Ubuntu</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id13" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[4]</a></td><td><a class="reference external" href="http://www.ubuntu.org.tw/">http://www.ubuntu.org.tw/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td><a class="reference external" href="http://zh.wikipedia.org/wiki/Ubuntu">http://zh.wikipedia.org/wiki/Ubuntu</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[4]</a></td><td><a class="reference external" href="http://www.ubuntu.org.tw/">http://www.ubuntu.org.tw/</a></td></tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="qemu">
-<h2><a class="toc-backref" href="#id38">2.2 QEMU</a></h2>
-<p>QEMU 是一套 emulator <a class="footnote-reference" href="#id16" id="id14">[5]</a> 軟體，能在 PC 系統上模擬其他 processor 的運作方式，在 Linux 或 Windows 上都能執行。
-QEMU 的相關介紹可參考維基百科或是其官方網站 <a class="footnote-reference" href="#id17" id="id15">[6]</a></p>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id14">[5]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Emulator">http://en.wikipedia.org/wiki/Emulator</a></td></tr>
-</tbody>
-</table>
+<h2>2.2 QEMU</h2>
+<p>QEMU 是一套 emulator <a class="footnote-reference" href="#id17" id="id15">[5]</a> 軟體，能在 PC 系統上模擬其他 processor 的運作方式，在 Linux 或 Windows 上都能執行。
+QEMU 的相關介紹可參考維基百科或是其官方網站 <a class="footnote-reference" href="#id18" id="id16">[6]</a></p>
 <table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id15">[6]</a></td><td><a class="reference external" href="http://fabrice.bellard.free.fr/qemu">http://fabrice.bellard.free.fr/qemu</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id15">[5]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Emulator">http://en.wikipedia.org/wiki/Emulator</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[6]</a></td><td><a class="reference external" href="http://fabrice.bellard.free.fr/qemu">http://fabrice.bellard.free.fr/qemu</a></td></tr>
 </tbody>
 </table>
 <div class="section" id="ubuntu-7-10-qemu">
@@ -446,7 +246,7 @@ make
 </pre>
 <p>經上述步驟，我們可以編譯出一個能夠執行 ARM 指令集的 QEMU emulator。</p>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id19">
 <h3>2.2.2 使用 QEMU</h3>
 <p>這裡透過使用 QEMU 官方網站上的 ARM-test disk image 來驗證 QEMU 否安裝正確</p>
 <p>1. 下載 arm-test disk image</p>
@@ -479,31 +279,31 @@ tar zxf arm-test-0.2.tar.gz
 </div>
 </div>
 <div class="section" id="toolchain">
-<h2><a class="toc-backref" href="#id39">2.3 toolchain</a></h2>
-<p>toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於 toolchain 的介紹可以參考維基百科 <a class="footnote-reference" href="#id23" id="id19">[7]</a> 。 每一套 toolchain 都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain ，取而代之的方法便是使用具有 cross compiler <a class="footnote-reference" href="#id24" id="id20">[8]</a> 功能的 toolchain ，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。</p>
-<p>Buildroot <a class="footnote-reference" href="#id25" id="id21">[9]</a> 是一套基於 uClibc C library <a class="footnote-reference" href="#id26" id="id22">[10]</a> ，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作 cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM 平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。</p>
-<table class="docutils footnote" frame="void" id="id23" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id19">[7]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Toolchain">http://en.wikipedia.org/wiki/Toolchain</a> / <a class="reference external" href="http://en.wikipedia.org/wiki/GNU_toolchain">http://en.wikipedia.org/wiki/GNU_toolchain</a></td></tr>
-</tbody>
-</table>
+<h2>2.3 toolchain</h2>
+<p>toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於 toolchain 的介紹可以參考維基百科 <a class="footnote-reference" href="#id24" id="id20">[7]</a> 。 每一套 toolchain 都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain ，取而代之的方法便是使用具有 cross compiler <a class="footnote-reference" href="#id25" id="id21">[8]</a> 功能的 toolchain ，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。</p>
+<p>Buildroot <a class="footnote-reference" href="#id26" id="id22">[9]</a> 是一套基於 uClibc C library <a class="footnote-reference" href="#id27" id="id23">[10]</a> ，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作 cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM 平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。</p>
 <table class="docutils footnote" frame="void" id="id24" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id20">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Cross_compiler">http://en.wikipedia.org/wiki/Cross_compiler</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id20">[7]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Toolchain">http://en.wikipedia.org/wiki/Toolchain</a> / <a class="reference external" href="http://en.wikipedia.org/wiki/GNU_toolchain">http://en.wikipedia.org/wiki/GNU_toolchain</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id25" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id21">[9]</a></td><td><a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id21">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Cross_compiler">http://en.wikipedia.org/wiki/Cross_compiler</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id26" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id22">[10]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Uclibc">http://en.wikipedia.org/wiki/Uclibc</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id22">[9]</a></td><td><a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id27" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id23">[10]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Uclibc">http://en.wikipedia.org/wiki/Uclibc</a></td></tr>
 </tbody>
 </table>
 <div class="section" id="buildroot-toolchain">
@@ -522,7 +322,7 @@ sudo apt-get install libncurses5-dev
 </ol>
 <ol class="arabic">
 <li><p class="first">下載 buildroot 原始碼</p>
-<p>我們可以用 subversion <a class="footnote-reference" href="#id28" id="id27">[11]</a> 直接下載 buildroot 原始碼。在終端機底下鍵入</p>
+<p>我們可以用 subversion <a class="footnote-reference" href="#id29" id="id28">[11]</a> 直接下載 buildroot 原始碼。在終端機底下鍵入</p>
 <pre class="literal-block">
 svn co -r 21163 svn://uclibc.org/trunk/buildroot
 </pre>
@@ -568,14 +368,14 @@ make menuconfig
 當 buildroot 開始編譯後，建議不妨休息一下，或找本書來看，因為製作 toolchain 需要一段不短的時間。</p>
 </li>
 </ol>
-<table class="docutils footnote" frame="void" id="id28" rules="none">
+<table class="docutils footnote" frame="void" id="id29" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id27">[11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Subversion_%28software%29">http://en.wikipedia.org/wiki/Subversion_%28software%29</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id28">[11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Subversion_%28software%29">http://en.wikipedia.org/wiki/Subversion_%28software%29</a></td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="id29">
+<div class="section" id="id30">
 <h3>2.3.2 設定 toolchain</h3>
 <p>等 buildroot 完成編譯後，我們可以在 build_arm/staging_dir/usr/bin 下找到我們在往後實驗中要使用的 toolchain ，他們全部是以 arm-linux-uclibc- 開頭，後面則是接著各個程式的功能，如 gcc 、 as 、 ld 等。</p>
 <p>為了方便往後使用，我們可以設定 $PATH 參數，讓 bash shell 在搜尋可執行檔時也會搜尋這組編好的 toolchain 。假設 buildroot 的根目錄是 &lt;buildroot&gt; ，則在終端機鍵入</p>
@@ -592,10 +392,10 @@ source ~/.bashrc
 </div>
 </div>
 </div>
-<div class="section" id="id30">
-<h1><a class="toc-backref" href="#id40">3. 參考資料</a></h1>
+<div class="section" id="id31">
+<h1>3. 參考資料</h1>
 <div class="section" id="linux">
-<h2><a class="toc-backref" href="#id41">3.1 Linux 版本狀況</a></h2>
+<h2>3.1 Linux 版本狀況</h2>
 <p>An extremely rushed history of the Linux kernel</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -664,8 +464,8 @@ source ~/.bashrc
 <p><a class="reference external" href="http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html">Linux Kernel Version History</a> tracks all release records before year 2000.</p>
 </div>
 </div>
-<div class="section" id="id31">
-<h1><a class="toc-backref" href="#id42">4. 關於本文件</a></h1>
+<div class="section" id="id32">
+<h1>4. 關於本文件</h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
 </div>
