@@ -2,6 +2,9 @@
 Lab 8 device driver
 =====================
 
+.. contents:: 文件目錄
+        :depth: 2
+
 Driver 是程式和硬體元件溝通的橋樑。本次實驗將介紹在 Linux 中撰寫/使用 driver 的兩種方法，並另外補充關於 module 、 device 的基本知識。
 
 1. 什麼是 device driver

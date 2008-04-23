@@ -242,13 +242,24 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
   # 顯示 eax 的值
   (gdb) info register eax
 
-2.3 對 QEMU 執行的程式除錯
----------------------------
 
-3. 使用 Insight
+3. 使用 GDB 進行遠端除錯
+==========================
+
+3.1 編譯 arm-linux-uclibc-gdb 、 gdbserver
+-------------------------------------------
+
+3.2 編譯測試程式
+-----------------
+
+3.3 進行遠端除錯
+----------------
+
+
+4. 使用 Insight
 ===============
 
-3.1 安裝 Insight
+4.1 安裝 Insight
 ----------------
 在 Ubuntu 中，我們可以直接透過套件管理程式來安裝 insight 。在終端機鍵入以下指令：
 
@@ -268,7 +279,7 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 
 .. image:: images/lab05_insight.png
 
-3.2 基本功能介紹
+4.2 基本功能介紹
 ----------------
 
 在 Insight 視窗中可以看到各個對應 GDB 的指令，如 breakpoint 、 file ，甚至還可以直接跳回 GDB 使用純文字的介面（ ctrl + N ）。以下列出在本實驗中有介紹的 GDB 相關指令在 insight 中對應的快捷鍵：
@@ -288,22 +299,22 @@ local variable      ctrl + n
 
 .. image:: images/lab05_breakpoint.png
 
-3.3 用 Insight 除錯
+4.3 用 Insight 除錯
 -------------------
 雖然 Insight 可以比較方便地設定一些功能，像是一次顯示所有 registers 、 stack 的狀況，但並無法使用 GDB 所有的功能，例如我們無法用 Insight 來設定 args （ set args ）以及環境變數，因此，比較好的方式是使用 Insight 附的文字介面再加上其他我們想要使用的功能，將視窗切割成很多個不同的區塊，如此一來，我們就可以一邊觀察目前程式執行的位址，一邊觀察所有變數的值，並很容易的設定中斷點，因為視窗介面讓我們可以比較容易找到想觀察的程式碼。
 
 .. image:: images/lab05_multi_windows.png
 
-4. 延伸參考資料
+5. 延伸參考資料
 ===============
 
 本實驗只對 GDB 作了最基本的介紹，但 GDB 其實還可以在其他的情況下除錯，如同時除錯 multi-thread / multi-process 的程式、對已經在執行的程式除錯等，另外，在除錯的過程中也可以使用更多的指令來提昇效率，如設定遇到中斷點時要執行哪些指令（ commands ）。以下提供一些關於 GDB 的教學網站，供有興趣的人自行參考學習。
 
-- 完整版的 GDB 線上文件：http://dirac.org/linux/gdb
+- 完整版的 GDB 線上文件： http://dirac.org/linux/gdb
 
-- 一些 GDB 的進階技巧：http://www.study-area.org/cyril/opentools/opentools/x1265.html
+- 一些 GDB 的進階技巧： http://www.study-area.org/cyril/opentools/opentools/x1265.html
 
-5. 關於本文件
+6. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
