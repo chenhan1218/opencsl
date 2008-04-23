@@ -318,8 +318,58 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 3.2 編譯測試程式
 -----------------
 
+我們需要編譯一個能夠在 target 端執行的程式，因此要使用 cross-compiler 以及加上 -static 參數。
+
+以第二章所舉的 bug.c 為例：
+
+::
+
+  arm-linux-uclibc-gcc bug.c -o bug -static -g
+
 3.3 進行遠端除錯
 ----------------
+
+要進行遠端除錯的步驟如下：
+
+1. 在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port 等 host 端的 gdb 連進來。
+
+   進行此步驟前，請先用 QEMU 載入 linux kernel ，並切換到 gdbserver 和 bug 所在的目錄，就可以鍵入
+
+   ::
+
+     ./gdbserver 192.168.0.1:5566 bug
+
+  .. note ::
+
+    192.168.0.1 是 host 端的 IP
+
+    5566 是 gdbserver 監聽的 port
+
+    bug 是要偵錯的程式
+
+2. 從 host 端連到 target 進行 debug
+
+   在 host 端也用 gdb 執行同一個程式，在此還需要引入程式的理由是因為 gdbserver 只負責控制程式，但關於程式碼的內容等和程式執行本身的資訊還是由 gdb 自己負責。
+
+   首先，先用 gdb 引入 bug
+
+   ::
+
+     arm-linux-uclibc-gdb bug
+
+   接著，連線到 target 端
+
+   ::
+
+     target remote 192.168.0.2:5566
+
+   即可用第二章所教的方法進行 debug 。
+
+   .. note ::
+
+      192.168.0.2 是 target 端的 IP
+
+      5566 是 gdbserver 監聽的 port
 
 
 4. 使用 Insight
