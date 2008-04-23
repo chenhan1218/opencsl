@@ -246,8 +246,74 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 3. 使用 GDB 進行遠端除錯
 ==========================
 
+除了在本機除錯之外，GDB 也可以透過網路對 target 端的程式進行除錯。
+
+若要進行遠端除錯，我們需要編譯在 target 端執行的 gdbserver 以及在 host 端控制 gdbserver 的 gdb ，因為 gdbserver 的程式較原來的 gdb 簡單，因此通常 gdbserver 會比 gdb 本身還要容易 port 到 target 上去，但是在使用上又和原本的 gdb 相同。
+
 3.1 編譯 arm-linux-uclibc-gdb 、 gdbserver
 -------------------------------------------
+
+1. 下載檔案以及建立資料夾
+
+   首先要到 GDB 網站下載 gdb 原始碼：
+
+   ::
+
+     wget http://ftp.gnu.org/gnu/gdb/gdb-6.8.tar.bz2
+
+   接著解開壓縮檔後並進入該目錄：
+
+   ::
+
+     tar xf gdb-6.8.tar.bz2
+     cd gdb-6.8
+
+   然後在 gdb 的根目錄底下建立供 gdb 以及 gdbserver 使用的目錄：
+
+   ::
+
+     mkdir gdb-host gdb-target
+
+2. 編譯 host 端的 gdb 
+
+   我們要先製作 gdb 的 configure 檔，再根據 configure 來編譯 gdb
+
+   ::
+
+     cd gdb-host
+     ../configure --target=arm-linux-uclibc --prefix=$(pwd)
+
+   接著再進行編譯即可產生 host 端使用的 gdb
+
+   ::
+
+     make
+     make install
+
+   在編譯完成後，可以在 gdb-6.8/gdb-host/bin/ 下發現 arm-linux-uclibc-gdb ，就是我們剛才製作出的 gdb。
+
+3. 編譯 target 端的 gdbserver
+
+   在編譯完 後，也是用類似的步驟編譯 gdbserver 。首先是產生 configure 檔
+
+   ::
+
+     cd ../gdb-target
+     CC=arm-linux-uclibc-gcc  ../gdb/gdbserver/configure --host=arm-linux-uclibc --prefix=$(pwd)
+
+   接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到
+
+   ::
+
+     CFLAGS = -g -O2
+
+   因為 target 端沒有編譯動態函式庫，因此要在它後面加上 -static ，使 gdbserver 不使用動態函式庫
+
+   ::
+
+     CFLAGS = -g -O2 -static
+
+   最後再進行編譯即可。在編譯完成後可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端直營的程式。
 
 3.2 編譯測試程式
 -----------------
