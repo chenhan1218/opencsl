@@ -126,7 +126,28 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
   <ARM_TEST> = arm-test 的位置
 
 
-4. 關於本文件
+4. 延伸閱讀
+===========
+
+相關官網
+--------
+- Kernel http://www.kernel.org/
+
+
+Wikipedia
+---------
+- Kernel http://en.wikipedia.org/wiki/Kernel_%28computer_science%29
+
+  * Linux kernel http://en.wikipedia.org/wiki/Linux_kernel
+
+- Patch http://en.wikipedia.org/wiki/Patch_%28computing%29
+
+  * patch in unix http://en.wikipedia.org/wiki/Patch_%28Unix%29
+
+
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
