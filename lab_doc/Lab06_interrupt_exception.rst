@@ -232,7 +232,23 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
    我們只需要將 執行 QEMU 時的 -kernel 參數後面換成新編譯完成的 kernel ，就可以使用新的 system call 了。如果 system call 製作成功，你應該可以發現 mysyscall 會隨著呼叫的次數而改變顯示的訊息。
 
-4. 關於本文件
+
+4. 延伸閱讀
+===========
+
+Wikipedia
+---------
+- interrupt http://en.wikipedia.org/wiki/Interrupt
+
+The Linux Document Project
+--------------------------
+- interrupt http://tldp.org/LDP/tlk/dd/interrupts.html
+- exceptiong http://tldp.org/LDP/khg/HyperNews/get/devices/exceptions.html
+- How_System_Calls_Work_on_Linux/i86 http://tldp.org/LDP/khg/HyperNews/get/syscall/syscall86.html
+- system call http://tldp.org/LDP/lkmpg/2.6/html/x978.html
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
 <title>Lab 8 device driver</title>
 <style type="text/css">
 
@@ -24,6 +24,31 @@ a:hover {
 
 ol.upperroman{
 	list-style: upper-roman
+}
+
+table td{
+	margin: 0px;
+	padding: 0.2em;
+	border: none;
+	background: #fff;
+}
+
+table{
+	border: none;
+	padding: 0.2em;
+	background: #e47e32;
+}
+
+table th{
+	background: #ffc;
+	padding: 0.2em;
+	border: none;
+}
+
+/* footnote */
+table.footnote, table.footnote td{
+	background: #fff;
+	padding: none;
 }
 
 /* content heading */
@@ -91,67 +116,71 @@ h1.title{
 <body>
 <div class="document" id="lab-8-device-driver">
 <h1 class="title">Lab 8 device driver</h1>
-
-<div class="contents topic" id="id1">
-<p class="topic-title first">文件目錄</p>
+<div class="contents topic">
+<p class="topic-title first"><a id="id1" name="id1">文件目錄</a></p>
 <ul class="simple">
-<li><a class="reference internal" href="#device-driver" id="id19">1. 什麼是 device driver</a><ul>
-<li><a class="reference internal" href="#id2" id="id20">1.1 device driver</a></li>
-<li><a class="reference internal" href="#device" id="id21">1.2 device</a></li>
+<li><a class="reference" href="#device-driver" id="id20" name="id20">1. 什麼是 device driver</a><ul>
+<li><a class="reference" href="#id2" id="id21" name="id21">1.1 device driver</a></li>
+<li><a class="reference" href="#device" id="id22" name="id22">1.2 device</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#driver" id="id22">2. 撰寫 driver</a><ul>
-<li><a class="reference internal" href="#id5" id="id23">2.1 driver 程式的基本結構</a></li>
-<li><a class="reference internal" href="#id6" id="id24">2.2 撰寫 driver 程式</a></li>
+<li><a class="reference" href="#driver" id="id23" name="id23">2. 撰寫 driver</a><ul>
+<li><a class="reference" href="#id5" id="id24" name="id24">2.1 driver 程式的基本結構</a></li>
+<li><a class="reference" href="#id6" id="id25" name="id25">2.2 撰寫 driver 程式</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#driver-kernel" id="id25">3. 將 driver 掛載到 kernel 上</a><ul>
-<li><a class="reference internal" href="#module-driver" id="id26">3.1 方法一：用 module 的方式撰寫 driver</a></li>
-<li><a class="reference internal" href="#id14" id="id27">3.2 方法二：將 driver 寫成 kernel 的一部分</a></li>
-<li><a class="reference internal" href="#id15" id="id28">3.3 測試 driver</a></li>
+<li><a class="reference" href="#driver-kernel" id="id26" name="id26">3. 將 driver 掛載到 kernel 上</a><ul>
+<li><a class="reference" href="#module-driver" id="id27" name="id27">3.1 方法一：用 module 的方式撰寫 driver</a></li>
+<li><a class="reference" href="#id14" id="id28" name="id28">3.2 方法二：將 driver 寫成 kernel 的一部分</a></li>
+<li><a class="reference" href="#id15" id="id29" name="id29">3.3 測試 driver</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id18" id="id29">4. 關於本文件</a></li>
+<li><a class="reference" href="#id18" id="id30" name="id30">4. 延伸閱讀</a><ul>
+<li><a class="reference" href="#wikipedia" id="id31" name="id31">Wikipedia</a></li>
+<li><a class="reference" href="#the-linux-document-project" id="id32" name="id32">The Linux Document Project</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#id19" id="id33" name="id33">5. 關於本文件</a></li>
 </ul>
 </div>
 <p>Driver 是程式和硬體元件溝通的橋樑。本次實驗將介紹在 Linux 中撰寫/使用 driver 的兩種方法，並另外補充關於 module 、 device 的基本知識。</p>
-<div class="section" id="device-driver">
-<h1>1. 什麼是 device driver</h1>
-<div class="section" id="id2">
-<h2>1.1 device driver</h2>
+<div class="section">
+<h1><a id="device-driver" name="device-driver">1. 什麼是 device driver</a></h1>
+<div class="section">
+<h2><a id="id2" name="id2">1.1 device driver</a></h2>
 <p>Device driver 是介於實體設備與程式間的橋樑，它是 kernel 的一部分，user program 可以透過 driver 來使用實體設備。 Driver 大致可以分為 Block Device Driver 和 Character Device Driver，前者每次會傳輸固定的資料量，而後者的資料量則不需固定。</p>
 </div>
-<div class="section" id="device">
-<h2>1.2 device</h2>
+<div class="section">
+<h2><a id="device" name="device">1.2 device</a></h2>
 <p>在 Linux 中，所有的設備都是一個檔案，每個檔案都有自己特殊的編號和型態，我們可以在 /dev 中找到目前系統所有的 device ，這些 device 不一定是實際存在的硬體，也有可能是以虛擬的方式掛載上去的。例如，如果想要了解目前系統中總共有多少的 SATA 硬碟以及分割區，可以在終端機下鍵入：</p>
 <pre class="literal-block">
 ls -l /dev/sd*
 </pre>
-<p>如果想知道更多關於 device 、 device driver 的資訊，可以參考 Wikipedia <a class="footnote-reference" href="#id4" id="id3">[1]</a> 。</p>
+<p>如果想知道更多關於 device 、 device driver 的資訊，可以參考 Wikipedia <a class="footnote-reference" href="#id4" id="id3" name="id3">[1]</a> 。</p>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><p class="first">device : <a class="reference external" href="http://en.wikipedia.org/wiki/Device_node">http://en.wikipedia.org/wiki/Device_node</a></p>
-<p class="last">device driver: <a class="reference external" href="http://en.wikipedia.org/wiki/Device_driver">http://en.wikipedia.org/wiki/Device_driver</a></p>
+<tr><td class="label"><a class="fn-backref" href="#id3" name="id4">[1]</a></td><td><p class="first">device : <a class="reference" href="http://en.wikipedia.org/wiki/Device_node">http://en.wikipedia.org/wiki/Device_node</a></p>
+<p class="last">device driver: <a class="reference" href="http://en.wikipedia.org/wiki/Device_driver">http://en.wikipedia.org/wiki/Device_driver</a></p>
 </td></tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section" id="driver">
-<h1>2. 撰寫 driver</h1>
-<div class="section" id="id5">
-<h2>2.1 driver 程式的基本結構</h2>
+<div class="section">
+<h1><a id="driver" name="driver">2. 撰寫 driver</a></h1>
+<div class="section">
+<h2><a id="id5" name="id5">2.1 driver 程式的基本結構</a></h2>
 <p>Driver 作為程式和元件之間的橋樑，它必須提供一些基本的使用介面，如讀、寫或是其他控制元件的指令，本節將介紹撰寫一個 driver 所需的最基本架構。</p>
 <p>Driver 主要由兩部份構成：初始化、結束元件以及使用元件。Driver 在初始化以及結束使用元件時必須向系統註冊或釋放元件；而在使用元件方面，Linux提供一個統一的 structure 來描述對元件的控制指令，分別定義了read、write、ioctl（IO control）、open 以及 release 五個函式的 function pointer，讓系統知道每個 driver 要用到的 function 分別是哪些。</p>
 </div>
-<div class="section" id="id6">
-<h2>2.2 撰寫 driver 程式</h2>
-<p>以下分三段介紹 driver 程式的內容，原始的程式碼請到 opencsl 網頁 <a class="footnote-reference" href="#id8" id="id7">[2]</a> 下載。</p>
+<div class="section">
+<h2><a id="id6" name="id6">2.2 撰寫 driver 程式</a></h2>
+<p>以下分三段介紹 driver 程式的內容，原始的程式碼請到 opencsl 網頁 <a class="footnote-reference" href="#id8" id="id7" name="id7">[2]</a> 下載。</p>
 <table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[2]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/src/">http://opencsl.openfoundry.org/src/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7" name="id8">[2]</a></td><td><a class="reference" href="http://opencsl.openfoundry.org/src/">http://opencsl.openfoundry.org/src/</a></td></tr>
 </tbody>
 </table>
 <ol class="arabic">
@@ -231,34 +260,34 @@ module_exit(demo_exit);
 </ol>
 </div>
 </div>
-<div class="section" id="driver-kernel">
-<h1>3. 將 driver 掛載到 kernel 上</h1>
-<div class="section" id="module-driver">
-<h2>3.1 方法一：用 module 的方式撰寫 driver</h2>
+<div class="section">
+<h1><a id="driver-kernel" name="driver-kernel">3. 將 driver 掛載到 kernel 上</a></h1>
+<div class="section">
+<h2><a id="module-driver" name="module-driver">3.1 方法一：用 module 的方式撰寫 driver</a></h2>
 <p>將 driver 製作成 module 的好處是可以在不重開機的狀下，重複載入更新過的 driver ，在開發 driver 時是一個方便的許選擇。</p>
 <p>在編譯 module 前，要先更新 ubuntu 的套件。請在終端機下鍵入：</p>
 <pre class="literal-block">
 sudo apt-get install module-assistant
 </pre>
-<div class="section" id="kernel-module">
-<h3>3.1.1 調整 kernel 為接受 module</h3>
+<div class="section">
+<h3><a id="kernel-module" name="kernel-module">3.1.1 調整 kernel 為接受 module</a></h3>
 <p>因為原本預設的 kernel config 並不接受動態掛載 module ，我們要新增對 loadable module 的支援。</p>
-<p>在 linux kernel 的 menuconfig 中 <a class="footnote-reference" href="#id10" id="id9">[3]</a> ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。</p>
+<p>在 linux kernel 的 menuconfig 中 <a class="footnote-reference" href="#id10" id="id9" name="id9">[3]</a> ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。</p>
 <p>接著請重新編譯 kernel ，即可產生支援動態掛載 module 的 kernel image 了。</p>
 <table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[3]</a></td><td>編譯 linux kernel 的相關步驟可參考實驗二</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9" name="id10">[3]</a></td><td>編譯 linux kernel 的相關步驟可參考實驗二</td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="driver-module">
-<h3>3.1.2 編譯 driver module</h3>
+<div class="section">
+<h3><a id="driver-module" name="driver-module">3.1.2 編譯 driver module</a></h3>
 <p>編譯 module 的方法和一般的程式有一些不同，請先到 opencsl 網站下載 Makefile ：</p>
 <pre class="literal-block">
 wget http://opencsl.openfoundry.org/src/Makefile
 </pre>
-<p>將它和 demo.c 放到同一層目錄，並在上面鍵入 <a class="footnote-reference" href="#id12" id="id11">[4]</a></p>
+<p>將它和 demo.c 放到同一層目錄，並在上面鍵入 <a class="footnote-reference" href="#id12" id="id11" name="id11">[4]</a></p>
 <pre class="literal-block">
 make -C &lt;linux&gt;  M=$(pwd) modules
 </pre>
@@ -266,12 +295,12 @@ make -C &lt;linux&gt;  M=$(pwd) modules
 <table class="docutils footnote" frame="void" id="id12" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[4]</a></td><td>&lt;linux&gt; 為 linux source 的根目錄路徑</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id11" name="id12">[4]</a></td><td>&lt;linux&gt; 為 linux source 的根目錄路徑</td></tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="id13">
-<h3>3.1.3 掛載 driver</h3>
+<div class="section">
+<h3><a id="id13" name="id13">3.1.3 掛載 driver</a></h3>
 <p>在 linux 中和 module 有關的指令有三：</p>
 <ol class="arabic simple">
 <li>insmod ： 掛載 module</li>
@@ -291,15 +320,15 @@ rmmod demo.ko
 <p>就可以將 demo 移除。</p>
 </div>
 </div>
-<div class="section" id="id14">
-<h2>3.2 方法二：將 driver 寫成 kernel 的一部分</h2>
+<div class="section">
+<h2><a id="id14" name="id14">3.2 方法二：將 driver 寫成 kernel 的一部分</a></h2>
 <p>若想要將 driver 編成 kernel 的一部分，在開機時就直接掛載到 Linux 上，要先將 driver 程式放在 kernel source 裡，並將 Makefile 作一些調整使編譯 kernrl 時能夠將 driver 囊括進去。</p>
-<div class="section" id="driver-source">
-<h3>3.2.1 編輯 driver source</h3>
+<div class="section">
+<h3><a id="driver-source" name="driver-source">3.2.1 編輯 driver source</a></h3>
 <p>請將在 2.2 完成的 driver source 放到 &lt;linux&gt;/driver/char/ 目錄中，這裡放的是 linux character device driver 的程式碼。</p>
 </div>
-<div class="section" id="kconfig">
-<h3>3.2.2 調整 Kconfig</h3>
+<div class="section">
+<h3><a id="kconfig" name="kconfig">3.2.2 調整 Kconfig</a></h3>
 <p>接下來，我們要調整 Kconfig 使 make menuconfig 時出現 demo driver 的選項。 &lt;linux&gt;/driver/char/Kconfig 是定義 menuconfig 的檔案，請跳到最後一行，並在 endmenu 前加入</p>
 <pre class="literal-block">
 config DEMO
@@ -308,8 +337,8 @@ config DEMO
 </pre>
 <p>其中 config DEMO 是宣告一個新的選項叫做 DEMO ，它的說明為 DEMO driver for OPENCSL ， menuconfig 的預設是沒有選取。</p>
 </div>
-<div class="section" id="makefile">
-<h3>3.2.3 調整 Makefile</h3>
+<div class="section">
+<h3><a id="makefile" name="makefile">3.2.3 調整 Makefile</a></h3>
 <p>再來是調整 Makefile ，使 driver 能夠在編譯時被包含到 kernel 中。在 &lt;linux&gt;/driver/char/Makefile 這個關於 character device driver 的 Makefile 中找到</p>
 <pre class="literal-block">
 obj-$(CONFIG_TCG_TPM) += tpm/
@@ -320,13 +349,13 @@ obj-$(CONFIG_DEMO)   += demo.o
 </pre>
 <p>即可。</p>
 </div>
-<div class="section" id="kernel">
-<h3>3.2.4 重新編譯 kernel</h3>
+<div class="section">
+<h3><a id="kernel" name="kernel">3.2.4 重新編譯 kernel</a></h3>
 <p>最後，使用 cross-compiler 重新編譯 kernel ，即可產生包含 DEMO driver 的 kernel image 。</p>
 </div>
 </div>
-<div class="section" id="id15">
-<h2>3.3 測試 driver</h2>
+<div class="section">
+<h2><a id="id15" name="id15">3.3 測試 driver</a></h2>
 <p>我們可以撰寫一個簡單的測試程式來觀察 driver 的運作模式。</p>
 <pre class="literal-block">
 #include &lt;stdio.h&gt;
@@ -345,16 +374,16 @@ int main()
 }
 </pre>
 <p>接著，使用 cross-compiler 並加上 -static 參數即可編譯出執行檔。</p>
-<div class="section" id="id16">
-<h3>3.3.1 新增 device</h3>
+<div class="section">
+<h3><a id="id16" name="id16">3.3.1 新增 device</a></h3>
 <p>在使用測試程式之前，我們必須先在 /dev 中建立 driver 要用到 device ，在開啟 qemu 後鍵入</p>
 <pre class="literal-block">
 mknod /dev/demo c 60 0
 </pre>
 <p>其中 c 為 character device 的意思，60 以及 0 則分別為該 device 的 major 和 minor number</p>
 </div>
-<div class="section" id="id17">
-<h3>3.3.2 使用 driver</h3>
+<div class="section">
+<h3><a id="id17" name="id17">3.3.2 使用 driver</a></h3>
 <p>我們可以透過執行剛編譯出的測試程式來觀察 driver 的運作流程，或是直接在命令列鍵入</p>
 <pre class="literal-block">
 echo &quot;?&quot; &gt;  /dev/demo
@@ -363,9 +392,27 @@ echo &quot;?&quot; &gt;  /dev/demo
 </div>
 </div>
 </div>
-<div class="section" id="id18">
-<h1>4. 關於本文件</h1>
-<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+<div class="section">
+<h1><a id="id18" name="id18">4. 延伸閱讀</a></h1>
+<div class="section">
+<h2><a id="wikipedia" name="wikipedia">Wikipedia</a></h2>
+<ul class="simple">
+<li>device <a class="reference" href="http://en.wikipedia.org/wiki/Device_node">http://en.wikipedia.org/wiki/Device_node</a></li>
+<li>device driver <a class="reference" href="http://en.wikipedia.org/wiki/Device_driver">http://en.wikipedia.org/wiki/Device_driver</a></li>
+</ul>
+</div>
+<div class="section">
+<h2><a id="the-linux-document-project" name="the-linux-document-project">The Linux Document Project</a></h2>
+<ul class="simple">
+<li>Device_Drivers <a class="reference" href="http://tldp.org/LDP/tlk/dd/drivers.html">http://tldp.org/LDP/tlk/dd/drivers.html</a></li>
+<li>Linux_Loadable_Kernel_Module_HOWTO <a class="reference" href="http://tldp.org/HOWTO/Module-HOWTO">http://tldp.org/HOWTO/Module-HOWTO</a></li>
+<li>The_Linux_Kernel_Module_Programming_Guide <a class="reference" href="http://tldp.org/LDP/lkmpg/2.6/html">http://tldp.org/LDP/lkmpg/2.6/html</a></li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h1><a id="id19" name="id19">5. 關於本文件</a></h1>
+<p>本文件以 <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
 </div>
 </body>

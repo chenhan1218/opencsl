@@ -156,7 +156,20 @@ do_timer() 是 timer interrupt ISR 的 top half，在裡面加入
 
 的訊息，表示 timer interrupt 是不斷被觸發，而且 top half 是先於 bottom half 的。
 
-4. 關於本文件
+
+4. 延伸閱讀
+===========
+
+The Linux Document Project
+--------------------------
+- Scheduling_Tasks http://tldp.org/LDP/lkmpg/2.4/html/c1149.htm
+
+其他
+----
+- BottomHalves https://wiki.debian.org.tw/index.php/BottomHalves
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。

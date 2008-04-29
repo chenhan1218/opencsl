@@ -290,7 +290,23 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 
 對 /dev/demo 寫入一些資料，也會產生類似的效果。
 
-4. 關於本文件
+
+4. 延伸閱讀
+===========
+
+Wikipedia
+---------
+- device http://en.wikipedia.org/wiki/Device_node
+- device driver http://en.wikipedia.org/wiki/Device_driver
+
+The Linux Document Project
+--------------------------
+- Device_Drivers http://tldp.org/LDP/tlk/dd/drivers.html
+- Linux_Loadable_Kernel_Module_HOWTO http://tldp.org/HOWTO/Module-HOWTO
+- The_Linux_Kernel_Module_Programming_Guide http://tldp.org/LDP/lkmpg/2.6/html
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
