@@ -292,7 +292,30 @@ version released date
 
 .. _`Linux Kernel Version History`: http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html
 
-4. 關於本文件
+
+
+4. 延伸閱讀
+===========
+
+相關官網
+--------
+- Ubuntu http://www.ubuntu.org.tw/
+- Qemu http://fabrice.bellard.free.fr/qemu
+- Buildroot http://buildroot.uclibc.org/
+
+Wikipedia
+---------
+- Embedded_system http://en.wikipedia.org/wiki/Embedded_system
+- Ubuntu http://zh.wikipedia.org/wiki/Ubuntu
+- Emulator http://en.wikipedia.org/wiki/Emulator
+- Toolchain http://en.wikipedia.org/wiki/Toolchain
+- Cross_compiler http://en.wikipedia.org/wiki/Cross_compiler
+- Uclibc http://en.wikipedia.org/wiki/Uclibc
+- Subversion http://en.wikipedia.org/wiki/Subversion_%28software%29
+
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
