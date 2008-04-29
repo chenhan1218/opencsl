@@ -39,7 +39,7 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 外部元件可能會隨著時間而改變需要的 interrupt 個數，再加上由於硬體資源的限制，同一時間能夠存在的 interrupt 並不是無限而且不一定是可分享的 [#]_ ，所以我們需要一套註冊和釋放的機制來使用 interrupt 。
 
-以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 jollen's Blog [#]_
+以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 TLDP [#]_
 
 1. request_irq() ：向系統註冊使用某一個 interrupt ，並指定負責處理該 interrupt 的 ISR 。
 
@@ -49,12 +49,7 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 .. [#] 我們可以在 <linux>/include/asm-arm/irqs.h 、 <linux>/include/arch/irqs.h 中找到系統上已有的 interrupt以及 NR_IRQ ，它定義了 ARM CPU 中 interrupt 的個數，。
 
-.. [#] 
-  request_irq 基本觀念  http://www.jollen.org/blog/2008/03/interrupt_handling_1.html
-
-  深入淺出中斷模式      http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html
-
-  Bottom Half 的觀念    http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html
+.. [#] http://tldp.org/LDP/tlk/dd/interrupts.html
 
 2.2 觀察實際的 interrupt
 -------------------------

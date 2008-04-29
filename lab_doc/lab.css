@@ -1,0 +1,103 @@
+
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+ol.upperroman{
+	list-style: upper-roman
+}
+
+table td{
+	margin: 0px;
+	padding: 0.2em;
+	border: none;
+	background: #fff;
+}
+
+table{
+	border: none;
+	padding: 0.2em;
+	background: #e47e32;
+}
+
+table th{
+	background: #ffc;
+	padding: 0.2em;
+	border: none;
+}
+
+/* footnote */
+table.footnote, table.footnote td{
+	background: #fff;
+	padding: none;
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
+

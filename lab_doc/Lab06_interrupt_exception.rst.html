@@ -26,6 +26,31 @@ ol.upperroman{
 	list-style: upper-roman
 }
 
+table td{
+	margin: 0px;
+	padding: 0.2em;
+	border: none;
+	background: #fff;
+}
+
+table{
+	border: none;
+	padding: 0.2em;
+	background: #e47e32;
+}
+
+table th{
+	background: #ffc;
+	padding: 0.2em;
+	border: none;
+}
+
+/* footnote */
+table.footnote, table.footnote td{
+	background: #fff;
+	padding: none;
+}
+
 /* content heading */
 h1{
 	border-bottom: 0.1em #000 solid;
@@ -145,7 +170,7 @@ h1.title{
 <div class="section" id="id5">
 <h2>2.1 interrupt 的處理方法</h2>
 <p>外部元件可能會隨著時間而改變需要的 interrupt 個數，再加上由於硬體資源的限制，同一時間能夠存在的 interrupt 並不是無限而且不一定是可分享的 <a class="footnote-reference" href="#id8" id="id6">[2]</a> ，所以我們需要一套註冊和釋放的機制來使用 interrupt 。</p>
-<p>以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 jollen's Blog <a class="footnote-reference" href="#id9" id="id7">[3]</a></p>
+<p>以下介紹最基本的兩個函數，讓我們可以用 c 程式語言，在系統執行時動態使用 interrupt 資源。關於 interrupt 的詳細使用方法，請參考 TLDP <a class="footnote-reference" href="#id9" id="id7">[3]</a></p>
 <ol class="arabic simple">
 <li>request_irq() ：向系統註冊使用某一個 interrupt ，並指定負責處理該 interrupt 的 ISR 。</li>
 <li>free_irq() ：告知系統釋放特定的 interrupt 。</li>
@@ -160,10 +185,7 @@ h1.title{
 <table class="docutils footnote" frame="void" id="id9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[3]</a></td><td><p class="first">request_irq 基本觀念  <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_1.html">http://www.jollen.org/blog/2008/03/interrupt_handling_1.html</a></p>
-<p>深入淺出中斷模式      <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html">http://www.jollen.org/blog/2008/03/interrupt_handling_semaphore.html</a></p>
-<p class="last">Bottom Half 的觀念    <a class="reference external" href="http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html">http://www.jollen.org/blog/2008/03/interrupt_handling_bottom_half.html</a></p>
-</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[3]</a></td><td><a class="reference external" href="http://tldp.org/LDP/tlk/dd/interrupts.html">http://tldp.org/LDP/tlk/dd/interrupts.html</a></td></tr>
 </tbody>
 </table>
 </div>
