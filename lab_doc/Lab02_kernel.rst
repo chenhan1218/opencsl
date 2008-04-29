@@ -133,7 +133,6 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 --------
 - Kernel http://www.kernel.org/
 
-
 Wikipedia
 ---------
 - Kernel http://en.wikipedia.org/wiki/Kernel_%28computer_science%29
@@ -144,7 +143,9 @@ Wikipedia
 
   * patch in unix http://en.wikipedia.org/wiki/Patch_%28Unix%29
 
-
+The Linux Document Project
+--------------------------
+- Linux Kernel http://www.kernel.org/
 
 
 5. 關於本文件
