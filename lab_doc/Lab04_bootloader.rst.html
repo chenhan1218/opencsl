@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
+<title>Lab 4 製作 bootloader</title>
+<style type="text/css">
+
+
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+ol.upperroman{
+	list-style: upper-roman
+}
+
+table td{
+	margin: 0px;
+	padding: 0.2em;
+	border: none;
+	background: #fff;
+}
+
+table{
+	border: none;
+	padding: 0.2em;
+	background: #e47e32;
+}
+
+table th{
+	background: #ffc;
+	padding: 0.2em;
+	border: none;
+}
+
+/* footnote */
+table.footnote, table.footnote td{
+	background: #fff;
+	padding: none;
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="lab-4-bootloader">
+<h1 class="title">Lab 4 製作 bootloader</h1>
+<!-- 目前還在嘗試用QEMU跑 uboot 的方法，因此這次實驗內容還不確定 -->
+<div class="section">
+<h1><a id="bootloader" name="bootloader">1. 什麼是 bootloader</a></h1>
+</div>
+<div class="section">
+<h1><a id="id1" name="id1">2. 使用 bootloader</a></h1>
+<div class="section">
+<h2><a id="u-boot" name="u-boot">2.1 下載 u-boot</a></h2>
+<pre class="literal-block">
+#下載u-boot的source code
+wget http://jaist.dl.sourceforge.net/sourceforge/u-boot/u-boot-1.1.6.tar.bz2
+#解壓縮
+tar jxf u-boot-1.1.6.tar.bz2
+</pre>
+</div>
+<div class="section">
+<h2><a id="id2" name="id2">2.2 編譯 u-boot</a></h2>
+<pre class="literal-block">
+make cp920t_config
+make CROSS_COMPILE = arm-linux-
+</pre>
+</div>
+<div class="section">
+<h2><a id="qemu" name="qemu">2.3 用 QEMU 執行</a></h2>
+<pre class="literal-block">
+&lt;QEMU&gt;/arm-softmmu/qemu-system-arm -kernel &lt;U-BOOT&gt; \
+        -initrd &lt;ARM_TEST&gt;/arm_root.img -nographic -append &quot;console=ttyAMA0&quot;
+</pre>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>&lt;QEMU&gt; = qemu 的根目錄 （如 qemu-0.9.1/ ）</li>
+<li>&lt;U-BOOT&gt; = 的位置 （如 u-boot-1.1.6/u-boot.bin）</li>
+<li>&lt;ARM_TEST&gt; = arm-test 的位置</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
