@@ -256,7 +256,28 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。
 
 
-4. 關於本文件
+4. 延伸閱讀
+===========
+
+相關官網
+--------
+- BusyBox http://www.busybox.net
+
+Wikipedia
+---------
+- File System http://en.wikipedia.org/wiki/File_system
+- Network_File_System http://en.wikipedia.org/wiki/Network_File_System
+
+
+The Linux Document Project
+--------------------------
+- General_overview_of_the_Linux_file_system http://tldp.org/LDP/intro-linux/html/sect_03_01.html
+- Linux_Filesystem_Hierarchy http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
+- Building_a_root_filesystem http://tldp.org/HOWTO/Bootdisk-HOWTO/buildroot.html
+
+
+
+5. 關於本文件
 =============
 
 本文件以 `reStructuredText`_ 格式編撰，並可使用 `docutils`_ 工具轉換成 `HTML`_ 或 LaTeX 各類格式。
