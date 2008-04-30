@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
 <title>Lab 7 timer interrupt</title>
 <style type="text/css">
 
@@ -12,6 +12,10 @@
 a {
 	color: #e47e32;
 	text-decoration: none;
+}
+
+h1 a, h2 a{
+	color: #000;
 }
 
 a:hover {
@@ -116,58 +120,59 @@ h1.title{
 <body>
 <div class="document" id="lab-7-timer-interrupt">
 <h1 class="title">Lab 7 timer interrupt</h1>
-<div class="contents topic">
-<p class="topic-title first"><a id="id1" name="id1">文件目錄</a></p>
+
+<div class="contents topic" id="id1">
+<p class="topic-title first">文件目錄</p>
 <ul class="simple">
-<li><a class="reference" href="#timer-interrupt" id="id12" name="id12">1. 什麼是 timer interrupt</a><ul>
-<li><a class="reference" href="#timer" id="id13" name="id13">1.1 timer 的運作機制</a></li>
-<li><a class="reference" href="#id2" id="id14" name="id14">1.2 timer interrupt 的意義</a></li>
-<li><a class="reference" href="#id3" id="id15" name="id15">1.3 timer interrupt 的處理流程</a></li>
+<li><a class="reference internal" href="#timer-interrupt" id="id12">1. 什麼是 timer interrupt</a><ul>
+<li><a class="reference internal" href="#timer" id="id13">1.1 timer 的運作機制</a></li>
+<li><a class="reference internal" href="#id2" id="id14">1.2 timer interrupt 的意義</a></li>
+<li><a class="reference internal" href="#id3" id="id15">1.3 timer interrupt 的處理流程</a></li>
 </ul>
 </li>
-<li><a class="reference" href="#id4" id="id16" name="id16">2. 調整 timer interrupt</a><ul>
-<li><a class="reference" href="#kernel" id="id17" name="id17">2.1 調整 kernel</a></li>
-<li><a class="reference" href="#user-program" id="id18" name="id18">2.2 撰寫 user program</a></li>
-<li><a class="reference" href="#qemu" id="id19" name="id19">2.3 用 QEMU 測試</a></li>
+<li><a class="reference internal" href="#id4" id="id16">2. 調整 timer interrupt</a><ul>
+<li><a class="reference internal" href="#kernel" id="id17">2.1 調整 kernel</a></li>
+<li><a class="reference internal" href="#user-program" id="id18">2.2 撰寫 user program</a></li>
+<li><a class="reference internal" href="#qemu" id="id19">2.3 用 QEMU 測試</a></li>
 </ul>
 </li>
-<li><a class="reference" href="#top-bottom-half" id="id20" name="id20">3. 觀察 top/bottom half</a><ul>
-<li><a class="reference" href="#id7" id="id21" name="id21">3.1 調整 kernel</a></li>
-<li><a class="reference" href="#id8" id="id22" name="id22">3.2 用 QEMU 執行觀察</a></li>
+<li><a class="reference internal" href="#top-bottom-half" id="id20">3. 觀察 top/bottom half</a><ul>
+<li><a class="reference internal" href="#id7" id="id21">3.1 調整 kernel</a></li>
+<li><a class="reference internal" href="#id8" id="id22">3.2 用 QEMU 執行觀察</a></li>
 </ul>
 </li>
-<li><a class="reference" href="#id9" id="id23" name="id23">4. 延伸閱讀</a><ul>
-<li><a class="reference" href="#the-linux-document-project" id="id24" name="id24">The Linux Document Project</a></li>
-<li><a class="reference" href="#id10" id="id25" name="id25">其他</a></li>
+<li><a class="reference internal" href="#id9" id="id23">4. 延伸閱讀</a><ul>
+<li><a class="reference internal" href="#the-linux-document-project" id="id24">The Linux Document Project</a></li>
+<li><a class="reference internal" href="#id10" id="id25">其他</a></li>
 </ul>
 </li>
-<li><a class="reference" href="#id11" id="id26" name="id26">5. 關於本文件</a></li>
+<li><a class="reference internal" href="#id11" id="id26">5. 關於本文件</a></li>
 </ul>
 </div>
 <p>Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理任務。本次實驗將介紹 timer interrupt 在 Linux kernel 中扮演的意義，以及如何用軟體的方式調整 timer interrupt ；另外，我們也將介紹在 Linux kernel 中處理 interrupt 的技巧-- top half 和 bottom half。</p>
-<div class="section">
-<h1><a id="timer-interrupt" name="timer-interrupt">1. 什麼是 timer interrupt</a></h1>
-<div class="section">
-<h2><a id="timer" name="timer">1.1 timer 的運作機制</a></h2>
+<div class="section" id="timer-interrupt">
+<h1><a class="toc-backref" href="#id12">1. 什麼是 timer interrupt</a></h1>
+<div class="section" id="timer">
+<h2><a class="toc-backref" href="#id13">1.1 timer 的運作機制</a></h2>
 <p>系統計算時間的方式常常是基於內部的某些硬體設備（如振盪器的振動頻率），在由系統控制這些設備的行為所代表的意義。在 Linux 中，當開機時會先從設備讀取時間來初始化計時器(RTC real time clock)，接著 kernel 再依據原本設定的值來決定每秒要發生的中斷（interrupt）次數，當一次中斷發生時，kernel 會將一個全域變數 jiffies 加一，藉此紀錄時間的變化，在一般的 Linux 系統中，每秒會發生 100 次的中斷。</p>
 </div>
-<div class="section">
-<h2><a id="id2" name="id2">1.2 timer interrupt 的意義</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id14">1.2 timer interrupt 的意義</a></h2>
 <p>根據 timer 而產生的中斷就叫做 timer interrupt ，在 Linux 系統中， timer interrupt 被拿來當作一些例行性任務的觸發機制，例如更新系統時間、每個 process 的執行時間以及被 context switch 前還能執行的時間，藉此讓 mutlti-tasking 成為可能。</p>
 <p>由於每次 timer interrupt 產生時都要花一些時間處理對應的任務，當 timer interrupt 的頻率過低時，系統的反應會比較遲鈍，因為 context switch 的頻率相對變低了，但當 timer interrupt 過高時，系統則會因為不斷處理 timer interrupt 而變得沒有效率。</p>
 </div>
-<div class="section">
-<h2><a id="id3" name="id3">1.3 timer interrupt 的處理流程</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id15">1.3 timer interrupt 的處理流程</a></h2>
 <p>由於 timer interrupt 是有時間急迫性的 interrupt ，Linux 將這種 interrupt 分成兩部份來處理，也就是在一開使所提的 top half 以及 bottom half。在 top half 中，ISR 會先處理最重要的任務，並儘快將 CPU 使用權交還給 kernel ，之後如果有時間的話才繼續處理 bottom half 的任務，這樣的機制可以使系統比較能夠在高頻率的 interrupt 下還保有系統的平性度。</p>
 </div>
 </div>
-<div class="section">
-<h1><a id="id4" name="id4">2. 調整 timer interrupt</a></h1>
-<div class="section">
-<h2><a id="kernel" name="kernel">2.1 調整 kernel</a></h2>
+<div class="section" id="id4">
+<h1><a class="toc-backref" href="#id16">2. 調整 timer interrupt</a></h1>
+<div class="section" id="kernel">
+<h2><a class="toc-backref" href="#id17">2.1 調整 kernel</a></h2>
 <ol class="arabic">
 <li><p class="first">找到初始化 timer 的程式碼</p>
-<p>我們可以在 &lt;linux&gt; <a class="footnote-reference" href="#id6" id="id5" name="id5">[1]</a> /init/main.c 中找到 kernel 初始化的流程，其中就包含了 time_init() 。如果有興趣的話，可以自行搜尋 time_init() 的內容（在 &lt;linux&gt;/arm/kernel/time.c 中），在此我們先在 time_init() 後面加上 printk() 印出提示訊息，來驗證該函式是否有備執行。</p>
+<p>我們可以在 &lt;linux&gt; <a class="footnote-reference" href="#id6" id="id5">[1]</a> /init/main.c 中找到 kernel 初始化的流程，其中就包含了 time_init() 。如果有興趣的話，可以自行搜尋 time_init() 的內容（在 &lt;linux&gt;/arm/kernel/time.c 中），在此我們先在 time_init() 後面加上 printk() 印出提示訊息，來驗證該函式是否有備執行。</p>
 <pre class="literal-block">
 timekepping_init();
 time_init();
@@ -194,31 +199,54 @@ make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
 <table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5" name="id6">[1]</a></td><td>在本文件中， &lt;linux&gt; 皆為 linux kernel 的原始碼位置</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[1]</a></td><td>在本文件中， &lt;linux&gt; 皆為 linux kernel 的原始碼位置</td></tr>
 </tbody>
 </table>
 </div>
-<div class="section">
-<h2><a id="user-program" name="user-program">2.2 撰寫 user program</a></h2>
+<div class="section" id="user-program">
+<h2><a class="toc-backref" href="#id18">2.2 撰寫 user program</a></h2>
 <p>我們可以藉由撰寫一個需要較多執行時間的程式來簡單測量系統的效能。</p>
 <pre class="literal-block">
-#include&lt;stdio.h&gt;
-#include&lt;time.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;time.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
 
-int main(){
+int main(int argc, char *argv[])
+{
+      int i,status,oripid,ppid,npid,fn;
+      int loop_num;
+      float a = 1.05;
 
-   clock_t t1;
-   int i, j, k;
+      if(argc==1){
+        loop_num = 1000;
+        fn = 50;
+      }
+      else{
+        loop_num = atoi(argv[2]);
+        fn = atoi(argv[1]);
+        if(loop_num &lt; 0 ) loop_num = 100000;
+      }
+      oripid = getpid();
 
-   t1 = clock();
 
-   for(i=0;i&lt;1000;i++)
-      for(j=0;j&lt;1000;j++)
-          for(k=0;k&lt;300;k++)
-                                      ;
-   printf(&quot;Loop has cost %lf seconds\n&quot;,((double)(clock()-t1))/CLOCKS_PER_SEC);
+      for(i=0;i&lt;fn;i++){
+        if(getpid()==oripid)
+          fork();
+      }
 
-   return 0;
+      if(getpid() == oripid){ // parent
+              for(i=0;i&lt;fn;i++){
+                      waitpid(-1,&amp;status,0);
+              }
+      }
+      else{
+              for(i=0;i&lt;loop_num;i++)
+                a=a*a*a*a;
+      }
+
+      return 0;
 }
 </pre>
 <p>接著再用之前製作的 cross-compiler 編譯（假設程式叫做 test.c ，執行檔叫做 test.out）：</p>
@@ -226,15 +254,15 @@ int main(){
 arm-linux-uclibc-gcc -static -I &lt;linux&gt;/include test.c -o test.out
 </pre>
 </div>
-<div class="section">
-<h2><a id="qemu" name="qemu">2.3 用 QEMU 測試</a></h2>
+<div class="section" id="qemu">
+<h2><a class="toc-backref" href="#id19">2.3 用 QEMU 測試</a></h2>
 <p>我們可以分別用之前的 kernel image 和剛製作的 kernel image 來執行 test.out ，就可以發現雖然是相同的程式，但用新編譯 kernel 執行要花較久的時間 。</p>
 </div>
 </div>
-<div class="section">
-<h1><a id="top-bottom-half" name="top-bottom-half">3. 觀察 top/bottom half</a></h1>
-<div class="section">
-<h2><a id="id7" name="id7">3.1 調整 kernel</a></h2>
+<div class="section" id="top-bottom-half">
+<h1><a class="toc-backref" href="#id20">3. 觀察 top/bottom half</a></h1>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id21">3.1 調整 kernel</a></h2>
 <p>timer interrupt 的 ISR 放在 &lt;linux&gt;/kernel/timer.c 中，裡面包含了 top half 和 bottom half 的函式。我們可以將它們作一些調整，以了解兩個函式之間執行次數的比例。</p>
 <p>在 timer.c 中，先加入兩個全域變數：</p>
 <pre class="literal-block">
@@ -259,8 +287,8 @@ if ( vs_count &lt; 50 ){
 make CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
 </pre>
 </div>
-<div class="section">
-<h2><a id="id8" name="id8">3.2 用 QEMU 執行觀察</a></h2>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id22">3.2 用 QEMU 執行觀察</a></h2>
 <p>我們可以發現當 QEMU 啟動 Linux 時，會不斷地印出</p>
 <pre class="literal-block">
 timer interrupt  top half      +-----timer interrupt:: bottom half
@@ -268,24 +296,24 @@ timer interrupt  top half      +-----timer interrupt:: bottom half
 <p>的訊息，表示 timer interrupt 是不斷被觸發，而且 top half 是先於 bottom half 的。</p>
 </div>
 </div>
-<div class="section">
-<h1><a id="id9" name="id9">4. 延伸閱讀</a></h1>
-<div class="section">
-<h2><a id="the-linux-document-project" name="the-linux-document-project">The Linux Document Project</a></h2>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id23">4. 延伸閱讀</a></h1>
+<div class="section" id="the-linux-document-project">
+<h2><a class="toc-backref" href="#id24">The Linux Document Project</a></h2>
 <ul class="simple">
-<li>Scheduling_Tasks <a class="reference" href="http://tldp.org/LDP/lkmpg/2.4/html/c1149.htm">http://tldp.org/LDP/lkmpg/2.4/html/c1149.htm</a></li>
+<li>Scheduling_Tasks <a class="reference external" href="http://tldp.org/LDP/lkmpg/2.4/html/c1149.htm">http://tldp.org/LDP/lkmpg/2.4/html/c1149.htm</a></li>
 </ul>
 </div>
-<div class="section">
-<h2><a id="id10" name="id10">其他</a></h2>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id25">其他</a></h2>
 <ul class="simple">
-<li>BottomHalves <a class="reference" href="https://wiki.debian.org.tw/index.php/BottomHalves">https://wiki.debian.org.tw/index.php/BottomHalves</a></li>
+<li>BottomHalves <a class="reference external" href="https://wiki.debian.org.tw/index.php/BottomHalves">https://wiki.debian.org.tw/index.php/BottomHalves</a></li>
 </ul>
 </div>
 </div>
-<div class="section">
-<h1><a id="id11" name="id11">5. 關於本文件</a></h1>
-<p>本文件以 <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id26">5. 關於本文件</a></h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
 </div>
 </body>
