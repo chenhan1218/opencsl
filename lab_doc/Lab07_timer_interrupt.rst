@@ -72,25 +72,48 @@ Timer interrupt 是 interrupt 的一種，負責和系統時間相關的處理�
 
 我們可以藉由撰寫一個需要較多執行時間的程式來簡單測量系統的效能。
 ::
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <time.h>
+  #include <sys/types.h>
+  #include <sys/wait.h>
 
-  #include<stdio.h>
-  #include<time.h>
+  int main(int argc, char *argv[])
+  {
+  	int i,status,oripid,ppid,npid,fn;
+  	int loop_num;
+  	float a = 1.05;
+  
+  	if(argc==1){
+  	  loop_num = 1000;
+  	  fn = 50;
+  	}
+  	else{
+  	  loop_num = atoi(argv[2]);
+  	  fn = atoi(argv[1]); 
+  	  if(loop_num < 0 ) loop_num = 100000;
+  	}
+  	oripid = getpid();
+  	
+  
+  	for(i=0;i<fn;i++){
+  	  if(getpid()==oripid) 
+  	    fork();
+  	}
 
-  int main(){
+  	if(getpid() == oripid){ // parent
+  		for(i=0;i<fn;i++){
+  			waitpid(-1,&status,0);
+  		}
+  	}
+  	else{
+  		for(i=0;i<loop_num;i++)
+  		  a=a*a*a*a;
+  	}
 
-     clock_t t1;
-     int i, j, k;
+  	return 0;
+  }  
 
-     t1 = clock();
-
-     for(i=0;i<1000;i++)
-        for(j=0;j<1000;j++)
-            for(k=0;k<300;k++)
-					;
-     printf("Loop has cost %lf seconds\n",((double)(clock()-t1))/CLOCKS_PER_SEC);
-
-     return 0;
-  }
 
 接著再用之前製作的 cross-compiler 編譯（假設程式叫做 test.c ，執行檔叫做 test.out）：
 
