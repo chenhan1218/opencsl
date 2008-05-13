@@ -41,5 +41,33 @@ Lab 4 製作 bootloader
    - <ARM_TEST> = arm-test 的位置
 
 
+3. 載入 kernel
+==================
 
+3.1 把 kernel 轉成 uImage 格式
+------------------------------
+(u-boot 用的image格式稱為uImage)
+::
+    -objcopy -O binary -R .note -R .comment -S linux/arch/arm/boot/compressed/vmlinux linux.bin 
+    gzip -9 linux.bin 
+    (u-boot)/tools/mkimage -A arm -O linux -T kernel -C gzip -a 0x0008000 -e 0x0008000 -n "(kernel name)" -d linux.bin.gz ./uImage
+
+
+3.2 tftp 相關設置
+-----------------
+
+本機端
+::
+    /etc/init.d/tftpd start
+
+u-boot
+::
+    #設置 host 端 IP
+    <uboot> setenv serverip 192.168.0.1
+    #設置 guest 端 IP
+    <uboot> setenv ipaddr 192.168.0.2
+    #抓kernel
+    <uboot> tftp 100000 uImage
+    #boot kernel
+    <uboot> bootm 100000
 
