@@ -14,6 +14,10 @@ a {
 	text-decoration: none;
 }
 
+h1 a, h2 a{
+	color: #000;
+}
+
 a:hover {
 	text-decoration: underline;
 }
@@ -152,6 +156,45 @@ make CROSS_COMPILE = arm-linux-
 <li>&lt;ARM_TEST&gt; = arm-test 的位置</li>
 </ul>
 </div>
+</div>
+</div>
+<div class="section">
+<h1><a id="kernel" name="kernel">3. 載入 kernel</a></h1>
+<div class="section">
+<h2><a id="kernel-uimage" name="kernel-uimage">3.1 把 kernel 轉成 uImage 格式</a></h2>
+<p>(u-boot 用的image格式稱為uImage)</p>
+<pre class="literal-block">
+-objcopy -O binary -R .note -R .comment -S linux/arch/arm/boot/compressed/vmlinux linux.bin
+
+gzip -9 linux.bin
+
+(u-boot)/tools/mkimage -A arm -O linux -T kernel -C gzip \
+-a 0x0008000 -e 0x0008000 -n &quot;(kernel name)&quot; -d linux.bin.gz ./uImage
+</pre>
+</div>
+<div class="section">
+<h2><a id="tftp" name="tftp">3.2 tftp 相關設置</a></h2>
+<p>本機端</p>
+<pre class="literal-block">
+/etc/init.d/tftpd start
+</pre>
+<p>u-boot</p>
+<pre class="literal-block">
+#設置 host 端 IP
+&lt;uboot&gt; setenv serverip 192.168.0.1
+#設置 guest 端 IP
+&lt;uboot&gt; setenv ipaddr 192.168.0.2
+</pre>
+</div>
+<div class="section">
+<h2><a id="id3" name="id3">3.3 載入 kernel 並啟動</a></h2>
+<p><strong>卡在這個步驟</strong></p>
+<pre class="literal-block">
+#抓kernel
+&lt;uboot&gt; tftp 100000 uImage
+#boot kernel
+&lt;uboot&gt; bootm 100000
+</pre>
 </div>
 </div>
 </div>
