@@ -24,34 +24,58 @@ Virtual Box 是一個能夠模擬 X86 平台的 virtual machine ，它可以安�
 1. ubuntu 7.10 的 iso 檔（不需燒錄至光碟中）
 2. 至少 5G 的硬碟空間
 
-下載程式
----------
+下載程式並安裝
+------------------
+
+請先至 Virtual Box 官網下載區 [#]_ 下載程式，選擇完平台之後即可開始下載，在安裝完成後也可將 Virtual Box 的語言設定改為中文。
+
+.. [#] http://www.virtualbox.org/wiki/Downloads
 
 新增一個虛擬機器（ virtual machine ）
 --------------------------------------
 
 1. 點選「新增」，並設定要模擬的作業系統類型
 
-2. 設定可以使用的記憶體大小
+   .. image:: images/new-2.jpg
 
-3. 點選「新增」，建立新的虛擬硬碟
+2. 設定可以使用的記憶體大小（建議至少 512 MB）
+   
+   .. image:: images/new-3.jpg
+
+3. 在建立新的虛擬硬碟處點選「新增」，進入設定虛擬硬碟的畫面
+
+   .. image:: images/new-4.jpg
 
    1. 在建立虛擬硬碟時，選擇「動態擴充映像檔」，以方便日後硬碟大小的擴充
 
+      .. image:: images/new-6.jpg
+
    2. 設定「映像檔」名稱和初始大小（整套系統實驗大約需要 4.5G 的硬碟空間，你也可以先分出 5G 以上的硬碟大小來給系統實驗使用）
 
+      .. image:: images/new-7.jpg
+
    3. 按下「完成」結束虛擬硬碟的設定
+   
+      .. image:: images/new-8.jpg
 
 4. 選擇剛才新增的虛擬硬碟作為開機硬碟，即可完成虛擬機器的設定
+
+   .. image:: images/new-9.jpg
 
 設定虛擬機器
 -------------
 
 1. 在剛新增的虛擬機器上按下滑鼠右鍵，就可以進行設定
 
+   .. image:: images/machine-setting-1.jpg
+
 2. 在「光碟」選項中，選擇「掛載光碟機」，並將 Ubuntu 7.10 的 iso 檔填入「iso映像檔欄位中」（如果你已經有 Ubuntu 7.10 的 live CD ，可以選擇「主端光碟機」）
+   
+   .. image:: images/machine-setting-2.jpg
 
 3. 點選「啟動」，即可開始使用虛擬機器
+   
+   .. image:: images/machine-setting-3.jpg
 
 3. 關於本文件
 =============
