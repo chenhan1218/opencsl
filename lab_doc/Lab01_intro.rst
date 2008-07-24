@@ -99,7 +99,7 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 2. 在欲安裝的目錄下，下載原始碼
 ::
 
-  wget http://fabrice.bellard.free.fr/qemu/qemu-0.9.1.tar.gz
+  wget http://bellard.org/qemu/qemu-0.9.1.tar.gz
 
 
 3. 解壓縮原始碼包裹
@@ -300,7 +300,7 @@ version released date
 相關官網
 --------
 - Ubuntu http://www.ubuntu.org.tw/
-- Qemu http://fabrice.bellard.free.fr/qemu
+- Qemu http://bellard.org/qemu
 - Buildroot http://buildroot.uclibc.org/
 
 Wikipedia
