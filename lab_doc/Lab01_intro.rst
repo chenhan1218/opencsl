@@ -83,7 +83,7 @@ QEMU 是一套 emulator [#]_ 軟體，能在 PC 系統上模擬其他 processor 
 QEMU 的相關介紹可參考維基百科或是其官方網站 [#]_ 
 
 .. [#] http://en.wikipedia.org/wiki/Emulator
-.. [#] http://fabrice.bellard.free.fr/qemu 
+.. [#] http://bellard.org/qemu 
 
 2.2.1 在 Ubuntu 7.10 上安裝 QEMU
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
