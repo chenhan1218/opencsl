@@ -126,7 +126,7 @@ QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原
 1. 下載 arm-test disk image
 ::
 
-  wget http://fabrice.bellard.free.fr/qemu/arm-test-0.2.tar.gz
+  wget http://bellard.org/qemu/arm-test-0.2.tar.gz
 
 2. 解壓縮
 ::
