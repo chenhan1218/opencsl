@@ -244,7 +244,7 @@ Buildroot [#]_ 是一套基於 uClibc C library [#]_ ，用來編譯 cross-compi
 
 ::
   
-  export PATH=<buildroot>/build_arm/build_arm/staging_dir/usr/bin:$PATH
+  export PATH=<buildroot>/build_arm/staging_dir/usr/bin:$PATH
 
 或是在家目錄的 .bashrc 中加入這一行指令，再用
 
