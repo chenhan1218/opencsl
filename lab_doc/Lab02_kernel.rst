@@ -107,7 +107,7 @@ Linux kernel 的檔案庫是在 http://www.kernel.org/ ，目前所有的 linux 
 ::
 
   # 下載 disk image
-  wget http://fabrice.bellard.free.fr/qemu/arm-test-0.2.tar.gz
+  wget http://bellard.org/qemu/arm-test-0.2.tar.gz
   # 解壓縮
   tar zxf arm-test-0.2.tar.gz
 
