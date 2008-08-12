@@ -122,8 +122,13 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
 ::
 
-  # <rfs> 是 root filesystem 將要放置的位置
-  sudo cp -r <busybox>/_install <rfs>
+  sudo cp -r <busybox>/_install/* <rfs>
+
+.. notes::
+
+  <rfs> 是 root filesystem 將要放置的位置
+
+  <busybox> 是 busybox 所在的路徑
 
 3. 使用新的 root filesystem
 ===========================
@@ -149,7 +154,7 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
 QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。
 
-由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。
+由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可[#]_。
 
 新增 /etc/qemu-ifup ：
 
@@ -166,6 +171,8 @@ QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU �
 
 這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。
 
+.. [#] 設定好虛擬網卡只是讓它能夠連結到 host 端的網卡，若要讓虛擬網卡的訊號傳遞到 host 外部的網路，則需要設定 host 端網卡，使其具有 routing 的功能。
+
 3.1.3 設定 NFS
 ~~~~~~~~~~~~~~
 
@@ -177,6 +184,10 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 
   <rfs> 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
   <rfs> localhost(rw,async,no_root_squash,no_subtree_check)
+
+.. note::
+
+  <rfs> 是在 2.4 中建立的 root file system 的路徑
 
 設定可以掛載 <rfs> 的 IP 位址以及其權限，各選項的說明如下：
 
