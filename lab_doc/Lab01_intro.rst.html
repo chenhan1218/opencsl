@@ -418,7 +418,7 @@ make menuconfig
 <p>等 buildroot 完成編譯後，我們可以在 build_arm/staging_dir/usr/bin 下找到我們在往後實驗中要使用的 toolchain ，他們全部是以 arm-linux-uclibc- 開頭，後面則是接著各個程式的功能，如 gcc 、 as 、 ld 等。</p>
 <p>為了方便往後使用，我們可以設定 $PATH 參數，讓 bash shell 在搜尋可執行檔時也會搜尋這組編好的 toolchain 。假設 buildroot 的根目錄是 &lt;buildroot&gt; ，則在終端機鍵入</p>
 <pre class="literal-block">
-export PATH=&lt;buildroot&gt;/build_arm/build_arm/staging_dir/usr/bin:$PATH
+export PATH=&lt;buildroot&gt;/build_arm/staging_dir/usr/bin:$PATH
 </pre>
 <p>或是在家目錄的 .bashrc 中加入這一行指令，再用</p>
 <pre class="literal-block">
