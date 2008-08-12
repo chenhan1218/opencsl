@@ -124,39 +124,39 @@ h1.title{
 <div class="contents topic" id="id1">
 <p class="topic-title first">文件目錄</p>
 <ul class="simple">
-<li><a class="reference internal" href="#root-filesystem" id="id16">1. 什麼是 root filesystem</a></li>
-<li><a class="reference internal" href="#id2" id="id17">2. 製作 root filesystem</a><ul>
-<li><a class="reference internal" href="#busybox" id="id18">2.1 編譯 busybox</a></li>
-<li><a class="reference internal" href="#id6" id="id19">2.2 製作所需檔案、目錄</a></li>
-<li><a class="reference internal" href="#id9" id="id20">2.4 確定 root filesystem 位置</a></li>
+<li><a class="reference internal" href="#root-filesystem" id="id17">1. 什麼是 root filesystem</a></li>
+<li><a class="reference internal" href="#id2" id="id18">2. 製作 root filesystem</a><ul>
+<li><a class="reference internal" href="#busybox" id="id19">2.1 編譯 busybox</a></li>
+<li><a class="reference internal" href="#id6" id="id20">2.2 製作所需檔案、目錄</a></li>
+<li><a class="reference internal" href="#id9" id="id21">2.4 確定 root filesystem 位置</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10" id="id21">3. 使用新的 root filesystem</a><ul>
-<li><a class="reference internal" href="#host-nfs" id="id22">3.1 設定 host 端的 NFS 及網路環境</a></li>
-<li><a class="reference internal" href="#qemu" id="id23">3.2 用QEMU執行</a></li>
+<li><a class="reference internal" href="#id10" id="id22">3. 使用新的 root filesystem</a><ul>
+<li><a class="reference internal" href="#host-nfs" id="id23">3.1 設定 host 端的 NFS 及網路環境</a></li>
+<li><a class="reference internal" href="#qemu" id="id24">3.2 用QEMU執行</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13" id="id24">4. 延伸閱讀</a><ul>
-<li><a class="reference internal" href="#id14" id="id25">相關官網</a></li>
-<li><a class="reference internal" href="#wikipedia" id="id26">Wikipedia</a></li>
-<li><a class="reference internal" href="#the-linux-document-project" id="id27">The Linux Document Project</a></li>
+<li><a class="reference internal" href="#id14" id="id25">4. 延伸閱讀</a><ul>
+<li><a class="reference internal" href="#id15" id="id26">相關官網</a></li>
+<li><a class="reference internal" href="#wikipedia" id="id27">Wikipedia</a></li>
+<li><a class="reference internal" href="#the-linux-document-project" id="id28">The Linux Document Project</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id15" id="id28">5. 關於本文件</a></li>
+<li><a class="reference internal" href="#id16" id="id29">5. 關於本文件</a></li>
 </ul>
 </div>
 <!-- 將來可以介紹 ramdisk 是什麼，還有 linux 的開機流程 -->
 <p>除了 kernel 之外，讓作業系統能順利運作還需要另外一項元素-- filesystem，它紀錄了一個作業系統在運作的過程中所需的程式、資料紀錄等，本次實驗將介紹如何從無到有建立一個最基本的 filesystem ，並學習透過網路使用 filesystem 。</p>
 <div class="section" id="root-filesystem">
-<h1><a class="toc-backref" href="#id16">1. 什麼是 root filesystem</a></h1>
+<h1><a class="toc-backref" href="#id17">1. 什麼是 root filesystem</a></h1>
 <p>Root filesystem 是構成 filesystem 的最小集合，它包含所有 Linux 開機時需要的檔案及資料夾，如 initrd 、init.d裡的各項服務，、/etc、/proc、/lib等，而且位置全都是從根目錄（ / ）開始，它可以算是整個 filesystem 的源頭。在嵌入式系統中， root filesystem 通常包含了能滿足各種基本使用的工具，如 ls 、 mount 等，之後如果需要額外的儲存空間或檔案則是再透過 mount 來把其他的儲存裝置掛載進來。</p>
 </div>
 <div class="section" id="id2">
-<h1><a class="toc-backref" href="#id17">2. 製作 root filesystem</a></h1>
+<h1><a class="toc-backref" href="#id18">2. 製作 root filesystem</a></h1>
 <p>Root filesystem 大致上包含三部份-- 各種常用的工具、一些關於系統組態的設定檔、基本的資料夾結構。以下我們主要使用 busybox 來製作各項工具及生成基本的資料夾。</p>
 <p>Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提供了各種常用的指令來操作系統，並且將所有指令包成一個執行檔，因為他的各項指令經過改寫，編譯出來的執行檔大小會較一般 Linux 上使用的指令來得小，很適合在嵌入式系統這種資源有限的情況下使用。</p>
 <div class="section" id="busybox">
-<h2><a class="toc-backref" href="#id18">2.1 編譯 busybox</a></h2>
+<h2><a class="toc-backref" href="#id19">2.1 編譯 busybox</a></h2>
 <div class="section" id="id3">
 <h3>2.1.1 下載原始碼</h3>
 <p>我們可以透過 subversion 的工具下載原始碼，請先切換到欲安裝 busybox 的目錄，然後在終端機下鍵入</p>
@@ -172,9 +172,9 @@ svn co svn://busybox.net/branches/busybox_1_9_stable ./busybox
 wget http://opencsl.openfoundry.org/setting/busybox-1.9.config
 </pre>
 <p>接著便如同編譯 kernel 時一樣，在 busybox 的根目錄 &lt;busybox&gt; 下鍵入 make menuconfig ，即可進入 configure 畫面。</p>
-<p>首先，我們先將載入剛下載的 config 檔，將游標移到選單的最下面可以找到「Load an Alternative Configuration File」，並鍵入 busybox-1.9.config ，這個設定檔會調整 busybox 編譯出的工具以及一些 busybox 的基本設定。</p>
+<p>首先，我們要載入剛下載的 config 檔。將游標移到選單的最下面可以找到「Load an Alternative Configuration File」，並鍵入 busybox-1.9.config ，這個設定檔會調整 busybox 編譯出的工具以及一些 busybox 的基本設定。</p>
 <p>接下來，再進入「Busybox Settings」的「Build Options」，在「Build BusyBox as a static binary(no shared libs)」前按 y 以選擇該項目，將 busybox 編成 static linked 的執行檔。</p>
-<p>最後在存檔離開 configure 畫面即可。</p>
+<p>最後再存檔離開 configure 畫面即可。</p>
 </div>
 <div class="section" id="id5">
 <h3>2.1.3 編譯及產生 root filesystem</h3>
@@ -189,7 +189,7 @@ make install CROSS_COMPILE=arm-linux-uclibc- ARCH=arm
 </div>
 </div>
 <div class="section" id="id6">
-<h2><a class="toc-backref" href="#id19">2.2 製作所需檔案、目錄</a></h2>
+<h2><a class="toc-backref" href="#id20">2.2 製作所需檔案、目錄</a></h2>
 <p>在製作完 busybox 後，我們需要補足 linux 需要的一些檔案，包含資料夾、裝置檔以及開機的設定檔，以下分別介紹三類檔案的製作方法。</p>
 <ol class="arabic">
 <li><p class="first">必須的資料夾</p>
@@ -220,37 +220,48 @@ ln -s bin/busybox init
 </li>
 </ol>
 <blockquote>
-<p>我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 opencsl 網頁 <a class="footnote-reference" href="#id8" id="id7">[1]</a> 下載 inittab 以及 rcS 兩個檔案，再把它放到對應的位置即可。</p>
+<p>我們需要補上 /etc/inittab 以及 /etc/init.d/rcS 兩個檔案。請先至 opencsl 網頁 <a class="footnote-reference" href="#id8" id="id7">[1]</a> 下載 「實驗相關檔案」，並將 inittab 以及 rcS 兩個檔案放到對應的位置即可。</p>
 </blockquote>
 <ol class="upperroman simple" start="3">
 <li>登入帳號的相關檔案</li>
 </ol>
 <blockquote>
-<p>要登入 Linux shell 需要帳號的資料以及群組的資料，我們目前只需設定一個不需要密碼的 root 。請先至 opencsl 網頁下載 passwd 以及 group 兩個檔案，在將它放到 /etc 底下即可。</p>
+<p>要登入 Linux shell 需要帳號的資料以及群組的資料，我們目前只需設定一個不需要密碼的 root 。請先「實驗相關檔案」中找到passwd 以及 group 兩個檔案，再它放到 /etc 底下即可。</p>
 </blockquote>
 </li>
 </ol>
 <table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[1]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/setting/">http://opencsl.openfoundry.org/setting/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[1]</a></td><td><a class="reference external" href="http://opencsl.openfoundry.org/">http://opencsl.openfoundry.org/</a></td></tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id20">2.4 確定 root filesystem 位置</a></h2>
+<h2><a class="toc-backref" href="#id21">2.4 確定 root filesystem 位置</a></h2>
 <p>由於 _install 目錄裡的就檔案在每次重新製作 busybox 時會被清空，我們必須要把 root filesystem 先移至其他的目錄，搬移的方法如下：</p>
 <pre class="literal-block">
-# &lt;rfs&gt; 是 root filesystem 將要放置的位置
-sudo cp -r &lt;busybox&gt;/_install &lt;rfs&gt;
+sudo cp -r &lt;busybox&gt;/_install/* &lt;rfs&gt;
+</pre>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">Lab03_root_filesystem.rst</tt>, line 127)</p>
+<p>Unknown directive type &quot;notes&quot;.</p>
+<pre class="literal-block">
+.. notes::
+
+  &lt;rfs&gt; 是 root filesystem 將要放置的位置
+
+  &lt;busybox&gt; 是 busybox 所在的路徑
+
 </pre>
 </div>
 </div>
+</div>
 <div class="section" id="id10">
-<h1><a class="toc-backref" href="#id21">3. 使用新的 root filesystem</a></h1>
+<h1><a class="toc-backref" href="#id22">3. 使用新的 root filesystem</a></h1>
 <p>我們選擇使用 NFS 來當作 target 的 root file system ，因為透過 NFS ，我們可以很容易調整並且保留整個 file system 。 為了使用 NFS ，我們需要先設定 host 和 target 的網路環境。</p>
 <div class="section" id="host-nfs">
-<h2><a class="toc-backref" href="#id22">3.1 設定 host 端的 NFS 及網路環境</a></h2>
+<h2><a class="toc-backref" href="#id23">3.1 設定 host 端的 NFS 及網路環境</a></h2>
 <div class="section" id="id11">
 <h3>3.1.1 安裝必須套件</h3>
 <p>在開始使用 NFS 之前，我們要先安裝 NFS 相關的套件，請在終端機下鍵入</p>
@@ -262,7 +273,7 @@ sudo apt-get install nfs-kernel-server uml-utilities
 <div class="section" id="id12">
 <h3>3.1.2 設定網路</h3>
 <p>QEMU 會在 host 的 /etc 中建立一個叫做 qemu-ifup 的檔案，當 QEMU 執行並指定要使用網路時， QEMU 會先執行這個 script ，我們可以用這個檔案來調整 QEMU 的網路設定。</p>
-<p>由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可。</p>
+<p>由於目前只需要將 target 連至 host ，還不需要讓 target 能夠連到 host 的對外網路，因此我們只需要將 QEMU 的虛擬網卡設定好即可[#]_。</p>
 <p>新增 /etc/qemu-ifup ：</p>
 <pre class="literal-block">
 #!/bin/sh
@@ -273,6 +284,12 @@ sudo apt-get install nfs-kernel-server uml-utilities
 sudo chmod u+x /etc/qemu-ifup
 </pre>
 <p>這樣在 QEMU 啟動時就可以把 QEMU 要使用的網卡設定好 IP 。</p>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>設定好虛擬網卡只是讓它能夠連結到 host 端的網卡，若要讓虛擬網卡的訊號傳遞到 host 外部的網路，則需要設定 host 端網卡，使其具有 routing 的功能。</td></tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="nfs">
 <h3>3.1.3 設定 NFS</h3>
@@ -282,6 +299,10 @@ sudo chmod u+x /etc/qemu-ifup
 &lt;rfs&gt; 192.168.0.2(rw,async,no_root_squash,no_subtree_check)
 &lt;rfs&gt; localhost(rw,async,no_root_squash,no_subtree_check)
 </pre>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">&lt;rfs&gt; 是在 2.4 中建立的 root file system 的路徑</p>
+</div>
 <p>設定可以掛載 &lt;rfs&gt; 的 IP 位址以及其權限，各選項的說明如下：</p>
 <ol class="arabic simple">
 <li>rw：設為可讀寫</li>
@@ -314,7 +335,7 @@ sudo umount &lt;rfs&gt;
 </div>
 </div>
 <div class="section" id="qemu">
-<h2><a class="toc-backref" href="#id23">3.2 用QEMU執行</a></h2>
+<h2><a class="toc-backref" href="#id24">3.2 用QEMU執行</a></h2>
 <p>在開使用 QEMU 執行之前，要先打開 QEMU 的網路需要的虛擬裝置 tun ，請鍵入</p>
 <pre class="literal-block">
 sudo modprobe tun
@@ -322,7 +343,7 @@ sudo modprobe tun
 <p>接著，就可以用 QEMU 執行以 NFS 為 root filesystem 的 Linux 了。</p>
 <p>由於指令有點長，建議可以先將指令寫成一個 script ，需要時再直接執行即可。完整的指令為：</p>
 <pre class="literal-block">
-&lt;QEMU&gt;/arm-softmmu/qemu-system-arm \
+sudo &lt;QEMU&gt;/arm-softmmu/qemu-system-arm \
       -kernel &lt;KERNEL&gt; \
       -net nic -net tap \
       -nographic \
@@ -330,6 +351,7 @@ sudo modprobe tun
 </pre>
 <div class="note">
 <p class="first admonition-title">Note</p>
+<p>因為使用 NFS 需要系統的管理員權限，因此執行 QEMU 時需加上 sudo 。</p>
 <p>&lt;QEMU&gt; = qemu 的根目錄 （如 qemu-0.9.1/ ）</p>
 <p>&lt;KERNEL&gt; = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）</p>
 <p>&lt;RFS&gt; = root filesyste 的位置</p>
@@ -340,23 +362,23 @@ sudo modprobe tun
 <p>這樣 Linux 會直接使用 NFS 上的檔案來進行開機流程，你也可以試著在 QEMU 裡試著增加一些檔案，來看看是否從 host 端可以馬上看到這些改變。</p>
 </div>
 </div>
-<div class="section" id="id13">
-<h1><a class="toc-backref" href="#id24">4. 延伸閱讀</a></h1>
 <div class="section" id="id14">
-<h2><a class="toc-backref" href="#id25">相關官網</a></h2>
+<h1><a class="toc-backref" href="#id25">4. 延伸閱讀</a></h1>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id26">相關官網</a></h2>
 <ul class="simple">
 <li>BusyBox <a class="reference external" href="http://www.busybox.net">http://www.busybox.net</a></li>
 </ul>
 </div>
 <div class="section" id="wikipedia">
-<h2><a class="toc-backref" href="#id26">Wikipedia</a></h2>
+<h2><a class="toc-backref" href="#id27">Wikipedia</a></h2>
 <ul class="simple">
 <li>File System <a class="reference external" href="http://en.wikipedia.org/wiki/File_system">http://en.wikipedia.org/wiki/File_system</a></li>
 <li>Network_File_System <a class="reference external" href="http://en.wikipedia.org/wiki/Network_File_System">http://en.wikipedia.org/wiki/Network_File_System</a></li>
 </ul>
 </div>
 <div class="section" id="the-linux-document-project">
-<h2><a class="toc-backref" href="#id27">The Linux Document Project</a></h2>
+<h2><a class="toc-backref" href="#id28">The Linux Document Project</a></h2>
 <ul class="simple">
 <li>General_overview_of_the_Linux_file_system <a class="reference external" href="http://tldp.org/LDP/intro-linux/html/sect_03_01.html">http://tldp.org/LDP/intro-linux/html/sect_03_01.html</a></li>
 <li>Linux_Filesystem_Hierarchy <a class="reference external" href="http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/">http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/</a></li>
@@ -364,8 +386,8 @@ sudo modprobe tun
 </ul>
 </div>
 </div>
-<div class="section" id="id15">
-<h1><a class="toc-backref" href="#id28">5. 關於本文件</a></h1>
+<div class="section" id="id16">
+<h1><a class="toc-backref" href="#id29">5. 關於本文件</a></h1>
 <p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
 </div>
 </div>
