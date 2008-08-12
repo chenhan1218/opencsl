@@ -124,7 +124,7 @@ Busybox 是一套常被嵌入式系統使用的程式，它主要的功能是提
 
   sudo cp -r <busybox>/_install/* <rfs>
 
-.. notes::
+.. note::
 
   <rfs> 是 root filesystem 將要放置的位置
 
