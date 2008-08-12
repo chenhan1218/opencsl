@@ -245,13 +245,15 @@ Ubuntu 7.10 已經內含 NFS 的相關工具了，我們只需要再調整一些
 
 ::
 
-  <QEMU>/arm-softmmu/qemu-system-arm \
+  sudo <QEMU>/arm-softmmu/qemu-system-arm \
         -kernel <KERNEL> \
         -net nic -net tap \
         -nographic \
         -append "console=ttyAMA0 root=/dev/nfs rw nfsroot=<HOST_IP>:<RFS> ip=<TARGET_IP>::<HOST_IP>:<MASK>"
 
 .. note::
+  因為使用 NFS 需要系統的管理員權限，因此執行 QEMU 時需加上 sudo 。
+
   <QEMU> = qemu 的根目錄 （如 qemu-0.9.1/ ）
 
   <KERNEL> = kernel image 的位置 （如 linux-2.6.18.1/arch/arm/boot/zImage）
