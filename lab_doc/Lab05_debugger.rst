@@ -48,7 +48,7 @@ Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insig
 ----------------
 GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程式的一個 subroutine ，在使用 GDB 執行程式時是依照 frame 來分塊的。目前執行的 subroutine 叫做 frame 0 ，呼叫該 routine 的叫做 frame 1 ，以此類推。當 frame 0 要呼叫下一個 subroutine 時， GDB 會將目前的資料存到 stack 中，然後才執行下一個 frame ，這樣的分法可以方便除錯時檢視各個 subroutine 之間的關係。
 
-我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加一以達到加密的目的。
+我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加 1以達到加密的目的。
 
 ::
 
@@ -71,6 +71,9 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
   		printf("%s\n", argv[i+1]);
   	}
   }
+
+.. note::
+  以上程式碼可以在 opencsl 網站 http://opencsl.openfoundry.org 的「實驗相關檔案」下載。
 
 2.2.1 用 GDB 執行程式（ set, show, run/r ）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

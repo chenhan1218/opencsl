@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Lab 5 debugger 和 software emulator</title>
+<style type="text/css">
+
+
+/* global setting */
+a {
+	color: #e47e32;
+	text-decoration: none;
+}
+
+h1 a, h2 a{
+	color: #000;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.document{
+	padding: 2em;
+}
+
+ol.upperroman{
+	list-style: upper-roman
+}
+
+table td{
+	margin: 0px;
+	padding: 0.2em;
+	border: none;
+	background: #fff;
+}
+
+table{
+	border: none;
+	padding: 0.2em;
+	background: #e47e32;
+}
+
+table th{
+	background: #ffc;
+	padding: 0.2em;
+	border: none;
+}
+
+/* footnote */
+table.footnote, table.footnote td{
+	background: #fff;
+	padding: none;
+}
+
+/* content heading */
+h1{
+	border-bottom: 0.1em #000 solid;
+}
+
+h1.title{
+	font-size: 150% 
+	font-weight: bolder;
+}
+
+/* table of content */
+.contents{
+
+	background: #fff;
+	float: right;
+	width: 25%;
+	border: #e47e32 0.2em solid;
+	margin: 0.5em;
+}
+
+.contents .topic-title{
+
+	font: large bold;
+	margin: 0px;
+	padding: 0.3em;
+	background: #e4ae85;
+	border-bottom: #e47e32 0.1em dashed;
+}
+
+.contents a{
+	color: #000;
+}
+
+/* notes */
+.note{
+
+	margin-left: 1em;
+	border: 1px dashed #e47e32;
+	border-right-style: solid;
+	border-left-style: solid;
+	background: #ffc;
+	padding: 0.5em;
+}
+
+.note .admonition-title{
+	padding: 0.3em;
+	margin: 0px;
+	border-bottom: 1px dashed #e47e32;
+}
+
+/* code */
+.literal-block{
+	margin-left: 1em;
+	padding: 0.5em;
+	border: 1px solid #e47e32;
+	border-left: 0.5em solid #e47e32;
+	background: #ffc;
+}
+
+
+</style>
+</head>
+<body>
+<div class="document" id="lab-5-debugger-software-emulator">
+<h1 class="title">Lab 5 debugger 和 software emulator</h1>
+
+<div class="contents topic" id="id1">
+<p class="topic-title first">文件目錄</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id2" id="id20">1. 實驗介紹</a><ul>
+<li><a class="reference internal" href="#gdb-gnu-debugger" id="id21">1.1 GDB (GNU Debugger)</a></li>
+<li><a class="reference internal" href="#insight" id="id22">1.2 Insight</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdb" id="id23">2. 使用 GDB</a><ul>
+<li><a class="reference internal" href="#id9" id="id24">2.1 安裝 GDB</a></li>
+<li><a class="reference internal" href="#id10" id="id25">2.2 基本功能介紹</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11" id="id26">3. 使用 GDB 進行遠端除錯</a><ul>
+<li><a class="reference internal" href="#arm-linux-uclibc-gdb-gdbserver" id="id27">3.1 編譯 arm-linux-uclibc-gdb 、 gdbserver</a></li>
+<li><a class="reference internal" href="#id12" id="id28">3.2 編譯測試程式</a></li>
+<li><a class="reference internal" href="#id13" id="id29">3.3 進行遠端除錯</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id30">4. 使用 Insight</a><ul>
+<li><a class="reference internal" href="#id15" id="id31">4.1 安裝 Insight</a></li>
+<li><a class="reference internal" href="#id16" id="id32">4.2 基本功能介紹</a></li>
+<li><a class="reference internal" href="#id17" id="id33">4.3 用 Insight 除錯</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18" id="id34">5. 延伸參考資料</a></li>
+<li><a class="reference internal" href="#id19" id="id35">6. 關於本文件</a></li>
+</ul>
+</div>
+<!-- QEMU 的 debug 方式還沒研究 -->
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id20">1. 實驗介紹</a></h1>
+<p>本次實驗的目的是學會如何對程式進行除錯，無論程式是被編譯成在 target 還是 host 端執行。底下將分段介紹如何用 GDB 以及它的一套 GUI 程式來進行除錯。</p>
+<div class="section" id="gdb-gnu-debugger">
+<h2><a class="toc-backref" href="#id21">1.1 GDB (GNU Debugger)</a></h2>
+<p>GDB 是一套在 Unix-like 環境上執行的文字介面 debugger，能夠支援多種平台以及程式語言。和GDB相關的介紹請參考 wikipedia <a class="footnote-reference" href="#id5" id="id3">[1]</a> 以及 GDB 官方網站 <a class="footnote-reference" href="#id6" id="id4">[2]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Gdb">http://en.wikipedia.org/wiki/Gdb</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://www.gnu.org/software/gdb/">http://www.gnu.org/software/gdb/</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="insight">
+<h2><a class="toc-backref" href="#id22">1.2 Insight</a></h2>
+<p>Insight 是使用 GDB 的一套 GUI，關於 Insight 的介紹可以參考 Insight 官方網站 <a class="footnote-reference" href="#id8" id="id7">[3]</a> 。</p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[3]</a></td><td><a class="reference external" href="http://sourceware.org/insight/">http://sourceware.org/insight/</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="gdb">
+<h1><a class="toc-backref" href="#id23">2. 使用 GDB</a></h1>
+<!-- 介紹基本功能，並給額外文件連結 -->
+<!-- 有空要介紹 multi-thread/multi-process debugging -->
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id24">2.1 安裝 GDB</a></h2>
+<p>如果有依照之前的實驗進行，gdb應該已經安裝在電腦當中，我們可以用 whereis 指令來確認 gdb 是否存在。</p>
+<pre class="literal-block">
+whereis gdb
+</pre>
+<p>若是gdb沒有安裝在電腦當中，可以使用 apt-get 來安裝gdb</p>
+<pre class="literal-block">
+sudo apt-get install gdb
+</pre>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id25">2.2 基本功能介紹</a></h2>
+<p>GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程式的一個 subroutine ，在使用 GDB 執行程式時是依照 frame 來分塊的。目前執行的 subroutine 叫做 frame 0 ，呼叫該 routine 的叫做 frame 1 ，以此類推。當 frame 0 要呼叫下一個 subroutine 時， GDB 會將目前的資料存到 stack 中，然後才執行下一個 frame ，這樣的分法可以方便除錯時檢視各個 subroutine 之間的關係。</p>
+<p>我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加 1以達到加密的目的。</p>
+<pre class="literal-block">
+#include&lt;stdio.h&gt;
+
+char* encode(char* str){
+      char* tempStr = str;
+      while( *tempStr != 0 ){
+              (*tempStr)++;
+              tempStr++;
+      }
+}
+
+int main(int argc, char* argv[]){
+
+      int i;
+
+      for(i = 0; i &lt; argc; i++){
+              encode(argv[i+1]);
+              printf(&quot;%s\n&quot;, argv[i+1]);
+      }
+}
+</pre>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">以上程式碼可以在 opencsl 網站 <a class="reference external" href="http://opencsl.openfoundry.org">http://opencsl.openfoundry.org</a> 的「實驗相關檔案」下載。</p>
+</div>
+<div class="section" id="gdb-set-show-run-r">
+<h3>2.2.1 用 GDB 執行程式（ set, show, run/r ）</h3>
+<p>如果要用 GDB 來除錯，必須在編譯時加上 -g 參數，使 gcc 多加一些除錯資訊到程式中。</p>
+<pre class="literal-block">
+gcc -g -o encode encode.c
+</pre>
+<p>在編譯完成後，就可以將程式用 GDB 來執行。</p>
+<pre class="literal-block">
+gdb ./encode
+</pre>
+<p>當載入完成後，會出現 GDB 的命令列，此時可以用 set args 設定要丟給程式的參數，並用 show args 來檢查所下的參數。</p>
+<pre class="literal-block">
+(gdb) set args abc osss
+(gdb) show args
+Argument list to give program being debugged when it is started is &quot;abc osss&quot;.
+</pre>
+<p>接著就可以用 run 來執行程式。</p>
+<pre class="literal-block">
+(gdb) run
+</pre>
+<p>在執行之後會看到 GDB 出現提示資訊，跟我們說程式因為 segmentation fault 而終止了，並且會提示導致 segmentation fault 的程式行號。</p>
+</div>
+<div class="section" id="list-l">
+<h3>2.2.2 顯示程式碼 （ list/l ）</h3>
+<p>如果想要在使用 GDB 時檢視程式碼，可以直接在 GDB 裡用 list 指令，或是簡寫 l ，後面可以指定要顯示某一段程式碼，指定的方式可以是行號、函式名稱、檔案名稱或是程式的位址。
+例如想要顯示 encode 這個函式到第15行的內容，可以打</p>
+<pre class="literal-block">
+(gdb) list encode, 15
+</pre>
+<p>如果只給list一個參數，則會顯示那個參數代表的程式碼附近十行的程式。</p>
+<p>如果想要繼續往後閱讀程式碼，只要再打一次 list 即可。
+另外，「list - 」則可以印出前十行的程式碼。</p>
+</div>
+<div class="section" id="breakpoint-break-b-continue-cont-c-next-n-step-s">
+<h3>2.2.3 設定中斷點並繼續執行（ breakpoint/break/b, continue/cont/c, next/n, step/s）</h3>
+<p>在程式碼中插入中斷點可以使 GDB 不會一次把程式執行完，而會停在中斷點處。當程式被中斷時，我們可以使用 GDB 來讀取程式內變數、 CPU register 以及程式的其他資訊，本段先介紹如何設置中斷點以及逐步執行程式。</p>
+<p>插入中斷點的指令是 breakpoint 或是簡寫 break、b ，後面可以加上參數指定行號、函式或是程式中的位址。當 GDB 執行遇到中斷點時，它會暫停在中斷點之前，也就是說，被設為中斷點的那行程式或函式就是下一個要執行的程式碼。例如我們可以透過以下指令將執行 encode() 前、後都設下中斷點：</p>
+<pre class="literal-block">
+(gdb) b encode
+(gdb) b 10
+</pre>
+<p>第十行剛好是 encode 的結尾。</p>
+<p>當設定好中斷點之後便可以用 run 開始執行程式，接著會發現 GDB 停在 encode() 的第一行程式碼，並且顯示它的參數。</p>
+<pre class="literal-block">
+(gdb) set args abc osss
+(gdb) run
+Breakpoint 1, encode (str=0xbfef383c &quot;abc&quot;) at bug.c:5
+5               char* tempStr = str;
+</pre>
+<p>此時，我們有三種方式可以選擇下一步的動作：</p>
+<ol class="arabic">
+<li><p class="first">continue ，或是簡寫 cont、c</p>
+<p>continue 的意思是繼續執行到下一個中斷點或是程式結束為止。</p>
+</li>
+<li><p class="first">next ，或是簡寫 n</p>
+<p>next 是一次執行一行程式碼，當程式碼是呼叫函式時， GDB 只會把它視為一行程式碼。</p>
+</li>
+<li><p class="first">step ，或是簡寫 s</p>
+<p>step 和 next 類似，但當碰到函式呼叫時， GDB 會進入函式中逐行執行。</p>
+</li>
+</ol>
+<p>以下示範三種不同方式的結果：</p>
+<pre class="literal-block">
+Breakpoint 1, encode (str=0xbfef383c &quot;abc&quot;) at bug.c:5
+5               char* tempStr = str;
+
+# 執行下一行程式碼
+(gdb) n
+6               while( *tempStr != 0 ){
+
+# 直接執行到下一個中斷點
+(gdb) c
+Continuing.
+
+Breakpoint 2, encode (str=0xbfef383c &quot;bcd&quot;) at bug.c:10
+10      }
+
+# encode 結束，所以往下一行會跳回 main 裡的 printf
+(gdb) n
+main (argc=3, argv=0xbfef35a4) at bug.c:18
+18                      printf(&quot;%s\n&quot;, argv[i+1]);
+
+(gdb) n
+bcd
+16              for(i = 0; i &lt; argc; i++){
+
+(gdb) s
+17                      encode(argv[i+1]);
+
+# 將要執行 encode ，選擇進入 encode 中逐步執行
+(gdb) s
+Breakpoint 1, encode (str=0xbfef3840 &quot;osss&quot;) at bug.c:5
+5               char* tempStr = str;
+</pre>
+<p>值得注意的一點是，如果被呼叫的函式中有設定中斷點，即使是用 next 逐步執行， GDB 還是會跳到函式中。</p>
+</div>
+<div class="section" id="print-p-display">
+<h3>2.2.4 讀取變數的值（ print/p, display）</h3>
+<p>當 GDB 停在中斷點，或是在逐步執行的過程中，我們可以透過 print 指令，或是簡寫 p 來讀取程式內變數的值。接續上面的例子，當程式停在第一個中斷點時，因為程式已經進到 encode() 的第一行，所以目前有效的變數只有 encode() 以及它的參數 str ，main()裡的參數因為不屬於此 frame ，所以無法讀取，而 tempStr 因為還未宣告，因此也是無效的，以下是程式停在 encode() 時使用 print 的情況：</p>
+<pre class="literal-block">
+(gdb) p str
+$6 = 0xbf99683b &quot;abc&quot;
+
+(gdb) p encode
+$7 = {void (char *)} 0x8048374 &lt;encode&gt;
+
+# 尚未宣告的變數
+(gdb) p tempStr
+$8 = 0x1 &lt;Address 0x1 out of bounds&gt;
+
+# 不在此 frame 的變數
+(gdb) p argc
+No symbol &quot;argc&quot; in current context.
+</pre>
+<p>可以發現到 GDB 會幫每次 print 的變數都取一個暫存代號，我們可以直接選擇顯示這些代號的內容，或是用 $ 、 $$ 來分別表示前一個顯示的變數、前二個顯示的變數的值。</p>
+<p>另外， print 也可以顯示陣列裡的部份內容，或是顯示不同的進位方式，如：</p>
+<pre class="literal-block">
+# 從 str[0] 開始，顯示兩個元素
+(gdb) p str[0]&#64;2
+$9 = &quot;ab&quot;
+
+# 用16進位方式顯示
+(gdb) p/x str[1]&#64;2
+$10 = {0x62, 0x63}
+</pre>
+<p>如果不想要每次中斷時都重新用 print 來讀取自己想要看的值，可以用 display 設定在每次程式被中斷時想要顯示的資訊。 display 的設定方法和 print 相同，在這裡就不另外作示範。</p>
+</div>
+<div class="section" id="backtrace-bt-info">
+<h3>2.2.5 查看程式資訊（ backtrace/bt, info ）</h3>
+<p>當我們想要知道目前函式之間的呼叫狀態時，可以使用 backtrace 指令，或是簡稱 bt ，它能顯示目前 frame stack 的狀態，也可以在後面加上參數「 full 」來顯示每個 frame 裡的 local variavle 。</p>
+<p>info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設定的中斷點、 display ，或是 CPU registers 的內容都可以用這個指令辦到，如：</p>
+<pre class="literal-block">
+# 顯示目前設定的中斷點
+(gdb) info b
+
+# 顯示目前設定的 display
+(gdb) info display
+
+# 顯示 eax 的值
+(gdb) info register eax
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h1><a class="toc-backref" href="#id26">3. 使用 GDB 進行遠端除錯</a></h1>
+<p>除了在本機除錯之外，GDB 也可以透過網路對 target 端的程式進行除錯。</p>
+<p>若要進行遠端除錯，我們需要編譯在 target 端執行的 gdbserver 以及在 host 端控制 gdbserver 的 gdb ，因為 gdbserver 的程式較原來的 gdb 簡單，因此通常 gdbserver 會比 gdb 本身還要容易 port 到 target 上去，但是在使用上又和原本的 gdb 相同。</p>
+<div class="section" id="arm-linux-uclibc-gdb-gdbserver">
+<h2><a class="toc-backref" href="#id27">3.1 編譯 arm-linux-uclibc-gdb 、 gdbserver</a></h2>
+<ol class="arabic">
+<li><p class="first">下載檔案以及建立資料夾</p>
+<p>首先要到 GDB 網站下載 gdb 原始碼：</p>
+<pre class="literal-block">
+wget http://ftp.gnu.org/gnu/gdb/gdb-6.8.tar.bz2
+</pre>
+<p>接著解開壓縮檔後並進入該目錄：</p>
+<pre class="literal-block">
+tar xf gdb-6.8.tar.bz2
+cd gdb-6.8
+</pre>
+<p>然後在 gdb 的根目錄底下建立供 gdb 以及 gdbserver 使用的目錄：</p>
+<pre class="literal-block">
+mkdir gdb-host gdb-target
+</pre>
+</li>
+<li><p class="first">編譯 host 端的 gdb</p>
+<p>我們要先製作 gdb 的 configure 檔，再根據 configure 來編譯 gdb</p>
+<pre class="literal-block">
+cd gdb-host
+../configure --target=arm-linux-uclibc --prefix=$(pwd)
+</pre>
+<p>接著再進行編譯即可產生 host 端使用的 gdb</p>
+<pre class="literal-block">
+make
+make install
+</pre>
+<p>在編譯完成後，可以在 gdb-6.8/gdb-host/bin/ 下發現 arm-linux-uclibc-gdb ，就是我們剛才製作出的 gdb。</p>
+</li>
+<li><p class="first">編譯 target 端的 gdbserver</p>
+<p>在編譯完 後，也是用類似的步驟編譯 gdbserver 。首先是產生 configure 檔</p>
+<pre class="literal-block">
+cd ../gdb-target
+CC=arm-linux-uclibc-gcc  ../gdb/gdbserver/configure --host=arm-linux-uclibc --prefix=$(pwd)
+</pre>
+<p>接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到</p>
+<pre class="literal-block">
+CFLAGS = -g -O2
+</pre>
+<p>因為 target 端沒有編譯動態函式庫，因此要在它後面加上 -static ，使 gdbserver 不使用動態函式庫</p>
+<pre class="literal-block">
+CFLAGS = -g -O2 -static
+</pre>
+<p>最後再進行編譯即可。在編譯完成後可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端直營的程式。</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id28">3.2 編譯測試程式</a></h2>
+<p>我們需要編譯一個能夠在 target 端執行的程式，因此要使用 cross-compiler 以及加上 -static 參數。</p>
+<p>以第二章所舉的 bug.c 為例：</p>
+<pre class="literal-block">
+arm-linux-uclibc-gcc bug.c -o bug -static -g
+</pre>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id29">3.3 進行遠端除錯</a></h2>
+<p>要進行遠端除錯的步驟如下：</p>
+<ol class="arabic">
+<li><p class="first">在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port 等 host 端的 gdb 連進來。</p>
+<p>進行此步驟前，請先用 QEMU 載入 linux kernel ，並切換到 gdbserver 和 bug 所在的目錄，就可以鍵入</p>
+<pre class="literal-block">
+./gdbserver 192.168.0.1:5566 bug
+</pre>
+</li>
+</ol>
+<blockquote>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>192.168.0.1 是 host 端的 IP</p>
+<p>5566 是 gdbserver 監聽的 port</p>
+<p class="last">bug 是要偵錯的程式</p>
+</div>
+</blockquote>
+<ol class="arabic" start="2">
+<li><p class="first">從 host 端連到 target 進行 debug</p>
+<p>在 host 端也用 gdb 執行同一個程式，在此還需要引入程式的理由是因為 gdbserver 只負責控制程式，但關於程式碼的內容等和程式執行本身的資訊還是由 gdb 自己負責。</p>
+<p>首先，先用 gdb 引入 bug</p>
+<pre class="literal-block">
+arm-linux-uclibc-gdb bug
+</pre>
+<p>接著，連線到 target 端</p>
+<pre class="literal-block">
+target remote 192.168.0.2:5566
+</pre>
+<p>即可用第二章所教的方法進行 debug 。</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>192.168.0.2 是 target 端的 IP</p>
+<p class="last">5566 是 gdbserver 監聽的 port</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id14">
+<h1><a class="toc-backref" href="#id30">4. 使用 Insight</a></h1>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id31">4.1 安裝 Insight</a></h2>
+<p>在 Ubuntu 中，我們可以直接透過套件管理程式來安裝 insight 。在終端機鍵入以下指令：</p>
+<pre class="literal-block">
+sudo apt-get install insight
+</pre>
+<p>或是使用 synaptic 套件管理程式安裝。</p>
+<p>在安裝完成後，在終端機鍵入</p>
+<pre class="literal-block">
+insight
+</pre>
+<p>就會出現 Insight 的視窗介面。</p>
+<img alt="images/lab05_insight.png" src="images/lab05_insight.png" />
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id32">4.2 基本功能介紹</a></h2>
+<p>在 Insight 視窗中可以看到各個對應 GDB 的指令，如 breakpoint 、 file ，甚至還可以直接跳回 GDB 使用純文字的介面（ ctrl + N ）。以下列出在本實驗中有介紹的 GDB 相關指令在 insight 中對應的快捷鍵：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">GDB 指令</th>
+<th class="head">Insight 快捷鍵</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>breadpoint</td>
+<td>ctrl + b</td>
+</tr>
+<tr><td>run</td>
+<td>r</td>
+</tr>
+<tr><td>continue</td>
+<td>c</td>
+</tr>
+<tr><td>step</td>
+<td>s</td>
+</tr>
+<tr><td>next</td>
+<td>n</td>
+</tr>
+<tr><td>local variable</td>
+<td>ctrl + n</td>
+</tr>
+</tbody>
+</table>
+<p>例如按下 ctrl + b 之後就會可以設定中斷點， Insight 也會新增一個視窗來顯示目前所有中斷點的資訊。</p>
+<img alt="images/lab05_breakpoint.png" src="images/lab05_breakpoint.png" />
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id33">4.3 用 Insight 除錯</a></h2>
+<p>雖然 Insight 可以比較方便地設定一些功能，像是一次顯示所有 registers 、 stack 的狀況，但並無法使用 GDB 所有的功能，例如我們無法用 Insight 來設定 args （ set args ）以及環境變數，因此，比較好的方式是使用 Insight 附的文字介面再加上其他我們想要使用的功能，將視窗切割成很多個不同的區塊，如此一來，我們就可以一邊觀察目前程式執行的位址，一邊觀察所有變數的值，並很容易的設定中斷點，因為視窗介面讓我們可以比較容易找到想觀察的程式碼。</p>
+<img alt="images/lab05_multi_windows.png" src="images/lab05_multi_windows.png" />
+</div>
+</div>
+<div class="section" id="id18">
+<h1><a class="toc-backref" href="#id34">5. 延伸參考資料</a></h1>
+<p>本實驗只對 GDB 作了最基本的介紹，但 GDB 其實還可以在其他的情況下除錯，如同時除錯 multi-thread / multi-process 的程式、對已經在執行的程式除錯等，另外，在除錯的過程中也可以使用更多的指令來提昇效率，如設定遇到中斷點時要執行哪些指令（ commands ）。以下提供一些關於 GDB 的教學網站，供有興趣的人自行參考學習。</p>
+<ul class="simple">
+<li>完整版的 GDB 線上文件： <a class="reference external" href="http://dirac.org/linux/gdb">http://dirac.org/linux/gdb</a></li>
+<li>一些 GDB 的進階技巧： <a class="reference external" href="http://www.study-area.org/cyril/opentools/opentools/x1265.html">http://www.study-area.org/cyril/opentools/opentools/x1265.html</a></li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h1><a class="toc-backref" href="#id35">6. 關於本文件</a></h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+</div>
+</div>
+</body>
+</html>
