@@ -52,6 +52,8 @@ GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程
 
 ::
 
+  /* lab05_bug.c */
+
   #include<stdio.h>
 
   char* encode(char* str){
@@ -304,7 +306,7 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
      cd ../gdb-target
      CC=arm-linux-uclibc-gcc  ../gdb/gdbserver/configure --host=arm-linux-uclibc --prefix=$(pwd)
 
-   接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到
+   接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到 gcc 編譯時的參數
 
    ::
 
@@ -316,7 +318,8 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 
      CFLAGS = -g -O2 -static
 
-   最後再進行編譯即可。在編譯完成後可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端直營的程式。
+   最後再進行編譯即可。在鍵入 make 編譯完成後，可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端執行的程式。
+   另外，為了等一下能夠在 target 上執行 gdbserver ， 我們需要事先將 gdbserver 複製到實驗三所製作的 root filesystem 中，因為 target 不是以 host 端所使用的 filesystem 當作根目錄。
 
 3.2 編譯測試程式
 -----------------
@@ -334,7 +337,7 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
 
 要進行遠端除錯的步驟如下：
 
-1. 在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port 等 host 端的 gdb 連進來。
+1. 在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port ，等待 host 端的 gdb 連線進來。
 
    進行此步驟前，請先用 QEMU 載入 linux kernel ，並切換到 gdbserver 和 bug 所在的目錄，就可以鍵入
 
