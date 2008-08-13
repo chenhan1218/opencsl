@@ -288,8 +288,14 @@ CALL(sys_mysyscall)
 </pre>
 </li>
 <li><p class="first">調整 Makefile ，使 systam call 被包含在 kernel 中</p>
-<p>&lt;linux&gt;/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。</p>
+<p>&lt;linux&gt;/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。在檔案一開頭可以找到需要編譯的 object file 列表，</p>
+<pre class="literal-block">
+obj-y := compat.o entry-armv.o .....
+</pre>
 </li>
+</ol>
+<p>在此行的後面加上 mysyscall.o 即可。</p>
+<ol class="arabic" start="5">
 <li><p class="first">增加 system call 的 header file ，讓 user program 能夠 include</p>
 <p>接著，我們要將 mysyscall 的 header 加入 linux 的 header 目錄中，它的位置是 &lt;linux&gt;/include/linux ，在該目錄裡新增 mysyscall.h 的檔案，並填入以下內容：</p>
 <pre class="literal-block">
