@@ -201,6 +201,8 @@ sudo apt-get install gdb
 <p>GDB將程式分成一個個的區塊（ frame ），每個 frame 都對應到程式的一個 subroutine ，在使用 GDB 執行程式時是依照 frame 來分塊的。目前執行的 subroutine 叫做 frame 0 ，呼叫該 routine 的叫做 frame 1 ，以此類推。當 frame 0 要呼叫下一個 subroutine 時， GDB 會將目前的資料存到 stack 中，然後才執行下一個 frame ，這樣的分法可以方便除錯時檢視各個 subroutine 之間的關係。</p>
 <p>我們用一個簡單的程式來當作使用GDB除錯的範例。以下用C 寫的程式會將輸入的字串全部加 1以達到加密的目的。</p>
 <pre class="literal-block">
+/* lab05_bug.c */
+
 #include&lt;stdio.h&gt;
 
 char* encode(char* str){
@@ -410,7 +412,7 @@ make install
 cd ../gdb-target
 CC=arm-linux-uclibc-gcc  ../gdb/gdbserver/configure --host=arm-linux-uclibc --prefix=$(pwd)
 </pre>
-<p>接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到</p>
+<p>接著開啟 gdb-target/ 底下的 Makefile ，在大約 99 行的地方找到 gcc 編譯時的參數</p>
 <pre class="literal-block">
 CFLAGS = -g -O2
 </pre>
@@ -418,7 +420,8 @@ CFLAGS = -g -O2
 <pre class="literal-block">
 CFLAGS = -g -O2 -static
 </pre>
-<p>最後再進行編譯即可。在編譯完成後可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端直營的程式。</p>
+<p>最後再進行編譯即可。在鍵入 make 編譯完成後，可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端執行的程式。
+另外，為了等一下能夠在 target 上執行 gdbserver ， 我們需要事先將 gdbserver 複製到實驗三所製作的 root filesystem 中，因為 target 不是以 host 端所使用的 filesystem 當作根目錄。</p>
 </li>
 </ol>
 </div>
@@ -434,7 +437,7 @@ arm-linux-uclibc-gcc bug.c -o bug -static -g
 <h2><a class="toc-backref" href="#id29">3.3 進行遠端除錯</a></h2>
 <p>要進行遠端除錯的步驟如下：</p>
 <ol class="arabic">
-<li><p class="first">在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port 等 host 端的 gdb 連進來。</p>
+<li><p class="first">在 target 端用 gdbserver 開啟要除錯的程式，並監聽某一個 port ，等待 host 端的 gdb 連線進來。</p>
 <p>進行此步驟前，請先用 QEMU 載入 linux kernel ，並切換到 gdbserver 和 bug 所在的目錄，就可以鍵入</p>
 <pre class="literal-block">
 ./gdbserver 192.168.0.1:5566 bug
