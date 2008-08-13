@@ -170,7 +170,13 @@ System call 是作業系統提供給 user program 服務的介面，例如處理
 
 4. 調整 Makefile ，使 systam call 被包含在 kernel 中
 
-   <linux>/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。
+   <linux>/arch/arm/kernel/Makefile 是該目錄的 makefile ，我們要將 mysyscall.c 加入編譯的範圍內。在檔案一開頭可以找到需要編譯的 object file 列表，
+
+   ::
+
+     obj-y := compat.o entry-armv.o .....
+
+在此行的後面加上 mysyscall.o 即可。
 
 5. 增加 system call 的 header file ，讓 user program 能夠 include
 
