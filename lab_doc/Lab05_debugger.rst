@@ -319,6 +319,7 @@ info 則是顯示各種 GDB 內設定、程式執行狀況的指令。目前設�
      CFLAGS = -g -O2 -static
 
    最後再進行編譯即可。在鍵入 make 編譯完成後，可以在 gdb-6.8/gdb-target/ 下發現 gdbserver ，就是等一下要在 target 端執行的程式。
+
    另外，為了等一下能夠在 target 上執行 gdbserver ， 我們需要事先將 gdbserver 複製到實驗三所製作的 root filesystem 中，因為 target 不是以 host 端所使用的 filesystem 當作根目錄。
 
 3.2 編譯測試程式
