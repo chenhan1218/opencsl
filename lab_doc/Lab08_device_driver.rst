@@ -166,7 +166,7 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 
 ::
 
-  make -C <linux>  M=$(pwd) modules 
+  make -C <linux>  M=$(pwd) modules ARCH=arm CROSS_COMPILE=arm-linux-uclibc- 
 
 即可產生 demo.ko ，這是我們之後要拿來掛載的 module 。
 
