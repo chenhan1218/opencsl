@@ -277,7 +277,7 @@ sudo apt-get install module-assistant
 <div class="section" id="kernel-module">
 <h3>3.1.1 調整 kernel 為接受 module</h3>
 <p>因為原本預設的 kernel config 並不接受動態掛載 module ，我們要新增對 loadable module 的支援。</p>
-<p>在 linux kernel 的 menuconfig 中 <a class="footnote-reference" href="#id10" id="id9">[3]</a> ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。</p>
+<p>首先找到在實驗二中所使用的 linux kernel 原始碼，接著在的 menuconfig 中 <a class="footnote-reference" href="#id10" id="id9">[3]</a> ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。</p>
 <p>接著請重新編譯 kernel ，即可產生支援動態掛載 module 的 kernel image 了。</p>
 <table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -294,7 +294,7 @@ wget http://opencsl.openfoundry.org/src/Makefile
 </pre>
 <p>將它和 demo.c 放到同一層目錄，並在上面鍵入 <a class="footnote-reference" href="#id12" id="id11">[4]</a></p>
 <pre class="literal-block">
-make -C &lt;linux&gt;  M=$(pwd) modules
+make -C &lt;linux&gt;  M=$(pwd) modules ARCH=arm CROSS_COMPILE=arm-linux-uclibc-
 </pre>
 <p>即可產生 demo.ko ，這是我們之後要拿來掛載的 module 。</p>
 <table class="docutils footnote" frame="void" id="id12" rules="none">
