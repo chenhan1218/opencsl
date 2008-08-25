@@ -1,5 +1,5 @@
 CC = arm-linux-uclibc-gcc
 
-obj-m := demo.o
+obj-m := lab8_demo.o
 
 
