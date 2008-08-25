@@ -147,7 +147,7 @@ Driver 主要由兩部份構成：初始化、結束元件以及使用元件。D
 
 因為原本預設的 kernel config 並不接受動態掛載 module ，我們要新增對 loadable module 的支援。
 
-在 linux kernel 的 menuconfig 中 [#]_ ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。
+首先找到在實驗二中所使用的 linux kernel 原始碼，接著在的 menuconfig 中 [#]_ ，找到 「 Loadable Module Support 」，並將它裡面的 「 Enable loadable module support 」、「 Module unloading 」以及「 Forced module unloading 」勾選為 built-in ，再存檔離開即可。
 
 接著請重新編譯 kernel ，即可產生支援動態掛載 module 的 kernel image 了。
 
