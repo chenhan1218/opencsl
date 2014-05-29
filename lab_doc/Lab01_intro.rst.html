@@ -1,146 +1,125 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
-<title>Lab 1 環境設定</title>
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" /><title>Lab 1 環境設定</title>
+
 <style type="text/css">
-
-
 /* global setting */
 a {
-	color: #e47e32;
-	text-decoration: none;
+color: #e47e32;
+text-decoration: none;
 }
-
 h1 a, h2 a{
-	color: #000;
+color: #000;
 }
-
 a:hover {
-	text-decoration: underline;
+text-decoration: underline;
 }
-
 .document{
-	padding: 2em;
+padding: 2em;
 }
-
 ol.upperroman{
-	list-style: upper-roman
+list-style: upper-roman
 }
-
 table td{
-	margin: 0px;
-	padding: 0.2em;
-	border: none;
-	background: #fff;
+margin: 0px;
+padding: 0.2em;
+border: none;
+background: #fff;
 }
-
 table{
-	border: none;
-	padding: 0.2em;
-	background: #e47e32;
+border: none;
+padding: 0.2em;
+background: #e47e32;
 }
-
 table th{
-	background: #ffc;
-	padding: 0.2em;
-	border: none;
+background: #ffc;
+padding: 0.2em;
+border: none;
 }
-
 /* footnote */
 table.footnote, table.footnote td{
-	background: #fff;
-	padding: none;
+background: #fff;
+padding: none;
 }
-
 /* content heading */
 h1{
-	border-bottom: 0.1em #000 solid;
+border-bottom: 0.1em #000 solid;
 }
-
 h1.title{
-	font-size: 150% 
-	font-weight: bolder;
+font-size: 150% font-weight: bolder;
 }
-
 /* table of content */
 .contents{
-
-	background: #fff;
-	float: right;
-	width: 25%;
-	border: #e47e32 0.2em solid;
-	margin: 0.5em;
+background: #fff;
+float: right;
+width: 25%;
+border: #e47e32 0.2em solid;
+margin: 0.5em;
 }
-
 .contents .topic-title{
-
-	font: large bold;
-	margin: 0px;
-	padding: 0.3em;
-	background: #e4ae85;
-	border-bottom: #e47e32 0.1em dashed;
+font: large bold;
+margin: 0px;
+padding: 0.3em;
+background: #e4ae85;
+border-bottom: #e47e32 0.1em dashed;
 }
-
 .contents a{
-	color: #000;
+color: #000;
 }
-
 /* notes */
 .note{
-
-	margin-left: 1em;
-	border: 1px dashed #e47e32;
-	border-right-style: solid;
-	border-left-style: solid;
-	background: #ffc;
-	padding: 0.5em;
+margin-left: 1em;
+border: 1px dashed #e47e32;
+border-right-style: solid;
+border-left-style: solid;
+background: #ffc;
+padding: 0.5em;
 }
-
 .note .admonition-title{
-	padding: 0.3em;
-	margin: 0px;
-	border-bottom: 1px dashed #e47e32;
+padding: 0.3em;
+margin: 0px;
+border-bottom: 1px dashed #e47e32;
 }
-
 /* code */
 .literal-block{
-	margin-left: 1em;
-	padding: 0.5em;
-	border: 1px solid #e47e32;
-	border-left: 0.5em solid #e47e32;
-	background: #ffc;
+margin-left: 1em;
+padding: 0.5em;
+border: 1px solid #e47e32;
+border-left: 0.5em solid #e47e32;
+background: #ffc;
 }
-
-
 </style>
 </head>
+
+
 <body>
 <div class="document" id="lab-1">
 <h1 class="title">Lab 1 環境設定</h1>
-
 <div class="contents topic" id="id1">
 <p class="topic-title first">文件目錄</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id35">1. 實驗簡介</a><ul>
+<li><a class="reference internal" href="#id2" id="id35">1. 實驗簡介</a>
+<ul>
 <li><a class="reference internal" href="#id3" id="id36">1.1 什麼是嵌入式系統？</a></li>
 <li><a class="reference internal" href="#id6" id="id37">1.2 實驗操作環境介紹</a></li>
 <li><a class="reference internal" href="#id7" id="id38">1.3 實驗流程</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10" id="id39">2. 準備操作環境</a><ul>
+<li><a class="reference internal" href="#id10" id="id39">2. 準備操作環境</a>
+<ul>
 <li><a class="reference internal" href="#ubuntu-7-10" id="id40">2.1 Ubuntu 7.10</a></li>
 <li><a class="reference internal" href="#qemu" id="id41">2.2 QEMU</a></li>
 <li><a class="reference internal" href="#toolchain" id="id42">2.3 toolchain</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id31" id="id43">3. 參考資料</a><ul>
+<li><a class="reference internal" href="#id31" id="id43">3. 參考資料</a>
+<ul>
 <li><a class="reference internal" href="#linux" id="id44">3.1 Linux 版本狀況</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id32" id="id45">4. 延伸閱讀</a><ul>
+<li><a class="reference internal" href="#id32" id="id45">4. 延伸閱讀</a>
+<ul>
 <li><a class="reference internal" href="#id33" id="id46">相關官網</a></li>
 <li><a class="reference internal" href="#wikipedia" id="id47">Wikipedia</a></li>
 </ul>
@@ -149,25 +128,35 @@ h1.title{
 </ul>
 </div>
 <!-- 操作環境先以 Linux 為範例，完成八成草稿後，再加入 Windows 環境的操作範例。 -->
-<p>OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab course material），想要透過各種 open source 工具的使用來模擬嵌入式系統的開發環境，並提供對嵌入式系統有興趣的人一項入門的管道。</p>
+<p>OpenCSL 的意思是開放的電腦系統實驗教材（Computer System Lab course
+material），想要透過各種 open source 工具的使用來模擬嵌入式系統的開發環境，並提供對嵌入式系統有興趣的人一項入門的管道。</p>
 <div class="section" id="id2">
-<h1><a class="toc-backref" href="#id35">1. 實驗簡介</a></h1>
+<h1><a class="toc-backref" href="#id35">1.
+實驗簡介</a></h1>
 <p>在第一次實驗中，我們將介紹本實驗的環境、環境的相關設定，以及整套實驗的流程。</p>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id36">1.1 什麼是嵌入式系統？</a></h2>
-<p>嵌入式系統是電腦系統的一種，和一般個人電腦不同的是，它通常是為了特定目的而設計的，而且只有有限的硬體資源可以使用，這些特性使得開發嵌入式系統比一般系統開發還要複雜。嵌入式系統的相關介紹可以參考 wikipedia <a class="footnote-reference" href="#id5" id="id4">[1]</a> 。</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<h2><a class="toc-backref" href="#id36">1.1
+什麼是嵌入式系統？</a></h2>
+<p>嵌入式系統是電腦系統的一種，和一般個人電腦不同的是，它通常是為了特定目的而設計的，而且只有有限的硬體資源可以使用，這些特性使得
+開發嵌入式系統比一般系統開發還要複雜。嵌入式系統的相關介紹可以參考 wikipedia <a class="footnote-reference" href="#id5" id="id4">[1]</a>
+。</p>
+<table class="docutils footnote" id="id5" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Embedded_system">http://en.wikipedia.org/wiki/Embedded_system</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id4">[1]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Embedded_system">http://en.wikipedia.org/wiki/Embedded_system</a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="id6">
-<h2><a class="toc-backref" href="#id37">1.2 實驗操作環境介紹</a></h2>
-<p>在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項環境如下：</p>
+<h2><a class="toc-backref" href="#id37">1.2
+實驗操作環境介紹</a></h2>
+<p>在本套實驗中，我們使用軟體來模擬嵌入式系統的環境，希望對嵌入式系統有興趣的人能夠在自己的電腦上完成所有實驗。本套實驗使用的各項
+環境如下：</p>
 <ol class="arabic simple">
-<li>作業系統：ubuntu 7.10</li>
+<li>作業系統：Ubuntu 12.10&nbsp;</li>
 <li>模擬軟體：QEMU</li>
 <li>toolchain：buildroot</li>
 <li>模擬平台：ARM</li>
@@ -175,7 +164,8 @@ h1.title{
 </ol>
 </div>
 <div class="section" id="id7">
-<h2><a class="toc-backref" href="#id38">1.3 實驗流程</a></h2>
+<h2><a class="toc-backref" href="#id38">1.3
+實驗流程</a></h2>
 <p>本套實驗將以循序漸進的方式，逐步介紹開發嵌入式系統所需的知識及技術，並搭配 open source 工具來實做各個實驗。</p>
 <ol class="arabic simple">
 <li>Lab01 環境設定</li>
@@ -186,17 +176,20 @@ h1.title{
 <li>Lab02 製作 Linux Kernel</li>
 </ol>
 <blockquote>
-這次實驗是在介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將 Linux 放在不同的 platform 上執行。</blockquote>
+這次實驗是在介紹如何製作作業系統的核心部份，內容包括了：介紹 Linux Kernel、介紹製作符合自己需求的 kernel ，並將
+Linux 放在不同的 platform 上執行。</blockquote>
 <ol class="arabic simple" start="3">
 <li>Lab03 製作 root filesystem</li>
 </ol>
 <blockquote>
-此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem、製作搭配 Linux Kernel 的 root filesystem 以及使用 NFS。</blockquote>
+此次實驗將介紹如何製作一個 filesystem ，使整個作業系統可以順利運行，內容包括了：介紹 root filesystem、製作搭配
+Linux Kernel 的 root filesystem 以及使用 NFS。</blockquote>
 <ol class="arabic simple" start="4">
 <li>Lab04 OS porting</li>
 </ol>
 <blockquote>
-在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 <a class="footnote-reference" href="#id9" id="id8">[2]</a> 上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。</blockquote>
+在已經有能力做出整個作業系統後，我們將介紹如何將作業系統 port 到目標的平台 <a class="footnote-reference" href="#id9" id="id8">[2]</a>
+上，讓 target 能夠順利啟動並進入作業系統中。這次實驗的內容包括了：介紹 bootloader 以及製作並使用 bootloader。</blockquote>
 <ol class="arabic simple" start="5">
 <li>Lab05 debugger 和 software emulator</li>
 </ol>
@@ -206,309 +199,381 @@ h1.title{
 <li>Lab06 Interrupt 和 Exceptions</li>
 </ol>
 <blockquote>
-Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹 interrupt 和 exception 的觀念，並透過實做一個新的 system call 以及修改 device driver 來更深入了解 Linux 的運作方式。</blockquote>
+Interrupt 和 exception 是 Linux 裡程式互相溝通的方式之一，它可能由硬體產生，也有可能由軟體產生。本實驗將介紹
+interrupt 和 exception 的觀念，並透過實做一個新的 system call 以及修改 device driver
+來更深入了解 Linux 的運作方式。</blockquote>
 <ol class="arabic simple" start="7">
 <li>Lab07 Linux Timer Interrupt</li>
 </ol>
 <blockquote>
-Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的效能有關。本實驗將介紹如何調整 linux kernel 中的 timer 以及了解其對系統的影響。</blockquote>
+Timer interrupt 是系統核心的一部分，它的出現頻率會和系統的效能有關。本實驗將介紹如何調整 linux kernel 中的
+timer 以及了解其對系統的影響。</blockquote>
 <ol class="arabic simple" start="8">
 <li>Lab08 Linux Device Driver</li>
 </ol>
 <blockquote>
-由於嵌入式系統的多樣性，每個系統常常擁有和其他平台不同的裝置，也就需要額外的驅動程式才能控制裝置。本實驗將介紹兩種撰寫驅動程式的方法，以及學會在 linux 中使用額外裝置的方法。</blockquote>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+由於嵌入式系統的多樣性，每個系統常常擁有和其他平台不同的裝置，也就需要額外的驅動程式才能控制裝置。本實驗將介紹兩種撰寫驅動程式的方法，以及學會在
+linux 中使用額外裝置的方法。</blockquote>
+<table class="docutils footnote" id="id9" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[2]</a></td><td>在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。</td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id8">[2]</a></td>
+<td>在 porting 中，要 port 的目標平台叫做 target ，而負責處理、編譯系統的平台叫做 host。</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="section" id="id10">
-<h1><a class="toc-backref" href="#id39">2. 準備操作環境</a></h1>
+<h1><a class="toc-backref" href="#id39">2.
+準備操作環境</a></h1>
 <div class="section" id="ubuntu-7-10">
-<h2><a class="toc-backref" href="#id40">2.1 Ubuntu 7.10</a></h2>
-<p>Ubuntu <a class="footnote-reference" href="#id13" id="id11">[3]</a>  是由 Debian 的分支發展出來的一套 linux distribution，可以直接從官方網站 <a class="footnote-reference" href="#id14" id="id12">[4]</a> 上下載到安裝/ 試用光碟。
+<h2><a class="toc-backref" href="#id40">2.1
+Ubuntu&nbsp;12.10&nbsp;</a></h2>
+<p>Ubuntu <a class="footnote-reference" href="#id13" id="id11">[3]</a> 是由 Debian 的分支發展出來的一套 linux
+distribution，可以直接從官方網站 <a class="footnote-reference" href="#id14" id="id12">[4]</a> 上下載到安裝/ 試用光碟。
 若要安裝 Ubuntu 在電腦上，請至少預留2G的空間，供日後各程式原始碼、執行檔儲存。</p>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
+<table class="docutils footnote" id="id13" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td><a class="reference external" href="http://zh.wikipedia.org/wiki/Ubuntu">http://zh.wikipedia.org/wiki/Ubuntu</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id11">[3]</a></td>
+<td><a class="reference external" href="http://zh.wikipedia.org/wiki/Ubuntu">http://zh.wikipedia.org/wiki/Ubuntu</a></td>
+</tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
+<table class="docutils footnote" id="id14" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id12">[4]</a></td><td><a class="reference external" href="http://www.ubuntu.org.tw/">http://www.ubuntu.org.tw/</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id12">[4]</a></td>
+<td><a class="reference external" href="http://www.ubuntu.org.tw/">http://www.ubuntu.org.tw/</a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="qemu">
-<h2><a class="toc-backref" href="#id41">2.2 QEMU</a></h2>
-<p>QEMU 是一套 emulator <a class="footnote-reference" href="#id17" id="id15">[5]</a> 軟體，能在 PC 系統上模擬其他 processor 的運作方式，在 Linux 或 Windows 上都能執行。
+<h2><a class="toc-backref" href="#id41">2.2
+QEMU</a></h2>
+<p>QEMU 是一套 emulator <a class="footnote-reference" href="#id17" id="id15">[5]</a> 軟體，能在 PC 系統上模擬其他
+processor 的運作方式，在 Linux 或 Windows 上都能執行。
 QEMU 的相關介紹可參考維基百科或是其官方網站 <a class="footnote-reference" href="#id18" id="id16">[6]</a></p>
-<table class="docutils footnote" frame="void" id="id17" rules="none">
+<table class="docutils footnote" id="id17" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id15">[5]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Emulator">http://en.wikipedia.org/wiki/Emulator</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id15">[5]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Emulator">http://en.wikipedia.org/wiki/Emulator</a></td>
+</tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id18" rules="none">
+<table class="docutils footnote" id="id18" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id16">[6]</a></td><td><a class="reference external" href="http://bellard.org/qemu">http://bellard.org/qemu</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id16">[6]</a></td>
+<td><a class="reference external" href="http://fabrice.bellard.free.fr/qemu">http://fabrice.bellard.free.fr/qemu</a></td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="ubuntu-7-10-qemu">
-<h3>2.2.1 在 Ubuntu 7.10 上安裝 QEMU</h3>
+<h3>2.2.1 在 Ubuntu 12.10&nbsp; 上安裝 QEMU</h3>
 <p>QEMU的i386執行檔可以直接從官方網站上下載，或是直接下載原始碼來編譯。
 若需下載原始碼，可開啟 Ubuntu 終端機視窗，並執行以下指令：</p>
 <p>1. 安裝編譯時所須的套件</p>
-<pre class="literal-block">
-sudo apt-get install gcc-3.4 libsdl1.2debian-all libsdl1.2-dev zlib1g-dev
-</pre>
+<pre class="literal-block">sudo apt-get install gcc-4.7 libsdl1.2debian libsdl1.2-dev zlib1g-dev<br /></pre>
 <p>2. 在欲安裝的目錄下，下載原始碼</p>
-<pre class="literal-block">
-wget http://bellard.org/qemu/qemu-0.9.1.tar.gz
-</pre>
+<pre class="literal-block">wget http://wiki.qemu-project.org/download/qemu-1.7.1.tar.bz2<br /></pre>
 <p>3. 解壓縮原始碼包裹</p>
-<pre class="literal-block">
-tar zxf qemu-0.9.1.tar.gz
-</pre>
+<pre class="literal-block">tar -jxf qemu-1.7.1.tar.bz2</pre>
 <p>4. 編譯 QEMU</p>
-<pre class="literal-block">
-cd qemu-0.9.1/
-./configure --cc=/usr/bin/gcc-3.4 --host-cc=/usr/bin/gcc-3.4 --target-list=arm-softmmu
-make
-</pre>
+<pre class="literal-block">cd qemu-1.7.1<br /><br />./configure --cc=/usr/bin/gcc-4.7 --host-cc=/usr/bin/gcc-4.7 --target-list=arm-softmmu<br /><br />make<br /></pre>
 <p>經上述步驟，我們可以編譯出一個能夠執行 ARM 指令集的 QEMU emulator。</p>
 </div>
 <div class="section" id="id19">
 <h3>2.2.2 使用 QEMU</h3>
 <p>這裡透過使用 QEMU 官方網站上的 ARM-test disk image 來驗證 QEMU 否安裝正確</p>
 <p>1. 下載 arm-test disk image</p>
-<pre class="literal-block">
-wget http://bellard.org/qemu/arm-test-0.2.tar.gz
-</pre>
+<pre class="literal-block">wget http://wiki.qemu.org/download/arm-test-0.2.tar.gz<br /></pre>
 <p>2. 解壓縮</p>
-<pre class="literal-block">
-tar zxf arm-test-0.2.tar.gz
-</pre>
+<pre class="literal-block">tar -zxf arm-test-0.2.tar.gz</pre>
 <p>3. 用 QEMU 執行 disk image</p>
-<pre class="literal-block">
-&lt;QEMU&gt;/arm-softmmu/qemu-system-arm -kernel &lt;ARM_TEST&gt;/zImage.integrator \
-      -initrd &lt;ARM_TEST&gt;/arm_root.img -nographic -append &quot;console=ttyAMA0&quot;
-</pre>
+<pre class="literal-block">&lt;QEMU&gt;/arm-softmmu/qemu-system-arm -kernel &lt;ARM_TEST&gt;/zImage.integrator \<br /> -initrd &lt;ARM_TEST&gt;/arm_root.img -nographic -append "console=ttyAMA0"<br /></pre>
 <div class="note">
 <p class="first admonition-title">Note</p>
-<p>&lt;QEMU&gt;：存放 QEMU 目錄的路徑，如 ~/qemu-0.9.1/
-&lt;ARM_TEST&gt;：存放 arm-test 目錄的路徑</p>
+<p>&lt;QEMU&gt;：存放 QEMU 目錄的路徑，如 ~/qemu-1.7.1/
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;ARM_TEST&gt;：存放 arm-test 目錄的路徑 &nbsp;如~/arm-test</p>
 <p>-kernel：指定要載入的 linux kernel</p>
 <p>-initrd：指定要使用的 RAM disk</p>
-<p class="last">-nographic -append &quot;console=ttyAMA0&quot;：關掉視窗介面</p>
+<p class="last">-nographic -append "console=ttyAMA0"：關掉視窗介面</p>
 </div>
 <p>若在一連串開計畫面後有看到登入提示列，可用 root 登入，就代表 QEMU 編譯成功了。（如下圖）</p>
-<img alt="images/lab01_qemu.png" src="images/lab01_qemu.png" />
+<img style="height: 580px; width: 706px;" alt="images/lab01_qemu.png" src="images/lab01_qemu.jpg" />
 <ol class="arabic simple" start="4">
 <li>中斷、結束 QEMU</li>
 </ol>
-<p>如果想結束執行 QEMU 回到終端機，可以先按「 ctrl + a」，然後再按「x」，即可結束 QEMU ；另外，按下「 ctrl + a 」再按下「c」則是可以從 Linux 切換到 QEMU 自己操作介面。</p>
+<p>如果想結束執行 QEMU 回到終端機，可以先按「 ctrl + a」，然後再按「x」，即可結束 QEMU ；另外，按下「
+ctrl + a 」再按下「c」則是可以從 Linux 切換到 QEMU 自己操作介面。</p>
 </div>
 </div>
 <div class="section" id="toolchain">
-<h2><a class="toc-backref" href="#id42">2.3 toolchain</a></h2>
-<p>toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於 toolchain 的介紹可以參考維基百科 <a class="footnote-reference" href="#id24" id="id20">[7]</a> 。 每一套 toolchain 都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain ，取而代之的方法便是使用具有 cross compiler <a class="footnote-reference" href="#id25" id="id21">[8]</a> 功能的 toolchain ，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。</p>
-<p>Buildroot <a class="footnote-reference" href="#id26" id="id22">[9]</a> 是一套基於 uClibc C library <a class="footnote-reference" href="#id27" id="id23">[10]</a> ，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作 cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM 平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。</p>
-<table class="docutils footnote" frame="void" id="id24" rules="none">
+<h2><a class="toc-backref" href="#id42">2.3
+toolchain</a></h2>
+<p>toolchain 一套是用來製作程式的工具，它是由許多不同的工具構成，如 compiler 、 linker 等，關於
+toolchain 的介紹可以參考維基百科 <a class="footnote-reference" href="#id24" id="id20">[7]</a> 。 每一套 toolchain
+都有不同的使用目的，而在嵌入式系統中，由於硬體資源（記憶體、計算能力）有限，我們常常無法在系統中安裝一套 toolchain
+，取而代之的方法便是使用具有 cross compiler <a class="footnote-reference" href="#id25" id="id21">[8]</a> 功能的 toolchain
+，讓我們能夠直接在 host（硬體資源較充足的電腦，如個人電腦）上編譯出 target（想要開發的嵌入式系統）端能執行的程式。</p>
+<p>Buildroot <a class="footnote-reference" href="#id26" id="id22">[9]</a> 是一套基於 uClibc C library <a class="footnote-reference" href="#id27" id="id23">[10]</a>
+，用來編譯 cross-compilation toolchain/ filesystem 的程式組合，它能夠製作
+cross-compilation toolchain ，讓我們能夠直接在 x86 平台上編譯出在 ARM
+平台上執行的程式。在本系列實驗中，我們僅使用 buildroot 來製作 toolchain 。</p>
+<table class="docutils footnote" id="id24" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id20">[7]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Toolchain">http://en.wikipedia.org/wiki/Toolchain</a> / <a class="reference external" href="http://en.wikipedia.org/wiki/GNU_toolchain">http://en.wikipedia.org/wiki/GNU_toolchain</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id20">[7]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Toolchain">http://en.wikipedia.org/wiki/Toolchain</a>
+/ <a class="reference external" href="http://en.wikipedia.org/wiki/GNU_toolchain">http://en.wikipedia.org/wiki/GNU_toolchain</a></td>
+</tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id25" rules="none">
+<table class="docutils footnote" id="id25" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id21">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Cross_compiler">http://en.wikipedia.org/wiki/Cross_compiler</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id21">[8]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Cross_compiler">http://en.wikipedia.org/wiki/Cross_compiler</a></td>
+</tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id26" rules="none">
+<table class="docutils footnote" id="id26" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id22">[9]</a></td><td><a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id22">[9]</a></td>
+<td><a class="reference external" href="http://buildroot.uclibc.org">http://buildroot.uclibc.org</a></td>
+</tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id27" rules="none">
+<table class="docutils footnote" id="id27" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id23">[10]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Uclibc">http://en.wikipedia.org/wiki/Uclibc</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id23">[10]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Uclibc">http://en.wikipedia.org/wiki/Uclibc</a></td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="buildroot-toolchain">
 <h3>2.3.1 用 buildroot 製作 toolchain</h3>
 <ol class="arabic">
-<li><p class="first">安裝必須套件</p>
+</ol><ul><li>
+<p class="first">安裝必須套件</p>
 <p>在開始編譯 buildroot 前，要先在 Ubuntu 上安裝一些套件，請在終端機下鍵入：</p>
-<pre class="literal-block">
-sudo apt-get install bison flex gettext patch build-essential texinfo
-
-sudo apt-get install subversion
-
-sudo apt-get install libncurses5-dev
-</pre>
-</li>
+<pre class="literal-block">sudo apt-get install bison flex gettext patch build-essential texinfo<br /><br />sudo apt-get install libncurses5-dev<br /></pre>
+</li></ul><ol class="arabic">
 </ol>
 <ol class="arabic">
-<li><p class="first">下載 buildroot 原始碼</p>
-<p>我們可以用 subversion <a class="footnote-reference" href="#id29" id="id28">[11]</a> 直接下載 buildroot 原始碼。在終端機底下鍵入</p>
-<pre class="literal-block">
-svn co -r 21163 svn://uclibc.org/trunk/buildroot
-</pre>
-<p>就會在目前所在的目錄下建立一個叫做 buildroot 的資料夾，並將相關檔案從 buildroot 的 subversion 下載下來。</p>
+<li>
+<p class="first">下載 buildroot 原始碼</p>
+<pre class="literal-block">wget http://buildroot.uclibc.org/downloads/buildroot-2014.02.tar.gz<br /></pre>
 </li>
-<li><p class="first">更改 configure</p>
-<p>由於我們只需要製作一套 cross-compilation toolchain ，因此要先將 buildroot 的其他功能關掉。在 buildroot 的目錄下鍵入</p>
-<pre class="literal-block">
-make menuconfig
-</pre>
+<li>解壓縮
+<pre class="literal-block">tar -zxf buildroot-2014.02.tar.gz</pre>
+</li>
+<li>
+<p class="first">更改 configure</p>
+<p>由於我們只需要製作一套 cross-compilation toolchain ，因此要先將 buildroot
+的其他功能關掉。在 buildroot 的目錄下鍵入</p>
+<pre class="literal-block">cd buildroot-2014.02<br /><br />make menuconfig<br /></pre>
 </li>
 </ol>
 <blockquote>
 <p>就可以進入 buildroot 的編輯選單，選單畫面如下：</p>
-<img alt="images/lab01_buildroot.png" src="images/lab01_buildroot.png" />
+<img style="width: 707px; height: 574px;" alt="images/lab01_buildroot.png" src="images/lab01%20builtroot.jpg" />
 <p>接著，我們要將 target 改成 ARM ，並取消製作 filesystem 。</p>
 <ol class="upperroman simple">
 <li>將 target 改成 ARM architechure</li>
 </ol>
 <blockquote>
-將游標移至「Target Architechure」，並按 enter 進入選項，接著選擇「arm」，按下 enter 即可。</blockquote>
+在主選單中，進入「Target options」，並按 enter 進入選項，接著選擇「ARM (little endian)」，按下 enter 即可。</blockquote>
 <ol class="upperroman simple" start="2">
 <li>取消製作 filesystem</li>
 </ol>
 <blockquote>
-在主選單中，進入「Target filesystem options」選項，並在「ext2 root filesystem」上按「n」以取消製作 ext2 root filesystem，接著按「-&gt;」，將游標移至「Exit」，並按下 enter 回到上一層選單。
-接著，在主選單中進入「Package  Selection for the target」中，按下 n 取消「Busybox」選項。</blockquote>
+在主選單中，進入「Filesystem images」選項，並在「ext2/3/4 root filesystem」上按「n」以取消製作&nbsp;ext2/3/4 root filesystem。</blockquote>
 <ol class="upperroman simple" start="3">
 <li>取消編譯 kernel</li>
 </ol>
 <blockquote>
-接著，在回到主選單後，進入「Kernel」選項，再進入「Kernel type」選項，把 kernel type 選為「none」以取消製作 linux kernel 。</blockquote>
+接著，在回到主選單後，進入「Kernel」選項，並在「Linux Kernel」上按「n」以取消製作
+linux kernel 。</blockquote>
 <ol class="upperroman simple" start="4">
 <li>擴充 toolchain 功能</li>
 </ol>
 <blockquote>
-為了在往後能夠使用 NFS (Network filesystem)，需增加一些 toolchain 的功能。請在主選單中，進入「Toolchain」選項，並在底下找到一個「Enable RPC」，按下 y 即可選取。</blockquote>
+為了在往後能夠使用 NFS (Network filesystem)，需增加一些 toolchain
+的功能。請在主選單中，進入「Toolchain」選項，並在底下找到一個「Enable RPC support 」，按下 y 即可選取。</blockquote>
 <p>待調整完選項後回到主選單，按「-&gt;」，將游標移至「Exit」，即可存檔離開。</p>
 </blockquote>
 <ol class="arabic" start="3">
-<li><p class="first">製作 toolchain</p>
-<p>在設定完成之後，只要直接在 buildroot 的目錄上鍵入 make ，buildroot 就會製作 toolchain ，此時請記得讓電腦處在有網路連線的狀態，因為 buildroot 會到網路上抓一些需要的程式碼。
+<li>
+<p class="first">製作 toolchain</p>
+<p>在設定完成之後，只要直接在 buildroot 的目錄上鍵入 make ，buildroot 就會製作
+toolchain ，此時請記得讓電腦處在有網路連線的狀態，因為 buildroot 會到網路上抓一些需要的程式碼。
 當 buildroot 開始編譯後，建議不妨休息一下，或找本書來看，因為製作 toolchain 需要一段不短的時間。</p>
 </li>
 </ol>
-<table class="docutils footnote" frame="void" id="id29" rules="none">
+<table class="docutils footnote" id="id29" frame="void" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id28">[11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Subversion_%28software%29">http://en.wikipedia.org/wiki/Subversion_%28software%29</a></td></tr>
+<tr>
+<td class="label"><a class="fn-backref" href="#id28">[11]</a></td>
+<td><a class="reference external" href="http://en.wikipedia.org/wiki/Subversion_%28software%29">http://en.wikipedia.org/wiki/Subversion_%28software%29</a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="id30">
 <h3>2.3.2 設定 toolchain</h3>
-<p>等 buildroot 完成編譯後，我們可以在 build_arm/staging_dir/usr/bin 下找到我們在往後實驗中要使用的 toolchain ，他們全部是以 arm-linux-uclibc- 開頭，後面則是接著各個程式的功能，如 gcc 、 as 、 ld 等。</p>
-<p>為了方便往後使用，我們可以設定 $PATH 參數，讓 bash shell 在搜尋可執行檔時也會搜尋這組編好的 toolchain 。假設 buildroot 的根目錄是 &lt;buildroot&gt; ，則在終端機鍵入</p>
-<pre class="literal-block">
-export PATH=&lt;buildroot&gt;/build_arm/staging_dir/usr/bin:$PATH
-</pre>
-<p>或是在家目錄的 .bashrc 中加入這一行指令，再用</p>
-<pre class="literal-block">
-source ~/.bashrc
-</pre>
+<p>等 buildroot 完成編譯後，我們可以在 build_arm/staging_dir/usr/bin
+下找到我們在往後實驗中要使用的 toolchain ，他們全部是以 arm-linux-uclibc- 開頭，後面則是接著各個程式的功能，如
+gcc 、 as 、 ld 等。</p>
+<p>為了方便往後使用，我們可以設定 $PATH 參數，讓 bash shell 在搜尋可執行檔時也會搜尋這組編好的
+toolchain 。假設 buildroot 的根目錄是 &lt;buildroot&gt; ，則在終端機鍵入</p>
+<pre class="literal-block">export PATH=&lt;buildroot&gt;/output/host/usr/bin:$PATH<br /></pre>
+<pre class="literal-block">&lt;buildroot&gt; 為存放buildroot的路徑 如~/buildroot-2014.02/</pre><p>或是在家目錄的 .bashrc 中加入這一行指令，再用</p>
+<pre class="literal-block">source ~/.bashrc<br /></pre>
 <p>來載入 bash shell 的新設定。</p>
-<p>當設定完成後，我們可以試著直接在終端機鍵入 arm-linux ，再按 tab ，就會直接列出我們剛編好的 toolchain 供選擇。</p>
-<img alt="images/lab01_setPath.png" src="images/lab01_setPath.png" />
+<p>當設定完成後，我們可以試著直接在終端機鍵入 arm-linux ，再按 tab ，就會直接列出我們剛編好的
+toolchain 供選擇。</p>
+<img style="width: 547px; height: 178px;" alt="images/lab01_setPath.png" src="images/lab01%20setpath.jpg" />
 </div>
 </div>
 </div>
 <div class="section" id="id31">
-<h1><a class="toc-backref" href="#id43">3. 參考資料</a></h1>
+<h1><a class="toc-backref" href="#id43">3.
+參考資料</a></h1>
 <div class="section" id="linux">
-<h2><a class="toc-backref" href="#id44">3.1 Linux 版本狀況</a></h2>
+<h2><a class="toc-backref" href="#id44">3.1
+Linux 版本狀況</a></h2>
 <p>An extremely rushed history of the Linux kernel</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="35%" />
-<col width="65%" />
-</colgroup>
-<thead valign="bottom">
-<tr><th class="head">version</th>
+<table class="docutils" border="1">
+<colgroup><col width="35%" /><col width="65%" /></colgroup>
+<thead valign="bottom"><tr>
+<th class="head">version</th>
 <th class="head">released date</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td>0.01</td>
+<tr>
+<td>0.01</td>
 <td>Sep, 1991</td>
 </tr>
-<tr><td>1.0.0</td>
+<tr>
+<td>1.0.0</td>
 <td>Mar, 1994</td>
 </tr>
-<tr><td>1.2.0</td>
+<tr>
+<td>1.2.0</td>
 <td>Mar, 1995</td>
 </tr>
-<tr><td>2.0.0</td>
+<tr>
+<td>2.0.0</td>
 <td>Jun, 1996</td>
 </tr>
-<tr><td>2.2.0</td>
+<tr>
+<td>2.2.0</td>
 <td>Jan, 1999</td>
 </tr>
-<tr><td>2.4.0</td>
+<tr>
+<td>2.4.0</td>
 <td>Jan, 2001</td>
 </tr>
-<tr><td>2.6.0</td>
+<tr>
+<td>2.6.0</td>
 <td>Dec, 2003</td>
 </tr>
-<tr><td>2.6.14</td>
-<td>Oct 27, 2005</td>
+<tr>
+<td>2.6.16<br />
+</td>
+<td><span style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 13.6364px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20.3636px; text-align: start; text-indent: 0px; text-transform: none; white-space: nowrap; word-spacing: 0px; display: inline ! important; float: none; background-color: rgb(249, 249, 249);">March,
+2006</span></td>
 </tr>
-<tr><td>2.6.15</td>
-<td>Jan 2, 2006</td>
+<tr>
+<td>2.6.33</td>
+<td>Feb,, 2010</td>
 </tr>
-<tr><td>2.6.16</td>
-<td>Mar 19, 2006</td>
+<tr>
+<td>2.6.34</td>
+<td>May 2010</td>
 </tr>
-<tr><td>2.6.17</td>
-<td>Jun 17, 2006</td>
+<tr>
+<td>2.6.35</td>
+<td>Aug, 2010</td>
 </tr>
-<tr><td>2.6.18</td>
-<td>Sep 19, 2006</td>
+<tr>
+<td>2.6.39</td>
+<td>May 2011</td>
 </tr>
-<tr><td>2.6.19</td>
-<td>Nov 29, 2006</td>
+<tr>
+<td>3.0</td>
+<td>July 2011</td>
 </tr>
-<tr><td>2.6.20</td>
-<td>Feb 4, 2007</td>
+<tr>
+<td>3.1</td>
+<td>Oct, 2011</td>
 </tr>
-<tr><td>2.6.21</td>
-<td>Apr 21, 2007</td>
+<tr>
+<td>3.3</td>
+<td>Mar, 2012</td>
 </tr>
-<tr><td>2.6.22</td>
-<td>Jul 8, 2007</td>
+<tr>
+<td>3.5</td>
+<td>Jul, 2012</td>
 </tr>
-<tr><td>2.6.23</td>
-<td>Oct 9, 2007</td>
+<tr>
+<td>3.6</td>
+<td>Sep, 2012</td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>Dec, 2012</td>
+</tr>
+<tr>
+<td>3.8</td>
+<td>Feb, 2013</td>
+</tr>
+<tr>
+<td>3.9</td>
+<td>Apr, 2013</td>
+</tr>
+<tr>
+<td>3.11</td>
+<td>Jun, 2013</td>
+</tr>
+<tr>
+<td>3.13</td>
+<td>Jan, 2014</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference external" href="http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html">Linux Kernel Version History</a> tracks all release records before year 2000.</p>
+<p><a class="reference external" href="http://ftp.cdut.edu.cn/pub2/linux/kernel/history/Master.html">Linux
+Kernel Version History</a> tracks all release records before year
+2000.</p>
 </div>
 </div>
 <div class="section" id="id32">
-<h1><a class="toc-backref" href="#id45">4. 延伸閱讀</a></h1>
+<h1><a class="toc-backref" href="#id45">4.
+延伸閱讀</a></h1>
 <div class="section" id="id33">
 <h2><a class="toc-backref" href="#id46">相關官網</a></h2>
 <ul class="simple">
 <li>Ubuntu <a class="reference external" href="http://www.ubuntu.org.tw/">http://www.ubuntu.org.tw/</a></li>
-<li>Qemu <a class="reference external" href="http://bellard.org/qemu">http://bellard.org/qemu</a></li>
+<li>Qemu <a class="reference external" href="http://fabrice.bellard.free.fr/qemu">http://fabrice.bellard.free.fr/qemu</a></li>
 <li>Buildroot <a class="reference external" href="http://buildroot.uclibc.org/">http://buildroot.uclibc.org/</a></li>
 </ul>
 </div>
@@ -526,9 +591,12 @@ source ~/.bashrc
 </div>
 </div>
 <div class="section" id="id34">
-<h1><a class="toc-backref" href="#id48">5. 關於本文件</a></h1>
-<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> 工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a> 或 LaTeX 各類格式。</p>
+<h1><a class="toc-backref" href="#id48">5.
+關於本文件</a></h1>
+<p>本文件以 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>
+格式編撰，並可使用 <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a>
+工具轉換成 <a class="reference external" href="http://www.hosting4u.cz/jbar/rest/rest.html">HTML</a>
+或 LaTeX 各類格式。</p>
 </div>
 </div>
-</body>
-</html>
+</body></html>
